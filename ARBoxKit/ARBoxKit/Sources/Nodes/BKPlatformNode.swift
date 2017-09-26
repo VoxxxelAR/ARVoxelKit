@@ -10,12 +10,8 @@ import Foundation
 import SceneKit
 import ARKit
 
-open class BKPlatformNode: SCNNode {
+open class BKPlatformNode: SCNNode, BoxDisplayable {
     var anchor: ARPlaneAnchor
-    
-    open var boxGeometry: SCNBox {
-        return geometry as! SCNBox
-    }
     
     public init(anchor: ARPlaneAnchor) {
         self.anchor = anchor
@@ -48,27 +44,6 @@ open class BKPlatformNode: SCNNode {
         boxGeometry.length = CGFloat(anchor.extent.z)
         
         position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
-    }
-    
-    func applyColors() {
-        let colors: [UIColor] = [.green, //front
-                                .red, //right
-                                .blue, //back
-                                .yellow, //left
-                                .purple, //top
-                                .gray] //bottom
-        
-        BKBoxFace.all.forEach { (face) in
-            let material = boxMaterial(for: face)
-            let color = colors[face.rawValue]
-            
-            material.diffuse.contents = color
-            material.locksAmbientWithDiffuse = true
-        }
-    }
-    
-    func boxMaterial(for face: BKBoxFace) -> SCNMaterial {
-        return boxGeometry.materials[face.rawValue]
     }
 }
 

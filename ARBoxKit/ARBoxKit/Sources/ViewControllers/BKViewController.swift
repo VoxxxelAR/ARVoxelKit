@@ -10,11 +10,11 @@ import UIKit
 import ARKit
 import SceneKit
 
-open class BoxKitViewController: UIViewController {
+open class BKViewController: UIViewController {
     
     var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
     
-    @IBOutlet var sceneView: ARSCNView! {
+    @IBOutlet open var sceneView: ARSCNView! {
         didSet {
             sceneView.delegate = self
             sceneView.session.delegate = self
@@ -63,7 +63,7 @@ open class BoxKitViewController: UIViewController {
     }
 }
 
-extension BoxKitViewController: ARSCNViewDelegate {
+extension BKViewController: ARSCNViewDelegate {
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
@@ -85,7 +85,7 @@ extension BoxKitViewController: ARSCNViewDelegate {
     }
 }
 
-extension BoxKitViewController: ARSessionDelegate {
+extension BKViewController: ARSessionDelegate {
     public func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
     }
     

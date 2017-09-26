@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		755451881F7ADB4800E77E88 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755451871F7ADB4800E77E88 /* TODO.swift */; };
+		7554518A1F7ADBE900E77E88 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755451891F7ADBE900E77E88 /* TestViewController.swift */; };
+		7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */; };
+		7554518E1F7AE89800E77E88 /* BKTileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7554518D1F7AE89800E77E88 /* BKTileNode.swift */; };
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F77B32AC1F7ABFC1004259B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */; };
-		F77B32AE1F7ABFC1004259B8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F77B32AD1F7ABFC1004259B8 /* art.scnassets */; };
 		F77B32B31F7ABFC1004259B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B11F7ABFC1004259B8 /* Main.storyboard */; };
 		F77B32B51F7ABFC1004259B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B41F7ABFC1004259B8 /* Assets.xcassets */; };
 		F77B32B81F7ABFC1004259B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */; };
 		F77B32BD1F7ABFD5004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32BE1F7ABFD5004259B8 /* ARBoxKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F77B32CA1F7AC0B7004259B8 /* BoxKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */; };
+		F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32C91F7AC0B7004259B8 /* BKViewController.swift */; };
 		F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */; };
 		F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +57,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		755451871F7ADB4800E77E88 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
+		755451891F7ADBE900E77E88 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxProtocols.swift; sourceTree = "<group>"; };
+		7554518D1F7AE89800E77E88 /* BKTileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKTileNode.swift; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARBoxKit.h; sourceTree = "<group>"; };
 		F77B328E1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,13 +69,12 @@
 		F77B329A1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F77B32A91F7ABFC1004259B8 /* ARBoxBuildable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARBoxBuildable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F77B32AD1F7ABFC1004259B8 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		F77B32B21F7ABFC1004259B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F77B32B41F7ABFC1004259B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F77B32B71F7ABFC1004259B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F77B32B91F7ABFC1004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F77B32C31F7AC02F004259B8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
-		F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxKitViewController.swift; sourceTree = "<group>"; };
+		F77B32C91F7AC0B7004259B8 /* BKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKViewController.swift; sourceTree = "<group>"; };
 		F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxNode.swift; sourceTree = "<group>"; };
 		F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKPlatformNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +109,7 @@
 		F77B32801F7ABD8D004259B8 = {
 			isa = PBXGroup;
 			children = (
+				755451871F7ADB4800E77E88 /* TODO.swift */,
 				F77B328C1F7ABD8D004259B8 /* ARBoxKit */,
 				F77B32971F7ABD8D004259B8 /* ARBoxKitTests */,
 				F77B32AA1F7ABFC1004259B8 /* ARBoxBuildable */,
@@ -155,11 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */,
-				F77B32AD1F7ABFC1004259B8 /* art.scnassets */,
 				F77B32B11F7ABFC1004259B8 /* Main.storyboard */,
 				F77B32B41F7ABFC1004259B8 /* Assets.xcassets */,
 				F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */,
 				F77B32B91F7ABFC1004259B8 /* Info.plist */,
+				755451891F7ADBE900E77E88 /* TestViewController.swift */,
 			);
 			path = ARBoxBuildable;
 			sourceTree = "<group>";
@@ -182,7 +189,7 @@
 		F77B32C61F7AC085004259B8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */,
+				F77B32C91F7AC0B7004259B8 /* BKViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -199,6 +206,8 @@
 			children = (
 				F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */,
 				F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */,
+				7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */,
+				7554518D1F7AE89800E77E88 /* BKTileNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -336,7 +345,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F77B32AE1F7ABFC1004259B8 /* art.scnassets in Resources */,
 				F77B32B81F7ABFC1004259B8 /* LaunchScreen.storyboard in Resources */,
 				F77B32B51F7ABFC1004259B8 /* Assets.xcassets in Resources */,
 				F77B32B31F7ABFC1004259B8 /* Main.storyboard in Resources */,
@@ -352,7 +360,10 @@
 			files = (
 				F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */,
 				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
-				F77B32CA1F7AC0B7004259B8 /* BoxKitViewController.swift in Sources */,
+				7554518E1F7AE89800E77E88 /* BKTileNode.swift in Sources */,
+				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
+				F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */,
+				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7554518A1F7ADBE900E77E88 /* TestViewController.swift in Sources */,
 				F77B32AC1F7ABFC1004259B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +537,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 76RXYZCS9Y;
@@ -536,6 +549,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARBoxKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -548,6 +562,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 76RXYZCS9Y;
@@ -559,6 +574,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARBoxKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
