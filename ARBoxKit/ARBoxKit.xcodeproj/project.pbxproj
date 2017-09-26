@@ -10,6 +10,14 @@
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F77B32AC1F7ABFC1004259B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */; };
+		F77B32AE1F7ABFC1004259B8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F77B32AD1F7ABFC1004259B8 /* art.scnassets */; };
+		F77B32B01F7ABFC1004259B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32AF1F7ABFC1004259B8 /* ViewController.swift */; };
+		F77B32B31F7ABFC1004259B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B11F7ABFC1004259B8 /* Main.storyboard */; };
+		F77B32B51F7ABFC1004259B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B41F7ABFC1004259B8 /* Assets.xcassets */; };
+		F77B32B81F7ABFC1004259B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */; };
+		F77B32BD1F7ABFD5004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
+		F77B32BE1F7ABFD5004259B8 /* ARBoxKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,7 +28,28 @@
 			remoteGlobalIDString = F77B32891F7ABD8D004259B8;
 			remoteInfo = ARBoxKit;
 		};
+		F77B32BF1F7ABFD5004259B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F77B32811F7ABD8D004259B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F77B32891F7ABD8D004259B8;
+			remoteInfo = ARBoxKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F77B32C11F7ABFD5004259B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F77B32BE1F7ABFD5004259B8 /* ARBoxKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +58,14 @@
 		F77B32931F7ABD8D004259B8 /* ARBoxKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARBoxKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARBoxKitTests.swift; sourceTree = "<group>"; };
 		F77B329A1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F77B32A91F7ABFC1004259B8 /* ARBoxBuildable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARBoxBuildable.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F77B32AD1F7ABFC1004259B8 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		F77B32AF1F7ABFC1004259B8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F77B32B21F7ABFC1004259B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F77B32B41F7ABFC1004259B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F77B32B71F7ABFC1004259B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F77B32B91F7ABFC1004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +84,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F77B32A61F7ABFC1004259B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F77B32BD1F7ABFD5004259B8 /* ARBoxKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,6 +100,7 @@
 			children = (
 				F77B328C1F7ABD8D004259B8 /* ARBoxKit */,
 				F77B32971F7ABD8D004259B8 /* ARBoxKitTests */,
+				F77B32AA1F7ABFC1004259B8 /* ARBoxBuildable */,
 				F77B328B1F7ABD8D004259B8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +110,7 @@
 			children = (
 				F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */,
 				F77B32931F7ABD8D004259B8 /* ARBoxKitTests.xctest */,
+				F77B32A91F7ABFC1004259B8 /* ARBoxBuildable.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,6 +118,7 @@
 		F77B328C1F7ABD8D004259B8 /* ARBoxKit */ = {
 			isa = PBXGroup;
 			children = (
+				F77B32A41F7ABF80004259B8 /* Sources */,
 				F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */,
 				F77B328E1F7ABD8D004259B8 /* Info.plist */,
 			);
@@ -84,6 +132,27 @@
 				F77B329A1F7ABD8D004259B8 /* Info.plist */,
 			);
 			path = ARBoxKitTests;
+			sourceTree = "<group>";
+		};
+		F77B32A41F7ABF80004259B8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		F77B32AA1F7ABFC1004259B8 /* ARBoxBuildable */ = {
+			isa = PBXGroup;
+			children = (
+				F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */,
+				F77B32AD1F7ABFC1004259B8 /* art.scnassets */,
+				F77B32AF1F7ABFC1004259B8 /* ViewController.swift */,
+				F77B32B11F7ABFC1004259B8 /* Main.storyboard */,
+				F77B32B41F7ABFC1004259B8 /* Assets.xcassets */,
+				F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */,
+				F77B32B91F7ABFC1004259B8 /* Info.plist */,
+			);
+			path = ARBoxBuildable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +205,25 @@
 			productReference = F77B32931F7ABD8D004259B8 /* ARBoxKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F77B32A81F7ABFC1004259B8 /* ARBoxBuildable */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F77B32BA1F7ABFC1004259B8 /* Build configuration list for PBXNativeTarget "ARBoxBuildable" */;
+			buildPhases = (
+				F77B32A51F7ABFC1004259B8 /* Sources */,
+				F77B32A61F7ABFC1004259B8 /* Frameworks */,
+				F77B32A71F7ABFC1004259B8 /* Resources */,
+				F77B32C11F7ABFD5004259B8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F77B32C01F7ABFD5004259B8 /* PBXTargetDependency */,
+			);
+			name = ARBoxBuildable;
+			productName = ARBoxBuildable;
+			productReference = F77B32A91F7ABFC1004259B8 /* ARBoxBuildable.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -154,6 +242,10 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 					};
+					F77B32A81F7ABFC1004259B8 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = F77B32841F7ABD8D004259B8 /* Build configuration list for PBXProject "ARBoxKit" */;
@@ -162,6 +254,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F77B32801F7ABD8D004259B8;
 			productRefGroup = F77B328B1F7ABD8D004259B8 /* Products */;
@@ -170,6 +263,7 @@
 			targets = (
 				F77B32891F7ABD8D004259B8 /* ARBoxKit */,
 				F77B32921F7ABD8D004259B8 /* ARBoxKitTests */,
+				F77B32A81F7ABFC1004259B8 /* ARBoxBuildable */,
 			);
 		};
 /* End PBXProject section */
@@ -186,6 +280,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F77B32A71F7ABFC1004259B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F77B32AE1F7ABFC1004259B8 /* art.scnassets in Resources */,
+				F77B32B81F7ABFC1004259B8 /* LaunchScreen.storyboard in Resources */,
+				F77B32B51F7ABFC1004259B8 /* Assets.xcassets in Resources */,
+				F77B32B31F7ABFC1004259B8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +312,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F77B32A51F7ABFC1004259B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F77B32B01F7ABFC1004259B8 /* ViewController.swift in Sources */,
+				F77B32AC1F7ABFC1004259B8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -215,7 +329,31 @@
 			target = F77B32891F7ABD8D004259B8 /* ARBoxKit */;
 			targetProxy = F77B32951F7ABD8D004259B8 /* PBXContainerItemProxy */;
 		};
+		F77B32C01F7ABFD5004259B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F77B32891F7ABD8D004259B8 /* ARBoxKit */;
+			targetProxy = F77B32BF1F7ABFD5004259B8 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F77B32B11F7ABFC1004259B8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F77B32B21F7ABFC1004259B8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F77B32B71F7ABFC1004259B8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F77B329C1F7ABD8D004259B8 /* Debug */ = {
@@ -401,6 +539,36 @@
 			};
 			name = Release;
 		};
+		F77B32BB1F7ABFC1004259B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76RXYZCS9Y;
+				INFOPLIST_FILE = ARBoxBuildable/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARBoxBuildable;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F77B32BC1F7ABFC1004259B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76RXYZCS9Y;
+				INFOPLIST_FILE = ARBoxBuildable/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARBoxBuildable;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -427,6 +595,15 @@
 			buildConfigurations = (
 				F77B32A21F7ABD8D004259B8 /* Debug */,
 				F77B32A31F7ABD8D004259B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F77B32BA1F7ABFC1004259B8 /* Build configuration list for PBXNativeTarget "ARBoxBuildable" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F77B32BB1F7ABFC1004259B8 /* Debug */,
+				F77B32BC1F7ABFC1004259B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
