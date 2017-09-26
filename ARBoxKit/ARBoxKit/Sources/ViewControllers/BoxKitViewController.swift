@@ -12,6 +12,8 @@ import SceneKit
 
 open class BoxKitViewController: UIViewController {
     
+    var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
+    
     @IBOutlet var sceneView: ARSCNView! {
         didSet {
             sceneView.delegate = self
@@ -65,27 +67,21 @@ extension BoxKitViewController: ARSCNViewDelegate {
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
-        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-        let planeNode = SCNNode(geometry: plane)
+        let platform = BKPlatformNode(anchor: planeAnchor)
         
-        planeNode.position = SCNVector3(x: planeAnchor.center.x, y: 0, z: planeAnchor.center.z)
-        planeNode.transform = SCNMatrix4MakeRotation(-.pi / 2, 1, 0, 0)
-        
-        planeNode.opacity = 0.1
-        
-        node.addChildNode(planeNode)
+        platforms[planeAnchor] = platform
+        node.addChildNode(platform)
     }
     
     public func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let planeAnchor = anchor as?  ARPlaneAnchor,
-            let planeNode = node.childNodes.first,
-            let plane = planeNode.geometry as? SCNPlane
-            else { return }
+        guard let planeAnchor = anchor as? ARPlaneAnchor, let platform = platforms[planeAnchor] else { return }
+        platform.update(planeAnchor)
+    }
+    
+    public func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
-        planeNode.position = SCNVector3(x: planeAnchor.center.x, y: 0, z: planeAnchor.center.z)
-        
-        plane.width = CGFloat(planeAnchor.extent.x)
-        plane.height = CGFloat(planeAnchor.extent.z)
+        platforms[planeAnchor] = nil
     }
 }
 

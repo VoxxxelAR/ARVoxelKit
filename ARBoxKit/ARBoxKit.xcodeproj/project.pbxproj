@@ -18,6 +18,8 @@
 		F77B32BD1F7ABFD5004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32BE1F7ABFD5004259B8 /* ARBoxKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F77B32CA1F7AC0B7004259B8 /* BoxKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */; };
+		F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */; };
+		F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		F77B32B91F7ABFC1004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F77B32C31F7AC02F004259B8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxKitViewController.swift; sourceTree = "<group>"; };
+		F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxNode.swift; sourceTree = "<group>"; };
+		F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKPlatformNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,8 @@
 		F77B32C81F7AC086004259B8 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */,
+				F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */,
+				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
 				F77B32CA1F7AC0B7004259B8 /* BoxKitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
