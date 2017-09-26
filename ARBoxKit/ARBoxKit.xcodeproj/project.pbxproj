@@ -12,12 +12,12 @@
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F77B32AC1F7ABFC1004259B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */; };
 		F77B32AE1F7ABFC1004259B8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F77B32AD1F7ABFC1004259B8 /* art.scnassets */; };
-		F77B32B01F7ABFC1004259B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32AF1F7ABFC1004259B8 /* ViewController.swift */; };
 		F77B32B31F7ABFC1004259B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B11F7ABFC1004259B8 /* Main.storyboard */; };
 		F77B32B51F7ABFC1004259B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B41F7ABFC1004259B8 /* Assets.xcassets */; };
 		F77B32B81F7ABFC1004259B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */; };
 		F77B32BD1F7ABFD5004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32BE1F7ABFD5004259B8 /* ARBoxKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F77B32CA1F7AC0B7004259B8 /* BoxKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,11 +61,12 @@
 		F77B32A91F7ABFC1004259B8 /* ARBoxBuildable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARBoxBuildable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F77B32AD1F7ABFC1004259B8 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		F77B32AF1F7ABFC1004259B8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F77B32B21F7ABFC1004259B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F77B32B41F7ABFC1004259B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F77B32B71F7ABFC1004259B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F77B32B91F7ABFC1004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F77B32C31F7AC02F004259B8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxKitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +103,7 @@
 				F77B32971F7ABD8D004259B8 /* ARBoxKitTests */,
 				F77B32AA1F7ABFC1004259B8 /* ARBoxBuildable */,
 				F77B328B1F7ABD8D004259B8 /* Products */,
+				F77B32C21F7AC02E004259B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +139,10 @@
 		F77B32A41F7ABF80004259B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F77B32C71F7AC086004259B8 /* Managers */,
+				F77B32C81F7AC086004259B8 /* Nodes */,
+				F77B32C51F7AC085004259B8 /* Resources */,
+				F77B32C61F7AC085004259B8 /* ViewControllers */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -146,13 +152,49 @@
 			children = (
 				F77B32AB1F7ABFC1004259B8 /* AppDelegate.swift */,
 				F77B32AD1F7ABFC1004259B8 /* art.scnassets */,
-				F77B32AF1F7ABFC1004259B8 /* ViewController.swift */,
 				F77B32B11F7ABFC1004259B8 /* Main.storyboard */,
 				F77B32B41F7ABFC1004259B8 /* Assets.xcassets */,
 				F77B32B61F7ABFC1004259B8 /* LaunchScreen.storyboard */,
 				F77B32B91F7ABFC1004259B8 /* Info.plist */,
 			);
 			path = ARBoxBuildable;
+			sourceTree = "<group>";
+		};
+		F77B32C21F7AC02E004259B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F77B32C31F7AC02F004259B8 /* ARKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F77B32C51F7AC085004259B8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F77B32C61F7AC085004259B8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F77B32C91F7AC0B7004259B8 /* BoxKitViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F77B32C71F7AC086004259B8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		F77B32C81F7AC086004259B8 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Nodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +278,7 @@
 				TargetAttributes = {
 					F77B32891F7ABD8D004259B8 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					F77B32921F7ABD8D004259B8 = {
@@ -301,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77B32CA1F7AC0B7004259B8 /* BoxKitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +360,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F77B32B01F7ABFC1004259B8 /* ViewController.swift in Sources */,
 				F77B32AC1F7ABFC1004259B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +515,7 @@
 		F77B329F1F7ABD8D004259B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -485,6 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARBoxKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -493,6 +538,7 @@
 		F77B32A01F7ABD8D004259B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -514,6 +560,7 @@
 		F77B32A21F7ABD8D004259B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 76RXYZCS9Y;
 				INFOPLIST_FILE = ARBoxKitTests/Info.plist;
@@ -528,6 +575,7 @@
 		F77B32A31F7ABD8D004259B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 76RXYZCS9Y;
 				INFOPLIST_FILE = ARBoxKitTests/Info.plist;
@@ -542,6 +590,7 @@
 		F77B32BB1F7ABFC1004259B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 76RXYZCS9Y;
@@ -557,6 +606,7 @@
 		F77B32BC1F7ABFC1004259B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 76RXYZCS9Y;
