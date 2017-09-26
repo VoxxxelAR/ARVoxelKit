@@ -28,22 +28,11 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func setupGeometry() {
-        let top = SCNMaterial()
-        let bottom = SCNMaterial()
-        let left = SCNMaterial()
-        let right = SCNMaterial()
-        let front = SCNMaterial()
-        let back = SCNMaterial()
-        
-        boxGeometry.materials = [front, right, back, left, top, bottom]
-    }
-    
     func update(_ anchor: ARPlaneAnchor) {
         boxGeometry.width = CGFloat(anchor.extent.x)
         boxGeometry.length = CGFloat(anchor.extent.z)
         
-        position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
+        simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
     }
 }
 

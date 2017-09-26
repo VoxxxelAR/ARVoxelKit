@@ -26,13 +26,26 @@ extension BoxDisplayable where Self: SCNNode {
         guard let boxGeometry = geometry as? SCNBox else {
             fatalError("Geometry must be of SCNBox type.")
         }
+        
         return boxGeometry
     }
 }
 
 extension BoxDisplayable {
     
+    func setupGeometry() {
+        let top = SCNMaterial()
+        let bottom = SCNMaterial()
+        let left = SCNMaterial()
+        let right = SCNMaterial()
+        let front = SCNMaterial()
+        let back = SCNMaterial()
+        
+        boxGeometry.materials = [front, right, back, left, top, bottom]
+    }
+    
     public func applyColors() {
+        //MARK: - For debug use
         let colors: [UIColor] = [.green, //front
             .red, //right
             .blue, //back
@@ -53,3 +66,4 @@ extension BoxDisplayable {
         return boxGeometry.materials[face.rawValue]
     }
 }
+

@@ -23,6 +23,7 @@
 		F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32C91F7AC0B7004259B8 /* BKViewController.swift */; };
 		F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */; };
 		F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */; };
+		F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		F77B32C91F7AC0B7004259B8 /* BKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKViewController.swift; sourceTree = "<group>"; };
 		F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxNode.swift; sourceTree = "<group>"; };
 		F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKPlatformNode.swift; sourceTree = "<group>"; };
+		F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 		F77B32A41F7ABF80004259B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F77B32D11F7AF82A004259B8 /* Extensions */,
 				F77B32C71F7AC086004259B8 /* Managers */,
 				F77B32C81F7AC086004259B8 /* Nodes */,
 				F77B32C51F7AC085004259B8 /* Resources */,
@@ -204,12 +207,20 @@
 		F77B32C81F7AC086004259B8 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */,
 				F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */,
 				F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */,
-				7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */,
 				7554518D1F7AE89800E77E88 /* BKTileNode.swift */,
 			);
 			path = Nodes;
+			sourceTree = "<group>";
+		};
+		F77B32D11F7AF82A004259B8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,6 +373,7 @@
 				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
 				7554518E1F7AE89800E77E88 /* BKTileNode.swift in Sources */,
 				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
+				F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */,
 				F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */,
 				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
 			);
