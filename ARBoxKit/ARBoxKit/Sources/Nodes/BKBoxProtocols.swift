@@ -43,7 +43,7 @@ public enum BKBoxFace: Int {
         case .top:
             return SCNVector3(0, 1, 0)
         case .bottom:
-            return SCNVector3(0, -1, 1)
+            return SCNVector3(0, -1, 0)
         }
     }
     
@@ -60,7 +60,7 @@ public enum BKBoxFace: Int {
         case .top:
             return simd_float3(0, 1, 0)
         case .bottom:
-            return simd_float3(0, -1, 1)
+            return simd_float3(0, -1, 0)
         }
     }
 }
