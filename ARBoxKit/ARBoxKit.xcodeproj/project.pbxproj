@@ -14,6 +14,7 @@
 		F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */; };
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
+		F77214C21F7BCDE900C3224D /* BKSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214C11F7BCDE900C3224D /* BKSceneManager.swift */; };
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -69,6 +70,7 @@
 		F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
+		F77214C11F7BCDE900C3224D /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARBoxKit.h; sourceTree = "<group>"; };
 		F77B328E1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F77214C01F7BCDD600C3224D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F77214C11F7BCDE900C3224D /* BKSceneManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		F77B32801F7ABD8D004259B8 = {
 			isa = PBXGroup;
 			children = (
@@ -161,10 +171,9 @@
 		F77B32A41F7ABF80004259B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F77214C01F7BCDD600C3224D /* Managers */,
 				F77B32D11F7AF82A004259B8 /* Extensions */,
-				F77B32C71F7AC086004259B8 /* Managers */,
 				F77B32C81F7AC086004259B8 /* Nodes */,
-				F77B32C51F7AC085004259B8 /* Resources */,
 				F77B32C61F7AC085004259B8 /* ViewControllers */,
 			);
 			path = Sources;
@@ -191,26 +200,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F77B32C51F7AC085004259B8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		F77B32C61F7AC085004259B8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				F77B32C91F7AC0B7004259B8 /* BKViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		F77B32C71F7AC086004259B8 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		F77B32C81F7AC086004259B8 /* Nodes */ = {
@@ -386,6 +381,7 @@
 				F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */,
 				F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */,
 				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
+				F77214C21F7BCDE900C3224D /* BKSceneManager.swift in Sources */,
 				7554518E1F7AE89800E77E88 /* BKTileNode.swift in Sources */,
 				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
 				F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */,
