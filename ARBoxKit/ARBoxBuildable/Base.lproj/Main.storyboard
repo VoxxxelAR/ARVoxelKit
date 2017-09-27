@@ -5,6 +5,8 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,12 +14,47 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="TestViewController" customModule="ARBoxBuildable" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                    <view key="view" contentMode="scaleToFill" id="pAj-LA-fZf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvN-PP-krz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vef-WQ-e9p">
+                                <rect key="frame" x="182" y="328.5" width="10" height="10"/>
+                                <color key="backgroundColor" red="0.73074764010000004" green="1" blue="0.18548139929999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="adc-N5-cdv">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
+                                    <constraint firstAttribute="width" secondItem="vef-WQ-e9p" secondAttribute="height" id="kzj-XA-8Xg"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zvN-PP-krz" firstAttribute="height" secondItem="pAj-LA-fZf" secondAttribute="height" id="A74-pB-461"/>
+                            <constraint firstItem="zvN-PP-krz" firstAttribute="width" secondItem="pAj-LA-fZf" secondAttribute="width" id="CRH-73-hNq"/>
+                            <constraint firstItem="vef-WQ-e9p" firstAttribute="centerX" secondItem="zvN-PP-krz" secondAttribute="centerX" id="EYZ-kM-ZM0"/>
+                            <constraint firstItem="Tnt-SY-Qrb" firstAttribute="trailing" secondItem="zvN-PP-krz" secondAttribute="trailing" id="IKh-je-G2j"/>
+                            <constraint firstItem="zvN-PP-krz" firstAttribute="leading" secondItem="Tnt-SY-Qrb" secondAttribute="leading" id="O5Y-kS-4W4"/>
+                            <constraint firstItem="Tnt-SY-Qrb" firstAttribute="bottom" secondItem="zvN-PP-krz" secondAttribute="bottom" id="WZL-0q-ZcB"/>
+                            <constraint firstItem="vef-WQ-e9p" firstAttribute="centerY" secondItem="zvN-PP-krz" secondAttribute="centerY" id="p1d-4O-gFT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Tnt-SY-Qrb"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="e7T-8o-sIu"/>
+                        <outlet property="sceneView" destination="zvN-PP-krz" id="Frv-GX-ltn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

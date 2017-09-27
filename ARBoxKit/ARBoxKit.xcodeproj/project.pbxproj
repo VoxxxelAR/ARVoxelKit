@@ -12,6 +12,8 @@
 		7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */; };
 		7554518E1F7AE89800E77E88 /* BKTileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7554518D1F7AE89800E77E88 /* BKTileNode.swift */; };
 		F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */; };
+		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
+		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +67,8 @@
 		7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxProtocols.swift; sourceTree = "<group>"; };
 		7554518D1F7AE89800E77E88 /* BKTileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKTileNode.swift; sourceTree = "<group>"; };
 		F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
+		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
+		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARBoxKit.h; sourceTree = "<group>"; };
 		F77B328E1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 		F77B328C1F7ABD8D004259B8 /* ARBoxKit */ = {
 			isa = PBXGroup;
 			children = (
+				F79DE1041F7B793E001E0431 /* BKConstants.swift */,
 				F77B32A41F7ABF80004259B8 /* Sources */,
 				F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */,
 				F77B328E1F7ABD8D004259B8 /* Info.plist */,
@@ -161,7 +166,6 @@
 				F77B32C81F7AC086004259B8 /* Nodes */,
 				F77B32C51F7AC085004259B8 /* Resources */,
 				F77B32C61F7AC085004259B8 /* ViewControllers */,
-				F79DE1041F7B793E001E0431 /* BKConstants.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -225,6 +229,8 @@
 			children = (
 				F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */,
 				F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */,
+				F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */,
+				F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -377,6 +383,8 @@
 			files = (
 				F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */,
 				F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */,
+				F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */,
+				F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */,
 				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
 				7554518E1F7AE89800E77E88 /* BKTileNode.swift in Sources */,
 				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
