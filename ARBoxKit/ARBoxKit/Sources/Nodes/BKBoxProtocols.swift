@@ -13,6 +13,14 @@ public enum BKBoxState {
     case normal
     case highlighted(face: [BKBoxFace], alpha: CGFloat)
     case hidden
+    
+    var id: Int {
+        switch self {
+        case .normal: return 0
+        case .highlighted: return 1
+        case .hidden: return 2
+        }
+    }
 }
 
 public enum BKBoxFace: Int {
@@ -40,6 +48,8 @@ extension BoxDisplayable where Self: SCNNode {
 
 extension BoxDisplayable where Self: SCNNode {
     func updateState(newState: BKBoxState, _ animated: Bool, _ completion: (() -> Void)?) {
+        if currentState.id == newState.id { return }
+        
         switch newState {
         case .normal:
             setNormalState(animated, completion)
@@ -48,9 +58,12 @@ extension BoxDisplayable where Self: SCNNode {
         case .hidden:
             setHiddenState(animated, completion)
         }
+        
+        currentState = newState
     }
     
     func setNormalState(_ animated: Bool, _ completion: (() -> Void)?) {
+        
         let duration = animated ? 0.3 : 0
         let group = SCNAction.group([.fadeIn(duration: duration),
                                      highlightAnimation(faces: BKBoxFace.all, alpha: 1, duration: duration)])

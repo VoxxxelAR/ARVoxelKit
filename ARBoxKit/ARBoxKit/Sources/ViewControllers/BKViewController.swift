@@ -101,6 +101,7 @@ extension BKViewController: ARSCNViewDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor, let platform = platforms[planeAnchor] else { return }
         updateQueue.async {
             platform.update(planeAnchor, animated: true)
+            platform.updateState(newState: .highlighted(face: [.top], alpha: 0.5), true, nil)
         }
     }
     
