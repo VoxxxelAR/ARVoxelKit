@@ -34,33 +34,25 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
     func update(_ anchor: ARPlaneAnchor, animated: Bool) {
         if isAnimating { return }
         
-        let extendedX = ceil(CGFloat(anchor.extent.x) / BKConstants.voxelSideLength) * BKConstants.voxelSideLength
-        let extendedY = ceil(CGFloat(anchor.extent.z) / BKConstants.voxelSideLength) * BKConstants.voxelSideLength
+        let extendedX = floor(CGFloat(anchor.extent.x) / BKConstants.voxelSideLength) * BKConstants.voxelSideLength
+        let extendedY = floor(CGFloat(anchor.extent.z) / BKConstants.voxelSideLength) * BKConstants.voxelSideLength
+        
+        let changes = {
+            self.boxGeometry.width = extendedX
+            self.boxGeometry.length = extendedY
+            
+            self.simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
+        }
         
         if !animated  {
-            boxGeometry.width = extendedX
-            boxGeometry.length = extendedY
-            
-            simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
+            changes()
             isAnimating = false
-            return
+        } else {
+            isAnimating = true
+            SCNTransaction.animate(with: 0.3, changes) {
+                self.isAnimating = false
+            }
         }
-        
-        isAnimating = true
-        SCNTransaction.begin()
-        SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        SCNTransaction.animationDuration = 0.3
-        
-        boxGeometry.width = extendedX
-        boxGeometry.length = extendedY
-        
-        simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
-        
-        SCNTransaction.completionBlock = { [weak self] in
-            self?.isAnimating = false
-        }
-        
-        SCNTransaction.commit()
     }
 }
 

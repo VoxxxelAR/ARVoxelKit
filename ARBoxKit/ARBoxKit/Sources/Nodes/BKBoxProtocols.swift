@@ -47,6 +47,30 @@ extension BoxDisplayable where Self: SCNNode {
 }
 
 extension BoxDisplayable where Self: SCNNode {
+    
+    func updateMaterials(for faces: [BKBoxFace], changes: (SCNMaterial) -> Void) {
+        let materials = faces.flatMap { self.boxMaterial(for: $0) }
+        
+        materials.forEach { (material) in
+            changes(material)
+        }
+    }
+    
+    func updateTransparency(for faces: [BKBoxFace], value: CGFloat,  _ animated: Bool, _ completion: (() -> Void)?) {
+        let changes: () -> Void = {
+            self.updateMaterials(for: faces) { (material) in
+                material.transparency = value
+            }
+        }
+        
+        if !animated {
+            changes()
+            completion?()
+        } else {
+            SCNTransaction.animate(with: 0.3, timingFunction: .easeIn, changes, completion)
+        }
+    }
+    
     func updateState(newState: BKBoxState, _ animated: Bool, _ completion: (() -> Void)?) {
         if currentState.id == newState.id { return }
         
@@ -63,37 +87,15 @@ extension BoxDisplayable where Self: SCNNode {
     }
     
     func setNormalState(_ animated: Bool, _ completion: (() -> Void)?) {
-        
-        let duration = animated ? 0.3 : 0
-        let group = SCNAction.group([.fadeIn(duration: duration),
-                                     highlightAnimation(faces: BKBoxFace.all, alpha: 1, duration: duration)])
-        
-        runAction(group, completionHandler: completion)
+        updateTransparency(for: BKBoxFace.all, value: 1, animated, completion)
     }
     
     func setHighlightedState(faces: [BKBoxFace], alpha: CGFloat, _ animated: Bool, _ completion: (() -> Void)?) {
-        let duration = animated ? 0.3 : 0
-        let sequence = SCNAction.sequence([highlightAnimation(faces: BKBoxFace.all, alpha: 1, duration: duration / 2),
-                                           highlightAnimation(faces: faces, alpha: alpha, duration: duration / 2)])
-        runAction(sequence, completionHandler: completion)
+        updateTransparency(for: faces, value: alpha, animated, completion)
     }
     
     func setHiddenState(_ animated: Bool, _ completion: (() -> Void)?) {
-        runAction(.fadeOut(duration: animated ? 0.3 : 0), completionHandler: completion)
-    }
-    
-    fileprivate func highlightAnimation(faces: [BKBoxFace], alpha: CGFloat, duration: TimeInterval = 0.3) -> SCNAction {
-        let action = SCNAction.customAction(duration: duration) { (node, elapsedTime) in
-            let elapsedTimePercentage = elapsedTime / CGFloat(duration)
-            let alpha = alpha * elapsedTimePercentage
-            
-            let materials = faces.flatMap { self.boxMaterial(for: $0) }
-            materials.forEach { (material) in
-                material.transparency = alpha
-            }
-        }
-        
-        return action
+        updateTransparency(for: BKBoxFace.all, value: 0, animated, completion)
     }
 }
 
