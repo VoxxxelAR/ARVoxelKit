@@ -6,24 +6,34 @@
 //  Copyright © 2017 Gleb Radchenko. All rights reserved.
 //
 
+import ARKit
+import SceneKit
 import XCTest
 @testable import ARBoxKit
 
 class ARBoxKitTests: XCTestCase {
+    var manager: BKSceneManager!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        manager = BKSceneManager(with: ARSCNView())
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    //MARK: - BKSceneManager tests
+    func testNewNodeCalculation() {
+        let node = BKBoxNode(sideLength: 1)
+        node.position = .zero
+        
+        let newNode = BKBoxNode(sideLength: 1)
+        
+        BKBoxFace.all.forEach { (face) in
+            let position = manager.newPosition(for: newNode, attachedTo: face, of: node)
+            XCTAssertEqual(position, face.normalizedVector3)
+        }
     }
     
     func testPerformanceExample() {
