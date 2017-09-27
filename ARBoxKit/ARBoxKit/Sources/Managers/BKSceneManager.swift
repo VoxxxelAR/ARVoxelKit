@@ -43,7 +43,7 @@ open class BKSceneManager: NSObject {
         }
     }
     
-    public var platformState: BKPlatformState = .empty
+    public var platformState: BKPointerState = .empty
     public var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "ARBoxKit-scene-update-queue")
@@ -147,14 +147,18 @@ extension BKSceneManager {
 //MARK: - Box processing
 extension BKSceneManager {
     func updateBoxesFocus() {
-        
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKBoxNode.self) else {
+            return
+        }
     }
 }
 
 //MARK: - Tile processing
 extension BKSceneManager {
     func updateTilesFocus() {
-        
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKTileNode.self) else {
+            return
+        }
     }
 }
 
@@ -225,7 +229,7 @@ extension BKSceneManager: ARSCNViewDelegate {
 }
 
 public enum BKARSessionState {
-    case normal(BKPlatformState)
+    case normal(BKPointerState)
     case normalEmptyAnchors
     case notAvailable
     case limitedExcessiveMotion

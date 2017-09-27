@@ -10,7 +10,7 @@ import UIKit
 import ARKit
 import SceneKit
 
-public enum BKPlatformState {
+public enum BKPointerState {
     case empty
     case focused(platform: BKPlatformNode)
     case selected(platform: BKPlatformNode, anchor: ARPlaneAnchor)

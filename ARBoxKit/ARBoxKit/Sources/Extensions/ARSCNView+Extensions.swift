@@ -16,4 +16,16 @@ extension ARSCNView {
         
         return results.first(where: { type(of: $0.node) == nodeType })
     }
+    
+    func findNodes<T: SCNNode>(in parent: SCNNode) -> [T] {
+        return parent.childs()
+    }
+}
+
+extension SCNNode {
+    func childs<T: SCNNode>() -> [T] {
+        return childNodes(passingTest: { (node, stop) -> Bool in
+            return node is T
+        }) as! [T]
+    }
 }
