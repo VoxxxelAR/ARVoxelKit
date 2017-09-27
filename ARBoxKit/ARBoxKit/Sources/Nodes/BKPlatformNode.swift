@@ -12,12 +12,15 @@ import ARKit
 
 open class BKPlatformNode: SCNNode, BoxDisplayable {
     var anchor: ARPlaneAnchor
+    var boxSideLength: CGFloat
     
     public var currentState: BKBoxState = .normal
     public var isAnimating = false
     
-    public init(anchor: ARPlaneAnchor) {
+    public init(anchor: ARPlaneAnchor, boxSideLength: CGFloat) {
         self.anchor = anchor
+        self.boxSideLength = boxSideLength
+        
         super.init()
         geometry = SCNBox(width: 0, height: 0.05, length: 0, chamferRadius: 0)
         
@@ -34,8 +37,8 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
     func update(_ anchor: ARPlaneAnchor, animated: Bool) {
         if isAnimating { return }
         
-        let extendedX = floor(CGFloat(anchor.extent.x) / BKConstants.voxelSideLength) * BKConstants.voxelSideLength
-        let extendedY = floor(CGFloat(anchor.extent.z) / BKConstants.voxelSideLength) * BKConstants.voxelSideLength
+        let extendedX = floor(CGFloat(anchor.extent.x) / boxSideLength) * boxSideLength
+        let extendedY = floor(CGFloat(anchor.extent.z) / boxSideLength) * boxSideLength
         
         let changes = {
             self.boxGeometry.width = extendedX

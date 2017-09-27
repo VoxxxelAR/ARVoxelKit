@@ -29,9 +29,46 @@ public enum BKBoxFace: Int {
     static var all: [BKBoxFace] {
         return [front, right, back, left, top, bottom]
     }
+    
+    var normalizedVector3: SCNVector3 {
+        switch self {
+        case .front:
+            return SCNVector3(0, 0, 1)
+        case .right:
+            return SCNVector3(1, 0, 0)
+        case .back:
+            return SCNVector3(0, 0, -1)
+        case .left:
+            return SCNVector3(-1, 0, 0)
+        case .top:
+            return SCNVector3(0, 1, 0)
+        case .bottom:
+            return SCNVector3(0, -1, 1)
+        }
+    }
+    
+    var normalizedSimd: simd_float3 {
+        switch self {
+        case .front:
+            return simd_float3(0, 0, 1)
+        case .right:
+            return simd_float3(1, 0, 0)
+        case .back:
+            return simd_float3(0, 0, -1)
+        case .left:
+            return simd_float3(-1, 0, 0)
+        case .top:
+            return simd_float3(0, 1, 0)
+        case .bottom:
+            return simd_float3(0, -1, 1)
+        }
+    }
 }
 
 public protocol BoxDisplayable: class {
+    var position: SCNVector3 { get }
+    var simdPosition: simd_float3 { get }
+    
     var boxGeometry: SCNBox { get }
     var currentState: BKBoxState { get set }
 }

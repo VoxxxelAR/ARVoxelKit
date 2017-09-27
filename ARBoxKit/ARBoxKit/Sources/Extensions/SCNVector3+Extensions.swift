@@ -15,7 +15,7 @@ extension matrix_float4x4 {
     }
 }
 
-extension SCNVector3 {
+extension SCNVector3: Equatable {
     static var zero: SCNVector3 {
         return SCNVector3Zero
     }
@@ -33,50 +33,54 @@ extension SCNVector3 {
     }
 }
 
-func * (vector: SCNVector3, scalar: Float) -> SCNVector3 {
+public func ==(lhs: SCNVector3, rhs: SCNVector3) -> Bool {
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z
+}
+
+public func * (vector: SCNVector3, scalar: Float) -> SCNVector3 {
     return SCNVector3(vector.x * scalar, vector.y * scalar, vector.z * scalar)
 }
 
-func *= (vector: inout  SCNVector3, scalar: Float) {
+public func *= (vector: inout  SCNVector3, scalar: Float) {
     vector = vector * scalar
 }
 
-func / (vector: SCNVector3, scalar: Float) -> SCNVector3 {
+public func / (vector: SCNVector3, scalar: Float) -> SCNVector3 {
     return SCNVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar)
 }
 
-func /= (vector: inout  SCNVector3, scalar: Float) {
+public func /= (vector: inout  SCNVector3, scalar: Float) {
     vector = vector / scalar
 }
 
-func + (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
+public func + (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
     return SCNVector3(l.x + r.x, l.y + r.y, l.z + r.z)
 }
 
-func += (l: inout SCNVector3, r: SCNVector3) {
+public func += (l: inout SCNVector3, r: SCNVector3) {
     l = l + r
 }
 
-func - (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
+public func - (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
     return SCNVector3(l.x - r.x, l.y - r.y, l.z - r.z)
 }
 
-func -= (l: inout  SCNVector3, r: SCNVector3) {
+public func -= (l: inout  SCNVector3, r: SCNVector3) {
     l = l - r
 }
 
-func * (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
+public func * (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
     return SCNVector3(l.x * r.x, l.y * r.y, l.z * r.z)
 }
 
-func *= (l: inout  SCNVector3, r: SCNVector3) {
+public func *= (l: inout  SCNVector3, r: SCNVector3) {
     l = l * r
 }
 
-func / (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
+public func / (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
     return SCNVector3(l.x / r.x, l.y / r.y, l.z / r.z)
 }
 
-func /= (l: inout  SCNVector3, r: SCNVector3) {
+public func /= (l: inout  SCNVector3, r: SCNVector3) {
     l = l / r
 }

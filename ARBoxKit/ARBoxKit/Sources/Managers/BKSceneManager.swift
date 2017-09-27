@@ -127,6 +127,21 @@ extension BKSceneManager {
             break
         }
     }
+    
+    func newPosition(for newNode: BoxDisplayable, attachedTo face: BKBoxFace, of node: BoxDisplayable) -> SCNVector3 {
+        var scalar: CGFloat = 0.0
+        
+        switch face {
+        case .top, .bottom:
+            scalar = (newNode.boxGeometry.height + node.boxGeometry.height) / 2
+        case .back, .front:
+            scalar = (newNode.boxGeometry.length + node.boxGeometry.length) / 2
+        case .left, .right:
+            scalar = (newNode.boxGeometry.width + node.boxGeometry.width) / 2
+        }
+        
+        return node.position + face.normalizedVector3 * Float(scalar)
+    }
 }
 
 //MARK: - Box processing
@@ -188,7 +203,7 @@ extension BKSceneManager: ARSCNViewDelegate {
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
-        let platform = BKPlatformNode(anchor: planeAnchor)
+        let platform = BKPlatformNode(anchor: planeAnchor, boxSideLength: voxelSize)
         
         platforms[planeAnchor] = platform
         node.addChildNode(platform)
@@ -196,6 +211,7 @@ extension BKSceneManager: ARSCNViewDelegate {
     
     public func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor, let platform = platforms[planeAnchor] else { return }
+        
         updateQueue.async {
             platform.update(planeAnchor, animated: true)
         }
