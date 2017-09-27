@@ -162,7 +162,7 @@ extension BKSceneManager {
 extension BKSceneManager {
     func updatePlatformsFocus() {
         guard let result = scene.hitTestNode(from: scene.center, nodeType: BKPlatformNode.self) else {
-            unhilghlightAllPlatforms()
+            unHighlightPlatforms()
             return
         }
         
@@ -177,14 +177,14 @@ extension BKSceneManager {
         case .focused(let currentFocusedPlatform):
             currentFocusedPlatform.updateState(newState: .normal, true, nil)
         default:
-            unhilghlightAllPlatforms(except: platform)
+            unHighlightPlatforms(except: platform)
         }
         
         platform.updateState(newState: .highlighted(face: [face], alpha: 0.2), true, nil)
         platformState = .focused(platform: platform)
     }
     
-    func unhilghlightAllPlatforms(except node: BKPlatformNode? = nil) {
+    func unHighlightPlatforms(except node: BKPlatformNode? = nil) {
         platforms.values.forEach { (platform) in
             if platform == node { return }
             platform.updateState(newState: .normal, true, nil)
