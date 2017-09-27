@@ -20,8 +20,8 @@ public protocol BKSceneManagerDelegate: class {
 extension BKSceneManagerDelegate {
     public var voxelSize: CGFloat {
         return BKConstants.voxelSideLength
+        
     }
-    
     public func bkSceneManager(_ manager: BKSceneManager, shouldResetSessionFor state: BKARSessionState) -> Bool {
         return true
     }
@@ -120,7 +120,6 @@ extension BKSceneManager {
             case .empty, .focused:
                 updatePlatformsFocus()
             case .selected:
-                updateTilesFocus()
                 updateBoxesFocus()
             }
         default:
@@ -148,15 +147,6 @@ extension BKSceneManager {
 extension BKSceneManager {
     func updateBoxesFocus() {
         guard let result = scene.hitTestNode(from: scene.center, nodeType: BKBoxNode.self) else {
-            return
-        }
-    }
-}
-
-//MARK: - Tile processing
-extension BKSceneManager {
-    func updateTilesFocus() {
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKTileNode.self) else {
             return
         }
     }
@@ -292,7 +282,8 @@ public enum BKARSessionState {
 extension BKSceneManager: ARSessionDelegate {
     func updateState(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
         switch trackingState {
-        case .normal where frame.anchors.isEmpty:
+        case .normal 
+            where frame.anchors.isEmpty:
             state = .normalEmptyAnchors
         case .normal:
             state = .normal(platformState)
