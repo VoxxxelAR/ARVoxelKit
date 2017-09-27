@@ -24,6 +24,7 @@
 		F77B32CE1F7AC59B004259B8 /* BKBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */; };
 		F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */; };
 		F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */; };
+		F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE1041F7B793E001E0431 /* BKConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxNode.swift; sourceTree = "<group>"; };
 		F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKPlatformNode.swift; sourceTree = "<group>"; };
 		F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Extensions.swift"; sourceTree = "<group>"; };
+		F79DE1041F7B793E001E0431 /* BKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				F77B32C81F7AC086004259B8 /* Nodes */,
 				F77B32C51F7AC085004259B8 /* Resources */,
 				F77B32C61F7AC085004259B8 /* ViewControllers */,
+				F79DE1041F7B793E001E0431 /* BKConstants.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
 				F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */,
 				F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */,
+				F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */,
 				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

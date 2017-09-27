@@ -9,6 +9,12 @@
 import SceneKit
 import ARKit
 
+public enum BKBoxState {
+    case normal
+    case highlighted(face: [BKBoxFace], alpha: CGFloat)
+    case hidden
+}
+
 public enum BKBoxFace: Int {
     case front = 0, right, back, left, top, bottom
     
@@ -19,6 +25,7 @@ public enum BKBoxFace: Int {
 
 public protocol BoxDisplayable: class {
     var boxGeometry: SCNBox { get }
+    var currentState: BKBoxState { get set }
 }
 
 extension BoxDisplayable where Self: SCNNode {
@@ -28,6 +35,52 @@ extension BoxDisplayable where Self: SCNNode {
         }
         
         return boxGeometry
+    }
+}
+
+extension BoxDisplayable where Self: SCNNode {
+    func updateState(newState: BKBoxState, _ animated: Bool, _ completion: (() -> Void)?) {
+        switch newState {
+        case .normal:
+            setNormalState(animated, completion)
+        case .highlighted(let faces, let alpha):
+            setHighlightedState(faces: faces, alpha: alpha, animated, completion)
+        case .hidden:
+            setHiddenState(animated, completion)
+        }
+    }
+    
+    func setNormalState(_ animated: Bool, _ completion: (() -> Void)?) {
+        let duration = animated ? 0.3 : 0
+        let group = SCNAction.group([.fadeIn(duration: duration),
+                                     highlightAnimation(faces: BKBoxFace.all, alpha: 1, duration: duration)])
+        
+        runAction(group, completionHandler: completion)
+    }
+    
+    func setHighlightedState(faces: [BKBoxFace], alpha: CGFloat, _ animated: Bool, _ completion: (() -> Void)?) {
+        let duration = animated ? 0.3 : 0
+        let sequence = SCNAction.sequence([highlightAnimation(faces: BKBoxFace.all, alpha: 1, duration: duration / 2),
+                                           highlightAnimation(faces: faces, alpha: alpha, duration: duration / 2)])
+        runAction(sequence, completionHandler: completion)
+    }
+    
+    func setHiddenState(_ animated: Bool, _ completion: (() -> Void)?) {
+        runAction(.fadeOut(duration: animated ? 0.3 : 0), completionHandler: completion)
+    }
+    
+    fileprivate func highlightAnimation(faces: [BKBoxFace], alpha: CGFloat, duration: TimeInterval = 0.3) -> SCNAction {
+        let action = SCNAction.customAction(duration: duration) { (node, elapsedTime) in
+            let elapsedTimePercentage = elapsedTime / CGFloat(duration)
+            let alpha = alpha * elapsedTimePercentage
+            
+            let materials = faces.flatMap { self.boxMaterial(for: $0) }
+            materials.forEach { (material) in
+                material.transparency = alpha
+            }
+        }
+        
+        return action
     }
 }
 

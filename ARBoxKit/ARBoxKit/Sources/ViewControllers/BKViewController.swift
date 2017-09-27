@@ -17,7 +17,7 @@ open class BKViewController: UIViewController {
     @IBOutlet open var sceneView: ARSCNView! {
         didSet {
             sceneView.delegate = self
-            sceneView.session.delegate = self
+            session.delegate = self
             
             sceneView.scene = SCNScene()
             
@@ -28,10 +28,17 @@ open class BKViewController: UIViewController {
         }
     }
     
+    var session: ARSession {
+        return sceneView.session
+    }
+    
+    var updateQueue: DispatchQueue = DispatchQueue(label: "ARBoxKit-scene-update-queue")
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         UIApplication.shared.isIdleTimerDisabled = true
+        setupCamera()
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -43,7 +50,18 @@ open class BKViewController: UIViewController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        sceneView.session.pause()
+        session.pause()
+    }
+    
+    func setupCamera() {
+        guard let camera = sceneView.pointOfView?.camera else {
+            fatalError("Expected a valid `pointOfView` from the scene.")
+        }
+        
+        camera.wantsHDR = true
+        camera.exposureOffset = -1
+        camera.minimumExposure = -1
+        camera.maximumExposure = 3
     }
     
     func launchSession() {
@@ -51,7 +69,7 @@ open class BKViewController: UIViewController {
         configuration.planeDetection = .horizontal
         configuration.worldAlignment = .gravityAndHeading
         
-        sceneView.session.run(configuration)
+        session.run(configuration)
     }
     
     func resetSession() {
@@ -59,11 +77,17 @@ open class BKViewController: UIViewController {
         configuration.planeDetection = .horizontal
         configuration.worldAlignment = .gravityAndHeading
         
-        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
 }
 
 extension BKViewController: ARSCNViewDelegate {
+    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        DispatchQueue.main.async {
+            
+        }
+    }
+    
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
@@ -75,7 +99,9 @@ extension BKViewController: ARSCNViewDelegate {
     
     public func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor, let platform = platforms[planeAnchor] else { return }
-        platform.update(planeAnchor)
+        updateQueue.async {
+            platform.update(planeAnchor, animated: true)
+        }
     }
     
     public func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {

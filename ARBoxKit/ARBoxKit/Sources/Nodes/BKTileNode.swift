@@ -11,5 +11,5 @@ import SceneKit
 import UIKit
 
 open class BKTileNode: SCNNode, BoxDisplayable {
-    
+    public var currentState: BKBoxState = .normal
 }

@@ -11,7 +11,9 @@ import ARKit
 
 open class BKBoxNode: SCNNode, BoxDisplayable {
     
-    public init(sideLength: CGFloat) {
+    public var currentState: BKBoxState = .normal
+    
+    public init(sideLength: CGFloat = BKConstants.voxelSideLength) {
         super.init()
         
         geometry = SCNBox(sideLength: sideLength)

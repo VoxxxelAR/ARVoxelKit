@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+public struct BKConstants {
+    public static var voxelSideLength: CGFloat = 0.1
+}
