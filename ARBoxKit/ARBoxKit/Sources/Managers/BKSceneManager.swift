@@ -10,41 +10,17 @@ import Foundation
 import ARKit
 import SceneKit
 
-public protocol BKSceneManagerDelegate: class {
-    var voxelSize: CGFloat { get }
-    
-    func bkSceneManager(_ manager: BKSceneManager, shouldResetSessionFor state: BKARSessionState) -> Bool
-    func bkSceneManager(_ manager: BKSceneManager, stateUpdated newState: BKARSessionState)
-}
-
-extension BKSceneManagerDelegate {
-    public var voxelSize: CGFloat {
-        return BKConstants.voxelSideLength
-        
-    }
-    public func bkSceneManager(_ manager: BKSceneManager, shouldResetSessionFor state: BKARSessionState) -> Bool {
-        return true
-    }
-    
-    public func bkSceneManager(_ manager: BKSceneManager, stateUpdated newState: BKARSessionState) { }
-}
-
 open class BKSceneManager: NSObject {
-    public var voxelSize: CGFloat {
+    public internal(set) var voxelSize: CGFloat
+    
+    public internal(set) var state: BKARSessionState = .limitedInitializing {
         didSet {
-            guard abs(voxelSize - oldValue) > 0.01 else { return }
-            //TODO: - Update scene
+            delegate?.bkSceneManager(self, didUpdateState: state)
         }
     }
     
-    public var state: BKARSessionState = .limitedInitializing {
-        didSet {
-            delegate?.bkSceneManager(self, stateUpdated: state)
-        }
-    }
-    
-    public var platformState: BKPointerState = .empty
-    public var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
+    public internal(set) var focusContainer: BKSceneFocusContainer = .empty
+    public internal(set) var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "ARBoxKit-scene-update-queue")
     
@@ -55,12 +31,11 @@ open class BKSceneManager: NSObject {
     
     weak var delegate: BKSceneManagerDelegate?
     
-    init(with scene: ARSCNView) {
+    public init(with scene: ARSCNView) {
         self.scene = scene
         self.voxelSize = BKConstants.voxelSideLength
         
         super.init()
-        
         setup()
     }
     
@@ -97,6 +72,7 @@ open class BKSceneManager: NSObject {
     
     //MARK: - Session Managing
     public func launchSession() {
+        clearStoredDate()
         let configuration = state.configuration
         session.run(configuration)
     }
@@ -106,8 +82,98 @@ open class BKSceneManager: NSObject {
     }
     
     public func resetSession() {
+        clearStoredDate()
         let configuration = state.configuration
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    func clearStoredDate() {
+        platforms = [:]
+        focusContainer = .empty
+    }
+}
+
+//MARK: - Public API
+extension BKSceneManager {
+    public func reload(changePlatform: Bool) {
+        if changePlatform {
+            //TODO: - Temporary, in future improve logic by adding plane detection and cleanin all containers
+            resetSession()
+        } else {
+            //TODO: - Maybe process async?
+            guard let platform = focusContainer.selectedPlatform else {
+                debugPrint("BKSceneManager: Reloading, when platform not selected")
+                return
+            }
+            
+            let nodesToRemove: [BKBoxNode] = platform.childs { $0.mutable }
+            nodesToRemove.forEach { $0.removeFromParentNode() }
+            
+            let countToAdd = delegate?.bkSceneManager(self, countOfBoxesIn: scene) ?? 0
+            (0..<countToAdd).forEach { (index) in
+                guard let nodeToAdd = delegate?.bkSceneManager(self, boxFor: index) else { return }
+                platform.addChildNode(nodeToAdd)
+            }
+        }
+    }
+    
+    public func setSelected(platform: BKPlatformNode) {
+        guard focusContainer.selectedPlatform == nil else {
+            debugPrint("BKSceneManager: platform already selected")
+            return
+        }
+        
+        guard let anchor = platforms.first(where: { $0.value == platform })?.key else {
+            debugPrint("BKSceneManager: Cannot select platform without ARPlaneAnchor")
+            return
+        }
+        
+        focusContainer.focusedPlatform = nil
+        focusContainer.selectedAnchor = anchor
+        focusContainer.selectedPlatform = platform
+        
+        //TODO: Remove odd platforms, unhighlight selected if needed, render initial imutable boxes
+    }
+    
+    //TODO: - Add possibility to animate
+    public func add(new box: BKBoxNode, to otherBox: BKBoxNode, face: BKBoxFace) {
+        guard let platform = focusContainer.selectedPlatform else {
+            debugPrint("BKSceneManager: Adding, when platform not selected")
+            return
+        }
+        
+        guard otherBox.parent == platform else {
+            debugPrint("BKSceneManager: Adding, when otherBox value not in platform hierarchy")
+            return
+        }
+        
+        let position = newPosition(for: box, attachedTo: face, of: otherBox)
+        box.position = position
+        
+        add(new: box)
+    }
+    
+    public func add(new box: BKBoxNode) {
+        guard let platform = focusContainer.selectedPlatform else {
+            debugPrint("BKSceneManager: Adding, when platform not selected")
+            return
+        }
+        
+        platform.addChildNode(box)
+    }
+    
+    public func remove(_ box: BKBoxNode) {
+        guard let platform = focusContainer.selectedPlatform else {
+            debugPrint("BKSceneManager: Removing, when platform not selected")
+            return
+        }
+        
+        guard box.parent == platform else {
+            debugPrint("BKSceneManager: Removing, when box value not in platform hierarchy")
+            return
+        }
+        
+        box.removeFromParentNode()
     }
 }
 
@@ -115,13 +181,8 @@ open class BKSceneManager: NSObject {
 extension BKSceneManager {
     func updateFocus() {
         switch state {
-        case .normal(let platformState):
-            switch platformState {
-            case .empty, .focused:
-                updatePlatformsFocus()
-            case .selected:
-                updateBoxesFocus()
-            }
+        case .normal(let platformSelected):
+            platformSelected ? updateBoxesFocus() : updatePlatformsFocus()
         default:
             break
         }
@@ -146,8 +207,41 @@ extension BKSceneManager {
 //MARK: - Box processing
 extension BKSceneManager {
     func updateBoxesFocus() {
+        func unHighlightAll() {
+            unHighlightBoxes()
+            delegate?.bkSceneManager(self, didDefocus: focusContainer.focusedBox)
+            focusContainer.focusedBox = nil
+        }
+        
         guard let result = scene.hitTestNode(from: scene.center, nodeType: BKBoxNode.self) else {
+            unHighlightAll()
             return
+        }
+        
+        guard let box = result.node as? BKBoxNode else {
+            unHighlightAll()
+            return
+        }
+        
+        guard let face = BKBoxFace(rawValue: result.geometryIndex) else {
+            debugPrint("Wrong face index")
+            unHighlightAll()
+            return
+        }
+        
+        //TODO: - Think about box highlight mode
+        box.updateState(newState: .highlighted(face: [face], alpha: 0.1), true, nil)
+        focusContainer.focusedBox = box
+        
+        delegate?.bkSceneManager(self, didFocus: box, face: face)
+    }
+    
+    func unHighlightBoxes(except node: BKBoxNode? = nil) {
+        guard let platform = focusContainer.selectedPlatform else { return }
+        
+        let boxes: [BKBoxNode] = platform.childs { $0 != node }
+        boxes.forEach { (box) in
+            box.updateState(newState: .normal, true, nil)
         }
     }
 }
@@ -155,27 +249,39 @@ extension BKSceneManager {
 //MARK: - Platform processing
 extension BKSceneManager {
     func updatePlatformsFocus() {
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKPlatformNode.self) else {
+        func unhHighlightAll() {
             unHighlightPlatforms()
+            delegate?.bkSceneManager(self, didDefocus: focusContainer.focusedPlatform)
+            focusContainer.focusedPlatform = nil
+        }
+        
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKPlatformNode.self) else {
+            unhHighlightAll()
             return
         }
         
-        guard let platform = result.node as? BKPlatformNode else { return }
+        guard let platform = result.node as? BKPlatformNode else {
+            unhHighlightAll()
+            return
+        }
         
         guard let face = BKBoxFace(rawValue: result.geometryIndex) else {
             debugPrint("Wrong face index")
+            unhHighlightAll()
             return
         }
         
-        switch platformState {
-        case .focused(let currentFocusedPlatform):
-            currentFocusedPlatform.updateState(newState: .normal, true, nil)
+        switch focusContainer.state {
+        case .platformFocused(let focusedPlatform):
+            focusedPlatform.updateState(newState: .normal, true, nil)
         default:
             unHighlightPlatforms(except: platform)
         }
         
         platform.updateState(newState: .highlighted(face: [face], alpha: 0.2), true, nil)
-        platformState = .focused(platform: platform)
+        focusContainer.focusedPlatform = platform
+        
+        delegate?.bkSceneManager(self, didFocus: platform, face: face)
     }
     
     func unHighlightPlatforms(except node: BKPlatformNode? = nil) {
@@ -218,75 +324,15 @@ extension BKSceneManager: ARSCNViewDelegate {
     }
 }
 
-public enum BKARSessionState {
-    case normal(BKPointerState)
-    case normalEmptyAnchors
-    case notAvailable
-    case limitedExcessiveMotion
-    case limitedInsufficientFeatures
-    case limitedInitializing
-    
-    case interrupted
-    case interruptionEnded
-    case failed(Error)
-    
-    var configuration: ARWorldTrackingConfiguration {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.worldAlignment = .gravityAndHeading
-        
-        switch self {
-        case .normal(let platformState):
-            switch platformState {
-            case .selected:
-                break
-            default:
-                configuration.planeDetection = .horizontal
-            }
-        default:
-            configuration.planeDetection = .horizontal
-        }
-        
-        return configuration
-    }
-    
-    public var hint: String {
-        switch self {
-        case .normal(let platformState):
-            switch platformState {
-            case .selected:
-                return ""
-            default:
-                return "Select platform"
-            }
-        case .normalEmptyAnchors:
-            return "Move the device around to detect horizontal surfaces."
-        case .notAvailable:
-            return "Tracking unavailable."
-        case .limitedExcessiveMotion:
-            return "Tracking limited - Move the device more slowly."
-        case .limitedInsufficientFeatures:
-            return "Tracking limited - Point the device at an area with visible surface detail, or improve lighting conditions."
-        case .limitedInitializing:
-            return "Initializing AR session."
-        case .interrupted:
-            return "Session was interrupted"
-        case .interruptionEnded:
-            return "Session interruption ended"
-        case .failed(let error):
-            return "Session failed: \(error.localizedDescription)"
-        }
-    }
-}
-
 //MARK: - ARSessionDelegate
 extension BKSceneManager: ARSessionDelegate {
     func updateState(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
         switch trackingState {
-        case .normal 
+        case .normal
             where frame.anchors.isEmpty:
             state = .normalEmptyAnchors
         case .normal:
-            state = .normal(platformState)
+            state = .normal(focusContainer.selectedPlatform != nil)
         case .notAvailable:
             state = .notAvailable
         case .limited(.excessiveMotion):
@@ -336,3 +382,4 @@ extension BKSceneManager: ARSessionDelegate {
         }
     }
 }
+

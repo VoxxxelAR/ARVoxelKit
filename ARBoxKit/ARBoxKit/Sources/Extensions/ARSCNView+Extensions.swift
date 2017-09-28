@@ -23,9 +23,13 @@ extension ARSCNView {
 }
 
 extension SCNNode {
-    func childs<T: SCNNode>() -> [T] {
+    func childs<T: SCNNode>(_ test: ((T) -> Bool)? = nil) -> [T] {
         return childNodes(passingTest: { (node, stop) -> Bool in
-            return node is T
+            guard let passing = node as? T else {
+                return false
+            }
+            
+            return test?(passing) ?? true
         }) as! [T]
     }
 }

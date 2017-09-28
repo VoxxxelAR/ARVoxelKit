@@ -10,8 +10,8 @@ import SceneKit
 import ARKit
 
 open class BKBoxNode: SCNNode, BoxDisplayable {
-    
     public var currentState: BKBoxState = .normal
+    var mutable: Bool = true
     
     public init(sideLength: CGFloat) {
         super.init()

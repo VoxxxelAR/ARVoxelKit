@@ -50,6 +50,10 @@ open class BKViewController: UIViewController {
 }
 
 extension BKViewController: BKSceneManagerDelegate {
+    public func bkSceneManager(_ manager: BKSceneManager, boxFor index: Int) -> BKBoxNode {
+        return BKBoxNode(sideLength: 1)
+    }
+    
     public func bkSceneManager(_ manager: BKSceneManager, stateUpdated newState: BKARSessionState) {
         print(newState)
         statusLabel?.text = newState.hint
