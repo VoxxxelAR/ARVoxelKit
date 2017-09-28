@@ -104,7 +104,7 @@ extension BoxDisplayable where Self: SCNNode {
             changes()
             completion?()
         } else {
-            SCNTransaction.animate(with: 0.3, timingFunction: .easeIn, changes, completion)
+            SCNTransaction.animate(with: 0.1, timingFunction: .easeIn, changes, completion)
         }
     }
     

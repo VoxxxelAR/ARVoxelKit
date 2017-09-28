@@ -14,6 +14,7 @@
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
 		F77214C21F7BCDE900C3224D /* BKSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214C11F7BCDE900C3224D /* BKSceneManager.swift */; };
+		F77214CB1F7CF1DB00C3224D /* art.scnassets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F77214CA1F7CF1DB00C3224D /* art.scnassets.xcassets */; };
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +73,7 @@
 		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
 		F77214C11F7BCDE900C3224D /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
+		F77214CA1F7CF1DB00C3224D /* art.scnassets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = art.scnassets.xcassets; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARBoxKit.h; sourceTree = "<group>"; };
 		F77B328E1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		F77214C91F7CE35200C3224D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F77214CA1F7CF1DB00C3224D /* art.scnassets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		F77B32801F7ABD8D004259B8 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +170,7 @@
 			children = (
 				F79DE1041F7B793E001E0431 /* BKConstants.swift */,
 				F77B32A41F7ABF80004259B8 /* Sources */,
+				F77214C91F7CE35200C3224D /* Resources */,
 				F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */,
 				F77B328E1F7ABD8D004259B8 /* Info.plist */,
 			);
@@ -355,6 +366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77214CB1F7CF1DB00C3224D /* art.scnassets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

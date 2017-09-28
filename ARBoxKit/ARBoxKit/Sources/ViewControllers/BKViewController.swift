@@ -50,15 +50,36 @@ open class BKViewController: UIViewController {
 }
 
 extension BKViewController: BKSceneManagerDelegate {
+    public func bkSceneManager(_ manager: BKSceneManager, didUpdateState state: BKARSessionState) {
+        print(state)
+        statusLabel?.text = state.hint
+        statusView?.isHidden = state.hint.isEmpty
+    }
+    
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKBoxFace) {
+        
+    }
+    
+    public func bkSceneManager(_ manager: BKSceneManager, didDefocus platform: BKPlatformNode?) {
+        
+    }
+    
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKBoxNode, face: BKBoxFace) {
+        
+    }
+    
+    public func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKBoxNode?) {
+        
+    }
+    
+    public func bkSceneManager(_ manager: BKSceneManager, countOfBoxesIn scene: ARSCNView) -> Int {
+        return 0
+    }
+    
     public func bkSceneManager(_ manager: BKSceneManager, boxFor index: Int) -> BKBoxNode {
         return BKBoxNode(sideLength: 1)
     }
-    
-    public func bkSceneManager(_ manager: BKSceneManager, stateUpdated newState: BKARSessionState) {
-        print(newState)
-        statusLabel?.text = newState.hint
-        statusView?.isHidden = newState.hint.isEmpty
-    }
+
 }
 //MARK: - UI Setuping
 extension BKViewController {
