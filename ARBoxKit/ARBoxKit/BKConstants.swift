@@ -10,5 +10,8 @@ import Foundation
 
 public struct BKConstants {
     public static var debug: Bool = true
-    public static var voxelSideLength: CGFloat = 0.05
+    public static var voxelSideLength: CGFloat = 0.025
+    
+    public static var maxSurfaceWidth: CGFloat = 1
+    public static var maxSurfaceLength: CGFloat = 1
 }

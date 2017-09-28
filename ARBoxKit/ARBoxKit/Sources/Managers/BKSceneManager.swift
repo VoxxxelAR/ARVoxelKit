@@ -148,12 +148,7 @@ extension BKSceneManager {
         
         removePlatforms(except: platform, animated: true)
         platform.updateState(newState: .normal, true, nil)
-        
-        let testBox = BKBoxNode()
-        let position = newPosition(for: testBox, attachedTo: .top, of: platform)
-        testBox.position = position
-        
-        platform.addChildNode(testBox)
+        platform.showBoxes(animated: true)
     }
     
     //TODO: - Add possibility to animate
