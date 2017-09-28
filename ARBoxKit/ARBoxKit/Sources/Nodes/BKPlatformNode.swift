@@ -25,7 +25,7 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
         geometry = SCNBox(width: 0, height: 0.05, length: 0, chamferRadius: 0)
         
         setupGeometry()
-        //applyColors()
+        applyColors()
         
         update(anchor, animated: false)
     }

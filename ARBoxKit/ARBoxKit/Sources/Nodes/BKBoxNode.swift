@@ -13,7 +13,11 @@ open class BKBoxNode: SCNNode, BoxDisplayable {
     public var currentState: BKBoxState = .normal
     var mutable: Bool = true
     
-    public init(sideLength: CGFloat) {
+    public override convenience init() {
+        self.init(sideLength: BKConstants.voxelSideLength)
+    }
+    
+    init(sideLength: CGFloat) {
         super.init()
         
         geometry = SCNBox(sideLength: sideLength)

@@ -26,8 +26,10 @@ public enum BKARSessionState {
         configuration.worldAlignment = .gravityAndHeading
         
         switch self {
-        case .normal(let platformSelected) where !platformSelected:
-            configuration.planeDetection = .horizontal
+        case .normal(let platformSelected):
+            if !platformSelected {
+                configuration.planeDetection = .horizontal
+            }
         default:
             configuration.planeDetection = .horizontal
         }

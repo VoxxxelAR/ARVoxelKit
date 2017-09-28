@@ -81,10 +81,19 @@ open class BKSceneManager: NSObject {
         session.pause()
     }
     
-    public func resetSession() {
-        clearStoredDate()
+    public func updateSession() {
+        var options: ARSession.RunOptions =  []
+        
+        switch focusContainer.state {
+        case .platformSelected, .boxFocused:
+            options = [.resetTracking]
+        default:
+            options = [.resetTracking, .removeExistingAnchors]
+            clearStoredDate()
+        }
+        
         let configuration = state.configuration
-        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        session.run(configuration, options: options)
     }
     
     func clearStoredDate() {
@@ -98,7 +107,11 @@ extension BKSceneManager {
     public func reload(changePlatform: Bool) {
         if changePlatform {
             //TODO: - Temporary, in future improve logic by adding plane detection and cleanin all containers
-            resetSession()
+            focusContainer.focusedBox = nil
+            focusContainer.selectedAnchor = nil
+            focusContainer.selectedPlatform = nil
+            
+            updateSession()
         } else {
             //TODO: - Maybe process async?
             guard let platform = focusContainer.selectedPlatform else {
@@ -131,8 +144,16 @@ extension BKSceneManager {
         focusContainer.focusedPlatform = nil
         focusContainer.selectedAnchor = anchor
         focusContainer.selectedPlatform = platform
+        state = .normal(true)
         
-        //TODO: Remove odd platforms, unhighlight selected if needed, render initial imutable boxes
+        removePlatforms(except: platform, animated: true)
+        platform.updateState(newState: .normal, true, nil)
+        
+        let testBox = BKBoxNode()
+        let position = newPosition(for: testBox, attachedTo: .top, of: platform)
+        testBox.position = position
+        
+        platform.addChildNode(testBox)
     }
     
     //TODO: - Add possibility to animate
@@ -229,8 +250,14 @@ extension BKSceneManager {
             return
         }
         
-        //TODO: - Think about box highlight mode
-        box.updateState(newState: .highlighted(face: [face], alpha: 0.1), true, nil)
+        switch focusContainer.state {
+        case .boxFocused(let previousFocusedBox):
+            previousFocusedBox.updateState(newState: .normal, true, nil)
+        default:
+            unHighlightBoxes(except: box)
+        }
+        
+        box.updateState(newState: .highlighted(face: [face], alpha: 0.5), true, nil)
         focusContainer.focusedBox = box
         
         delegate?.bkSceneManager(self, didFocus: box, face: face)
@@ -272,8 +299,8 @@ extension BKSceneManager {
         }
         
         switch focusContainer.state {
-        case .platformFocused(let focusedPlatform):
-            focusedPlatform.updateState(newState: .normal, true, nil)
+        case .platformFocused(let previousFocusedPlatform):
+            previousFocusedPlatform.updateState(newState: .normal, true, nil)
         default:
             unHighlightPlatforms(except: platform)
         }
@@ -290,6 +317,19 @@ extension BKSceneManager {
             platform.updateState(newState: .normal, true, nil)
         }
     }
+    
+    func removePlatforms(except node: BKPlatformNode?, animated: Bool) {
+        let pairsToRemove = platforms.filter { $0.value != node }
+        
+        pairsToRemove.forEach { (anchor, platform) in
+            platform.updateState(newState: .hidden, true) { [weak self] in
+                guard let wSelf = self else { return }
+                
+                platform.removeFromParentNode()
+                wSelf.platforms[anchor] = nil
+            }
+        }
+    }
 }
 
 //MARK: - ARSCNViewDelegate
@@ -303,6 +343,11 @@ extension BKSceneManager: ARSCNViewDelegate {
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
+        switch state {
+        case .normal(let platformSelected):
+            if platformSelected { return }
+        default: break
+        }
         let platform = BKPlatformNode(anchor: planeAnchor, boxSideLength: voxelSize)
         
         platforms[planeAnchor] = platform
@@ -369,7 +414,7 @@ extension BKSceneManager: ARSessionDelegate {
         
         let shouldReset = delegate?.bkSceneManager(self, shouldResetSessionFor: state) ?? true
         if shouldReset {
-            resetSession()
+            updateSession()
         }
     }
     
@@ -378,7 +423,7 @@ extension BKSceneManager: ARSessionDelegate {
         
         let shouldReset = delegate?.bkSceneManager(self, shouldResetSessionFor: state) ?? true
         if shouldReset {
-            resetSession()
+            updateSession()
         }
     }
 }

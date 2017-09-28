@@ -10,12 +10,6 @@ import UIKit
 import ARKit
 import SceneKit
 
-public enum BKPointerState {
-    case empty
-    case focused(platform: BKPlatformNode)
-    case selected(platform: BKPlatformNode, anchor: ARPlaneAnchor)
-}
-
 open class BKViewController: UIViewController {
     @IBOutlet open var sceneView: ARSCNView!
     
@@ -24,12 +18,22 @@ open class BKViewController: UIViewController {
     
     var sceneManager: BKSceneManager?
     
+    var focusedNode: SCNNode?
+    var focusedFace: BKBoxFace?
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         sceneManager = BKSceneManager(with: sceneView)
         sceneManager?.delegate = self
         setupUI()
+        
+        setupGestures()
+    }
+    
+    func setupGestures() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
+        view.addGestureRecognizer(tap)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -47,6 +51,18 @@ open class BKViewController: UIViewController {
             addStatusLabel()
         }
     }
+    
+    @objc func handleTap(gesture: UITapGestureRecognizer) {
+        guard let sceneManager = sceneManager else { return }
+        
+        if let platform = focusedNode as? BKPlatformNode {
+            sceneManager.setSelected(platform: platform)
+        }
+        
+        if let box = focusedNode as? BKBoxNode, let face = focusedFace {
+            sceneManager.add(new: BKBoxNode(), to: box, face: face)
+        }
+    }
 }
 
 extension BKViewController: BKSceneManagerDelegate {
@@ -58,18 +74,23 @@ extension BKViewController: BKSceneManagerDelegate {
     
     public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKBoxFace) {
         
+        focusedNode = platform
+        focusedFace = face
     }
     
     public func bkSceneManager(_ manager: BKSceneManager, didDefocus platform: BKPlatformNode?) {
-        
+        focusedNode = nil
+        focusedFace = nil
     }
     
     public func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKBoxNode, face: BKBoxFace) {
-        
+        focusedNode = box
+        focusedFace = face
     }
     
     public func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKBoxNode?) {
-        
+        focusedNode = nil
+        focusedFace = nil
     }
     
     public func bkSceneManager(_ manager: BKSceneManager, countOfBoxesIn scene: ARSCNView) -> Int {

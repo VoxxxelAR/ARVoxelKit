@@ -14,7 +14,6 @@
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
 		F77214C21F7BCDE900C3224D /* BKSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214C11F7BCDE900C3224D /* BKSceneManager.swift */; };
-		F77214CB1F7CF1DB00C3224D /* art.scnassets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F77214CA1F7CF1DB00C3224D /* art.scnassets.xcassets */; };
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,6 +31,7 @@
 		F79DE1071F7CB416001E0431 /* BKSceneFocusContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE1061F7CB416001E0431 /* BKSceneFocusContainer.swift */; };
 		F79DE1091F7CB434001E0431 /* BKARSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE1081F7CB434001E0431 /* BKARSessionState.swift */; };
 		F79DE10B1F7CB955001E0431 /* BKSceneManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE10A1F7CB955001E0431 /* BKSceneManagerDelegate.swift */; };
+		F79DE10D1F7D8705001E0431 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F79DE10C1F7D8705001E0431 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,6 @@
 		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
 		F77214C11F7BCDE900C3224D /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
-		F77214CA1F7CF1DB00C3224D /* art.scnassets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = art.scnassets.xcassets; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARBoxKit.h; sourceTree = "<group>"; };
 		F77B328E1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,6 +94,7 @@
 		F79DE1061F7CB416001E0431 /* BKSceneFocusContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneFocusContainer.swift; sourceTree = "<group>"; };
 		F79DE1081F7CB434001E0431 /* BKARSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKARSessionState.swift; sourceTree = "<group>"; };
 		F79DE10A1F7CB955001E0431 /* BKSceneManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManagerDelegate.swift; sourceTree = "<group>"; };
+		F79DE10C1F7D8705001E0431 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +138,7 @@
 		F77214C91F7CE35200C3224D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F77214CA1F7CF1DB00C3224D /* art.scnassets.xcassets */,
+				F79DE10C1F7D8705001E0431 /* Media.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -366,7 +366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F77214CB1F7CF1DB00C3224D /* art.scnassets.xcassets in Resources */,
+				F79DE10D1F7D8705001E0431 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

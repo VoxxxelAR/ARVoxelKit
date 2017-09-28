@@ -11,6 +11,9 @@ import SceneKit
 
 extension SCNBox {
     public convenience init(sideLength: CGFloat) {
-        self.init(width: sideLength, height: sideLength, length: sideLength, chamferRadius: 0)
+        self.init(width: sideLength,
+                  height: sideLength,
+                  length: sideLength,
+                  chamferRadius: sideLength / 10)
     }
 }
