@@ -13,7 +13,6 @@
 		F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */; };
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
-		F77214C21F7BCDE900C3224D /* BKSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214C11F7BCDE900C3224D /* BKSceneManager.swift */; };
 		F77B32941F7ABD8D004259B8 /* ARBoxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; };
 		F77B32991F7ABD8D004259B8 /* ARBoxKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32981F7ABD8D004259B8 /* ARBoxKitTests.swift */; };
 		F77B329B1F7ABD8D004259B8 /* ARBoxKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -69,10 +68,12 @@
 		755451871F7ADB4800E77E88 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
 		755451891F7ADBE900E77E88 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxProtocols.swift; sourceTree = "<group>"; };
+		758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKSceneManager+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		758821861F81268400AF56EC /* BKSceneManager+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKSceneManager+ARSessionDelegate.swift"; sourceTree = "<group>"; };
+		758821871F81268400AF56EC /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
 		F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
-		F77214C11F7BCDE900C3224D /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARBoxKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B328D1F7ABD8D004259B8 /* ARBoxKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARBoxKit.h; sourceTree = "<group>"; };
 		F77B328E1F7ABD8D004259B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,10 +125,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		758821841F81268400AF56EC /* BKSceneManager */ = {
+			isa = PBXGroup;
+			children = (
+				758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */,
+				758821861F81268400AF56EC /* BKSceneManager+ARSessionDelegate.swift */,
+				758821871F81268400AF56EC /* BKSceneManager.swift */,
+			);
+			path = BKSceneManager;
+			sourceTree = "<group>";
+		};
 		F77214C01F7BCDD600C3224D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				F77214C11F7BCDE900C3224D /* BKSceneManager.swift */,
+				758821841F81268400AF56EC /* BKSceneManager */,
 				F79DE10A1F7CB955001E0431 /* BKSceneManagerDelegate.swift */,
 				F79DE1061F7CB416001E0431 /* BKSceneFocusContainer.swift */,
 				F79DE1081F7CB434001E0431 /* BKARSessionState.swift */,
@@ -399,7 +410,6 @@
 				F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */,
 				F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */,
 				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
-				F77214C21F7BCDE900C3224D /* BKSceneManager.swift in Sources */,
 				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
 				F79DE1091F7CB434001E0431 /* BKARSessionState.swift in Sources */,
 				F79DE10B1F7CB955001E0431 /* BKSceneManagerDelegate.swift in Sources */,
