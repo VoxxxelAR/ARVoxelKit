@@ -23,7 +23,7 @@ public enum BKARSessionState {
     
     var configuration: ARWorldTrackingConfiguration {
         let configuration = ARWorldTrackingConfiguration()
-        configuration.worldAlignment = .gravityAndHeading
+        configuration.worldAlignment = .gravity
         
         switch self {
         case .normal(let platformSelected):
