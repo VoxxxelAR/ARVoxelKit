@@ -10,6 +10,9 @@
 		755451881F7ADB4800E77E88 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755451871F7ADB4800E77E88 /* TODO.swift */; };
 		7554518A1F7ADBE900E77E88 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755451891F7ADBE900E77E88 /* TestViewController.swift */; };
 		7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */; };
+		758821881F81284200AF56EC /* BKSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821871F81268400AF56EC /* BKSceneManager.swift */; };
+		758821891F81284400AF56EC /* BKSceneManager+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821861F81268400AF56EC /* BKSceneManager+ARSessionDelegate.swift */; };
+		7588218A1F81284700AF56EC /* BKSceneManager+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */; };
 		F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */; };
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
@@ -410,14 +413,17 @@
 				F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */,
 				F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */,
 				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
+				758821881F81284200AF56EC /* BKSceneManager.swift in Sources */,
 				7554518C1F7AE85500E77E88 /* BKBoxProtocols.swift in Sources */,
 				F79DE1091F7CB434001E0431 /* BKARSessionState.swift in Sources */,
 				F79DE10B1F7CB955001E0431 /* BKSceneManagerDelegate.swift in Sources */,
 				F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */,
 				F79DE1071F7CB416001E0431 /* BKSceneFocusContainer.swift in Sources */,
 				F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */,
+				758821891F81284400AF56EC /* BKSceneManager+ARSessionDelegate.swift in Sources */,
 				F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */,
 				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
+				7588218A1F81284700AF56EC /* BKSceneManager+ARSCNViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
