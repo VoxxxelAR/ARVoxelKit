@@ -14,6 +14,6 @@ extension SCNBox {
         self.init(width: sideLength,
                   height: sideLength,
                   length: sideLength,
-                  chamferRadius: sideLength / 10)
+                  chamferRadius: 0)
     }
 }

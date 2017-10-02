@@ -23,7 +23,16 @@ open class BKBoxNode: SCNNode, BoxDisplayable {
         geometry = SCNBox(sideLength: sideLength)
         
         setupGeometry()
-        applyColors()
+        
+        let image = UIImage(named: "square_frame", in: Bundle.init(for: type(of: self)), compatibleWith: nil)
+        BKBoxFace.all.forEach { (face) in
+            let material = boxMaterial(for: face)
+            material.diffuse.contents = image
+        }
+//        geometry?.firstMaterial?.diffuse.contents = image!
+//        geometry?.firstMaterial?.isDoubleSided = true
+//        geometry?.firstMaterial?.locksAmbientWithDiffuse = true
+        //applyColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {
