@@ -138,7 +138,7 @@ extension BoxDisplayable where Self: SCNNode {
 
 extension BoxDisplayable {
     
-    func setupGeometry() {
+    func createBoxMaterials() -> [SCNMaterial] {
         let top = SCNMaterial()
         let bottom = SCNMaterial()
         let left = SCNMaterial()
@@ -146,7 +146,28 @@ extension BoxDisplayable {
         let front = SCNMaterial()
         let back = SCNMaterial()
         
-        boxGeometry.materials = [front, right, back, left, top, bottom]
+        return [front, right, back, left, top, bottom]
+    }
+    
+    func createBoxMaterials(with contents: AnyObject) -> [SCNMaterial] {
+        let materials = createBoxMaterials()
+        materials.forEach { material in
+            material.diffuse.contents = contents
+        }
+        return materials
+    }
+    
+    func createBoxMaterials(with contents: [AnyObject]) -> [SCNMaterial] {
+        let materials = createBoxMaterials()
+        
+        for (i, material) in materials.enumerated() {
+            material.diffuse.contents = contents[i]
+        }
+        return materials
+    }
+    
+    func setupGeometry() {
+        boxGeometry.materials = createBoxMaterials()
     }
     
     public func applyColors() {
