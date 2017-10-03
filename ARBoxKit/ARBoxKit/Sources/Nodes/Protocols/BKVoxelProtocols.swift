@@ -11,7 +11,6 @@ import ARKit
 
 public protocol BKVoxelDisplayable: class {
     var position: SCNVector3 { get }
-    
     var boxGeometry: SCNBox { get }
     var currentState: BKVoxelState { get set }
 }
