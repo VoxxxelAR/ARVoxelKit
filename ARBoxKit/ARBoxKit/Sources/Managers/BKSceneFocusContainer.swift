@@ -15,7 +15,7 @@ public struct BKSceneFocusContainer {
     public var selectedAnchor: ARPlaneAnchor?
     public var selectedPlatform: BKPlatformNode?
     
-    public var focusedBox: BKBoxNode?
+    public var focusedBox: BKVoxelNode?
     
     public static let empty = BKSceneFocusContainer()
     
@@ -39,6 +39,6 @@ public struct BKSceneFocusContainer {
         case empty
         case platformFocused(platform: BKPlatformNode)
         case platformSelected(platform: BKPlatformNode, anchor: ARPlaneAnchor)
-        case boxFocused(box: BKBoxNode)
+        case boxFocused(box: BKVoxelNode)
     }
 }

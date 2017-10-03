@@ -1,5 +1,5 @@
 //
-//  BKBoxProtocols.swift
+//  BKVoxelProtocols.swift
 //  ARBoxKit
 //
 //  Created by Vadym Sidorov on 9/26/17.
@@ -9,14 +9,14 @@
 import SceneKit
 import ARKit
 
-public protocol BKBoxDisplayable: class {
+public protocol BKVoxelDisplayable: class {
     var position: SCNVector3 { get }
     
     var boxGeometry: SCNBox { get }
-    var currentState: BKBoxState { get set }
+    var currentState: BKVoxelState { get set }
 }
 
-extension BKBoxDisplayable where Self: SCNNode {
+extension BKVoxelDisplayable where Self: SCNNode {
     public var boxGeometry: SCNBox {
         guard let boxGeometry = geometry as? SCNBox else {
             fatalError("Geometry must be of SCNBox type.")
@@ -26,9 +26,9 @@ extension BKBoxDisplayable where Self: SCNNode {
     }
 }
 
-extension BKBoxDisplayable where Self: SCNNode {
+extension BKVoxelDisplayable where Self: SCNNode {
     
-    func updateTransparency(for faces: [BKBoxFace], value: CGFloat,  _ animated: Bool, _ completion: (() -> Void)?) {
+    func updateTransparency(for faces: [BKVoxelFace], value: CGFloat,  _ animated: Bool, _ completion: (() -> Void)?) {
         let changes: () -> Void = {
             self.updateMaterials(for: faces) { (material) in
                 material.transparency = value
@@ -43,7 +43,7 @@ extension BKBoxDisplayable where Self: SCNNode {
         }
     }
     
-    func updateState(newState: BKBoxState, _ animated: Bool, _ completion: (() -> Void)?) {
+    func updateState(newState: BKVoxelState, _ animated: Bool, _ completion: (() -> Void)?) {
         if currentState.id == newState.id { return }
         
         switch newState {
@@ -59,19 +59,19 @@ extension BKBoxDisplayable where Self: SCNNode {
     }
     
     func setNormalState(_ animated: Bool, _ completion: (() -> Void)?) {
-        updateTransparency(for: BKBoxFace.all, value: 1, animated, completion)
+        updateTransparency(for: BKVoxelFace.all, value: 1, animated, completion)
     }
     
-    func setHighlightedState(faces: [BKBoxFace], alpha: CGFloat, _ animated: Bool, _ completion: (() -> Void)?) {
+    func setHighlightedState(faces: [BKVoxelFace], alpha: CGFloat, _ animated: Bool, _ completion: (() -> Void)?) {
         updateTransparency(for: faces, value: alpha, animated, completion)
     }
     
     func setHiddenState(_ animated: Bool, _ completion: (() -> Void)?) {
-        updateTransparency(for: BKBoxFace.all, value: 0, animated, completion)
+        updateTransparency(for: BKVoxelFace.all, value: 0, animated, completion)
     }
 }
 
-extension BKBoxDisplayable {
+extension BKVoxelDisplayable {
     
     func setupGeometry() {
         boxGeometry.materials = createBoxMaterials()
@@ -88,12 +88,12 @@ extension BKBoxDisplayable {
         return [front, right, back, left, top, bottom]
     }
     
-    public func boxMaterial(for face: BKBoxFace) -> SCNMaterial {
+    public func boxMaterial(for face: BKVoxelFace) -> SCNMaterial {
         return boxGeometry.materials[face.rawValue]
     }
     
     func updateBoxMaterials(with contents: AnyObject) {
-        BKBoxFace.all.forEach { updateBoxMaterial(for: $0, newContents: contents) }
+        BKVoxelFace.all.forEach { updateBoxMaterial(for: $0, newContents: contents) }
     }
     
     func updateBoxMaterials(with contents: [AnyObject]) {
@@ -104,11 +104,11 @@ extension BKBoxDisplayable {
         }
     }
     
-    func updateBoxMaterial(for face: BKBoxFace, newContents contents: AnyObject) {
+    func updateBoxMaterial(for face: BKVoxelFace, newContents contents: AnyObject) {
         boxMaterial(for: face).diffuse.contents = contents
     }
     
-    func updateMaterials(for faces: [BKBoxFace], changes: (SCNMaterial) -> Void) {
+    func updateMaterials(for faces: [BKVoxelFace], changes: (SCNMaterial) -> Void) {
         faces.forEach { changes(boxMaterial(for: $0)) }
     }
 }

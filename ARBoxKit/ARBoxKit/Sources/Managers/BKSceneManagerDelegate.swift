@@ -15,14 +15,14 @@ public protocol BKSceneManagerDelegate: class {
     func bkSceneManager(_ manager: BKSceneManager, shouldResetSessionFor state: BKARSessionState) -> Bool
     func bkSceneManager(_ manager: BKSceneManager, didUpdateState state: BKARSessionState)
     
-    func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKBoxFace)
+    func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKVoxelFace)
     func bkSceneManager(_ manager: BKSceneManager, didDefocus platform: BKPlatformNode?)
     
-    func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKBoxNode, face: BKBoxFace)
-    func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKBoxNode?)
+    func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKVoxelNode, face: BKVoxelFace)
+    func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKVoxelNode?)
     
     func bkSceneManager(_ manager: BKSceneManager, countOfBoxesIn scene: ARSCNView) -> Int
-    func bkSceneManager(_ manager: BKSceneManager, boxFor index: Int) -> BKBoxNode
+    func bkSceneManager(_ manager: BKSceneManager, boxFor index: Int) -> BKVoxelNode
 }
 
 extension BKSceneManagerDelegate {
@@ -37,11 +37,11 @@ extension BKSceneManagerDelegate {
     
     public func bkSceneManager(_ manager: BKSceneManager, didUpdateState state: BKARSessionState) { }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKBoxFace) { }
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKVoxelFace) { }
     public func bkSceneManager(_ manager: BKSceneManager, didDefocus platform: BKPlatformNode?) { }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKBoxNode, face: BKBoxFace) { }
-    public func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKBoxNode?) { }
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKVoxelNode, face: BKVoxelFace) { }
+    public func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKVoxelNode?) { }
     
     public func bkSceneManager(_ manager: BKSceneManager, countOfBoxesIn scene: ARSCNView) -> Int { return 0 }
 }

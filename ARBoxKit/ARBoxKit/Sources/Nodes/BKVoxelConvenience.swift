@@ -9,9 +9,9 @@
 import Foundation
 import SceneKit
 
-public enum BKBoxState {
+public enum BKVoxelState {
     case normal
-    case highlighted(face: [BKBoxFace], alpha: CGFloat)
+    case highlighted(face: [BKVoxelFace], alpha: CGFloat)
     case hidden
     
     var id: Int {
@@ -23,10 +23,10 @@ public enum BKBoxState {
     }
 }
 
-public enum BKBoxFace: Int {
+public enum BKVoxelFace: Int {
     case front = 0, right, back, left, top, bottom
     
-    static var all: [BKBoxFace] {
+    static var all: [BKVoxelFace] {
         return [front, right, back, left, top, bottom]
     }
     

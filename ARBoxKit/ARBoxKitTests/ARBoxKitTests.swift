@@ -25,12 +25,12 @@ class ARBoxKitTests: XCTestCase {
     
     //MARK: - BKSceneManager tests
     func testNewNodeCalculation() {
-        let node = BKBoxNode(sideLength: 1)
+        let node = BKVoxelNode(sideLength: 1)
         node.position = .zero
         
-        let newNode = BKBoxNode(sideLength: 1)
+        let newNode = BKVoxelNode(sideLength: 1)
         
-        BKBoxFace.all.forEach { (face) in
+        BKVoxelFace.all.forEach { (face) in
             let position = manager.newPosition(for: newNode, attachedTo: face, of: node)
             XCTAssertEqual(position, face.normalizedVector3)
         }

@@ -119,7 +119,7 @@ extension BKSceneManager {
             }
             
             updateQueue.async {
-                let nodesToRemove: [BKBoxNode] = platform.childs { $0.mutable }
+                let nodesToRemove: [BKVoxelNode] = platform.childs { $0.mutable }
                 let removeCommands = nodesToRemove.flatMap { (node) in
                     return { DispatchQueue.main.async { node.removeFromParentNode() } }
                 }
@@ -164,7 +164,7 @@ extension BKSceneManager {
         reloadSession()
     }
     
-    public func add(new box: BKBoxNode, to otherBox: BKBoxNode, face: BKBoxFace) {
+    public func add(new box: BKVoxelNode, to otherBox: BKVoxelNode, face: BKVoxelFace) {
         guard let platform = focusContainer.selectedPlatform else {
             debugPrint("BKSceneManager: Adding, when platform not selected")
             return
@@ -181,7 +181,7 @@ extension BKSceneManager {
         add(new: box)
     }
     
-    public func add(new box: BKBoxNode) {
+    public func add(new box: BKVoxelNode) {
         guard let platform = focusContainer.selectedPlatform else {
             debugPrint("BKSceneManager: Adding, when platform not selected")
             return
@@ -190,7 +190,7 @@ extension BKSceneManager {
         platform.addChildNode(box)
     }
     
-    public func remove(_ box: BKBoxNode) {
+    public func remove(_ box: BKVoxelNode) {
         guard let platform = focusContainer.selectedPlatform else {
             debugPrint("BKSceneManager: Removing, when platform not selected")
             return
@@ -216,7 +216,7 @@ extension BKSceneManager {
         }
     }
     
-    func newPosition(for newNode: BKBoxDisplayable, attachedTo face: BKBoxFace, of node: BKBoxDisplayable) -> SCNVector3 {
+    func newPosition(for newNode: BKVoxelDisplayable, attachedTo face: BKVoxelFace, of node: BKVoxelDisplayable) -> SCNVector3 {
         var scalar: CGFloat = 0.0
         
         switch face {
@@ -243,17 +243,17 @@ extension BKSceneManager {
             focusContainer.focusedBox = nil
         }
         
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKBoxNode.self) else {
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKVoxelNode.self) else {
             unHighlightAll()
             return
         }
         
-        guard let box = result.node as? BKBoxNode else {
+        guard let box = result.node as? BKVoxelNode else {
             unHighlightAll()
             return
         }
         
-        guard let face = BKBoxFace(rawValue: result.geometryIndex) else {
+        guard let face = BKVoxelFace(rawValue: result.geometryIndex) else {
             debugPrint("Wrong face index")
             unHighlightAll()
             return
@@ -272,10 +272,10 @@ extension BKSceneManager {
         delegate?.bkSceneManager(self, didFocus: box, face: face)
     }
     
-    func unHighlightBoxes(except node: BKBoxNode? = nil) {
+    func unHighlightBoxes(except node: BKVoxelNode? = nil) {
         guard let platform = focusContainer.selectedPlatform else { return }
         
-        let boxes: [BKBoxNode] = platform.childs { $0 != node }
+        let boxes: [BKVoxelNode] = platform.childs { $0 != node }
         boxes.forEach { (box) in
             box.updateState(newState: .normal, true, nil)
         }
@@ -302,7 +302,7 @@ extension BKSceneManager {
             return
         }
         
-        guard let face = BKBoxFace(rawValue: result.geometryIndex) else {
+        guard let face = BKVoxelFace(rawValue: result.geometryIndex) else {
             debugPrint("Wrong face index")
             unhHighlightAll()
             return

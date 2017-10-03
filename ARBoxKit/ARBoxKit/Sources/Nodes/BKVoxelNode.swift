@@ -1,5 +1,5 @@
 //
-//  BKBoxNode.swift
+//  BKVoxelNode.swift
 //  ARBoxKit
 //
 //  Created by Gleb Radchenko on 9/26/17.
@@ -9,8 +9,8 @@
 import SceneKit
 import ARKit
 
-open class BKBoxNode: SCNNode, BKBoxDisplayable, BKBoxEditable {
-    public var currentState: BKBoxState = .normal
+open class BKVoxelNode: SCNNode, BKVoxelDisplayable, BKVoxelPaintable {
+    public var currentState: BKVoxelState = .normal
     var mutable: Bool = true
     
     init(sideLength: CGFloat) {

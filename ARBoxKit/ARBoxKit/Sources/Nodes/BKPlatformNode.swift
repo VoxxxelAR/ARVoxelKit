@@ -10,12 +10,12 @@ import Foundation
 import SceneKit
 import ARKit
 
-open class BKPlatformNode: SCNNode, BKBoxDisplayable {
+open class BKPlatformNode: SCNNode, BKVoxelDisplayable {
     
     var anchor: ARPlaneAnchor
     var boxSideLength: CGFloat
     
-    public var currentState: BKBoxState = .normal
+    public var currentState: BKVoxelState = .normal
     public var isAnimating = false
     
     var isBoxesPrepared: Bool = false
@@ -68,7 +68,7 @@ open class BKPlatformNode: SCNNode, BKBoxDisplayable {
                 DispatchQueue.main.async { [weak self] in
                     guard let wSelf = self else { return }
                     
-                    let box = BKBoxNode()
+                    let box = BKVoxelNode()
                     box.mutable = false
                     box.position = center
                     

@@ -19,7 +19,7 @@ open class BKViewController: UIViewController {
     var sceneManager: BKSceneManager?
     
     var focusedNode: SCNNode?
-    var focusedFace: BKBoxFace?
+    var focusedFace: BKVoxelFace?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +59,8 @@ open class BKViewController: UIViewController {
             sceneManager.setSelected(platform: platform)
         }
         
-        if let box = focusedNode as? BKBoxNode, let face = focusedFace {
-            sceneManager.add(new: BKBoxNode(), to: box, face: face)
+        if let box = focusedNode as? BKVoxelNode, let face = focusedFace {
+            sceneManager.add(new: BKVoxelNode(), to: box, face: face)
         }
     }
 }
@@ -72,7 +72,7 @@ extension BKViewController: BKSceneManagerDelegate {
         statusView?.isHidden = state.hint.isEmpty
     }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKBoxFace) {
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKVoxelFace) {
         
         focusedNode = platform
         focusedFace = face
@@ -83,12 +83,12 @@ extension BKViewController: BKSceneManagerDelegate {
         focusedFace = nil
     }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKBoxNode, face: BKBoxFace) {
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus box: BKVoxelNode, face: BKVoxelFace) {
         focusedNode = box
         focusedFace = face
     }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKBoxNode?) {
+    public func bkSceneManager(_ manager: BKSceneManager, didDefocus box: BKVoxelNode?) {
         focusedNode = nil
         focusedFace = nil
     }
@@ -97,8 +97,8 @@ extension BKViewController: BKSceneManagerDelegate {
         return 0
     }
     
-    public func bkSceneManager(_ manager: BKSceneManager, boxFor index: Int) -> BKBoxNode {
-        return BKBoxNode(sideLength: 1)
+    public func bkSceneManager(_ manager: BKSceneManager, boxFor index: Int) -> BKVoxelNode {
+        return BKVoxelNode(sideLength: 1)
     }
 
 }

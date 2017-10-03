@@ -1,5 +1,5 @@
 //
-//  BKBoxEditable.swift
+//  BKVoxelEditable.swift
 //  ARBoxKit
 //
 //  Created by Vadym Sidorov on 10/3/17.
@@ -10,7 +10,7 @@ import Foundation
 import SceneKit
 import ARKit
 
-public protocol BKBoxEditable {
+public protocol BKVoxelPaintable {
     
     init(color: UIColor)
     init(image: UIImage)
@@ -24,13 +24,13 @@ public protocol BKBoxEditable {
     func paint(with image: UIImage)
     func paint(with colors: [UIColor], start: CGPoint, end: CGPoint)
     
-    func paint(face: BKBoxFace, with color: UIColor)
-    func paint(face: BKBoxFace, with image: UIImage)
-    func paint(face: BKBoxFace, with colors: [UIColor], start: CGPoint, end: CGPoint)
+    func paint(face: BKVoxelFace, with color: UIColor)
+    func paint(face: BKVoxelFace, with image: UIImage)
+    func paint(face: BKVoxelFace, with colors: [UIColor], start: CGPoint, end: CGPoint)
 
 }
 
-extension BKBoxEditable where Self: BKBoxDisplayable {
+extension BKVoxelPaintable where Self: BKVoxelDisplayable {
     public func paint(with color: UIColor) {
         let layer = ColoredLayer(color: color)
         updateBoxMaterials(with: layer)
@@ -46,15 +46,15 @@ extension BKBoxEditable where Self: BKBoxDisplayable {
         updateBoxMaterials(with: layer)
     }
     
-    public func paint(face: BKBoxFace, with color: UIColor) {
+    public func paint(face: BKVoxelFace, with color: UIColor) {
         boxGeometry.materials[face.rawValue].diffuse.contents = color
     }
     
-    public func paint(face: BKBoxFace, with image: UIImage) {
+    public func paint(face: BKVoxelFace, with image: UIImage) {
         boxGeometry.materials[face.rawValue].diffuse.contents = image
     }
     
-    public func paint(face: BKBoxFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {
+    public func paint(face: BKVoxelFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {
         let gradient = GradientedLayer(colors: colors, start: start, end: end)
         boxGeometry.materials[face.rawValue].diffuse.contents = gradient
     }
