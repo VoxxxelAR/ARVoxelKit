@@ -15,6 +15,10 @@ extension matrix_float4x4 {
     }
 }
 
+extension SCNVector3: Hashable {
+    public var hashValue: Int { return "\(x),\(y),\(z)".hashValue }
+}
+
 extension SCNVector3: Equatable {
     static var zero: SCNVector3 {
         return SCNVector3Zero

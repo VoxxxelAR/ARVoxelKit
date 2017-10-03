@@ -10,6 +10,7 @@ import ARKit
 import SceneKit
 
 public enum BKARSessionState {
+    
     case normal(Bool)
     case normalEmptyAnchors
     case notAvailable
@@ -20,6 +21,15 @@ public enum BKARSessionState {
     case interrupted
     case interruptionEnded
     case failed(Error)
+    
+    var isPlatformSelected: Bool {
+        switch self {
+        case .normal(let selected):
+            return selected
+        default:
+            return false
+        }
+    }
     
     var configuration: ARWorldTrackingConfiguration {
         let configuration = ARWorldTrackingConfiguration()

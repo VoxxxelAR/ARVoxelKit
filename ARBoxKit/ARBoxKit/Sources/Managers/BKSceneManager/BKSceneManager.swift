@@ -10,31 +10,27 @@ import Foundation
 import ARKit
 import SceneKit
 
+typealias BKRenderingCommand = () -> Void
+
 open class BKSceneManager: NSObject {
-    public internal(set) var voxelSize: CGFloat
+    
+    public weak var scene: ARSCNView!
+    weak var delegate: BKSceneManagerDelegate?
+    
+    public internal(set) var voxelSize: CGFloat = BKConstants.voxelSideLength
     
     public internal(set) var state: BKARSessionState = .limitedInitializing {
-        didSet {
-            delegate?.bkSceneManager(self, didUpdateState: state)
-        }
+        didSet { delegate?.bkSceneManager(self, didUpdateState: state) }
     }
     
     public internal(set) var focusContainer: BKSceneFocusContainer = .empty
     public internal(set) var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
     
-    var updateQueue: DispatchQueue = DispatchQueue(label: "ARBoxKit-scene-update-queue")
-    
-    public weak var scene: ARSCNView!
-    var session: ARSession {
-        return scene.session
-    }
-    
-    weak var delegate: BKSceneManagerDelegate?
+    var updateQueue: DispatchQueue = DispatchQueue(label: "bk-update-queue", attributes: .concurrent)
+    var renderingQueue: BKSynchronizedQueue<BKRenderingCommand> = BKSynchronizedQueue<BKRenderingCommand>()
     
     public init(with scene: ARSCNView) {
         self.scene = scene
-        self.voxelSize = BKConstants.voxelSideLength
-        
         super.init()
         setup()
     }
@@ -49,15 +45,15 @@ open class BKSceneManager: NSObject {
     
     func setupScene() {
         scene.delegate = self
-        session.delegate = self
+        scene.session.delegate = self
         
         scene.scene = SCNScene()
         scene.automaticallyUpdatesLighting = true
         
+        scene.showsStatistics = true
+        
         if BKConstants.debug {
-            scene.showsStatistics = true
-            scene.debugOptions = [ARSCNDebugOptions.showWorldOrigin,
-                                  ARSCNDebugOptions.showFeaturePoints]
+            scene.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         }
     }
     
@@ -74,14 +70,19 @@ open class BKSceneManager: NSObject {
     public func launchSession() {
         clearStoredDate()
         let configuration = state.configuration
-        session.run(configuration)
+        scene.session.run(configuration)
     }
     
     public func pauseSession() {
-        session.pause()
+        scene.session.pause()
     }
     
-    public func updateSession() {
+    public func reloadSession() {
+        let configuration = state.configuration
+        scene.session.run(configuration)
+    }
+    
+    public func resetSession() {
         var options: ARSession.RunOptions =  []
         
         switch focusContainer.state {
@@ -93,7 +94,7 @@ open class BKSceneManager: NSObject {
         }
         
         let configuration = state.configuration
-        session.run(configuration, options: options)
+        scene.session.run(configuration, options: options)
     }
     
     func clearStoredDate() {
@@ -106,26 +107,36 @@ open class BKSceneManager: NSObject {
 extension BKSceneManager {
     public func reload(changePlatform: Bool) {
         if changePlatform {
-            //TODO: - Temporary, in future improve logic by adding plane detection and cleanin all containers
             focusContainer.focusedBox = nil
             focusContainer.selectedAnchor = nil
             focusContainer.selectedPlatform = nil
             
-            updateSession()
+            resetSession()
         } else {
-            //TODO: - Maybe process async?
             guard let platform = focusContainer.selectedPlatform else {
                 debugPrint("BKSceneManager: Reloading, when platform not selected")
                 return
             }
             
-            let nodesToRemove: [BKBoxNode] = platform.childs { $0.mutable }
-            nodesToRemove.forEach { $0.removeFromParentNode() }
+            updateQueue.async {
+                let nodesToRemove: [BKBoxNode] = platform.childs { $0.mutable }
+                let removeCommands = nodesToRemove.flatMap { (node) in
+                    return { DispatchQueue.main.async { node.removeFromParentNode() } }
+                }
+                
+                self.renderingQueue.enqueue(removeCommands)
+            }
             
-            let countToAdd = delegate?.bkSceneManager(self, countOfBoxesIn: scene) ?? 0
-            (0..<countToAdd).forEach { (index) in
-                guard let nodeToAdd = delegate?.bkSceneManager(self, boxFor: index) else { return }
-                platform.addChildNode(nodeToAdd)
+            updateQueue.async {
+                let countToAdd = self.delegate?.bkSceneManager(self, countOfBoxesIn: self.scene) ?? 0
+                
+                (0..<countToAdd).forEach { (index) in
+                    guard let nodeToAdd = self.delegate?.bkSceneManager(self, boxFor: index) else { return }
+                    
+                    self.renderingQueue.enqueue {
+                        DispatchQueue.main.async { platform.addChildNode(nodeToAdd) }
+                    }
+                }
             }
         }
     }
@@ -148,10 +159,11 @@ extension BKSceneManager {
         
         removePlatforms(except: platform, animated: true)
         platform.updateState(newState: .normal, true, nil)
-        platform.showBoxes(animated: true)
+        
+        renderingQueue.enqueue(platform.prepareCreateBoxes())
+        reloadSession()
     }
     
-    //TODO: - Add possibility to animate
     public func add(new box: BKBoxNode, to otherBox: BKBoxNode, face: BKBoxFace) {
         guard let platform = focusContainer.selectedPlatform else {
             debugPrint("BKSceneManager: Adding, when platform not selected")
@@ -222,7 +234,9 @@ extension BKSceneManager {
 
 //MARK: - Box processing
 extension BKSceneManager {
+    
     func updateBoxesFocus() {
+        
         func unHighlightAll() {
             unHighlightBoxes()
             delegate?.bkSceneManager(self, didDefocus: focusContainer.focusedBox)
@@ -271,6 +285,7 @@ extension BKSceneManager {
 //MARK: - Platform processing
 extension BKSceneManager {
     func updatePlatformsFocus() {
+        
         func unhHighlightAll() {
             unHighlightPlatforms()
             delegate?.bkSceneManager(self, didDefocus: focusContainer.focusedPlatform)

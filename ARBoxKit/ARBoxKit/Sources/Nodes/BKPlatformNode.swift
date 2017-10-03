@@ -16,9 +16,10 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
     
     public var currentState: BKBoxState = .normal
     public var isAnimating = false
-    var updateInitialBoxes = false
     
-    public init(anchor: ARPlaneAnchor, boxSideLength: CGFloat) {
+    var isBoxesPrepared: Bool = false
+    
+    init(anchor: ARPlaneAnchor, boxSideLength: CGFloat) {
         self.anchor = anchor
         self.boxSideLength = boxSideLength
         
@@ -26,7 +27,6 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
         geometry = SCNBox(width: 0, height: 0.001, length: 0, chamferRadius: 0)
         
         setupGeometry()
-        
         update(anchor, animated: true)
     }
     
@@ -41,78 +41,67 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
         let extendedZ = floor(CGFloat(anchor.extent.z) / boxSideLength) * boxSideLength
         
         let changes = {
-            self.boxGeometry.width = min(BKConstants.maxSurfaceWidth, extendedX)
-            self.boxGeometry.length = min(BKConstants.maxSurfaceLength, extendedZ)
-            
             self.simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
+            
+            if !self.isBoxesPrepared {
+                self.boxGeometry.width = min(BKConstants.maxSurfaceWidth, extendedX)
+                self.boxGeometry.length = min(BKConstants.maxSurfaceLength, extendedZ)
+            }
         }
         
         if !animated  {
             changes()
-            isAnimating = false
-            if updateInitialBoxes {
-                updateBoxes(animated: animated)
-            }
         } else {
             isAnimating = true
-            SCNTransaction.animate(with: 0.1, changes) {
-                self.isAnimating = false
-                
-                if self.updateInitialBoxes {
-                    self.updateBoxes(animated: animated)
+            let completion = { self.isAnimating = false }
+            SCNTransaction.animate(with: 0.1, changes, completion)
+        }
+    }
+    
+    func prepareCreateBoxes() -> [BKRenderingCommand] {
+        isBoxesPrepared = true
+        let positions = calculateBoxPositions()
+        
+        let boxLength = boxSideLength
+        
+        return positions.flatMap { (center) in
+            return {
+                DispatchQueue.main.async { [weak self] in
+                    guard let wSelf = self else { return }
+                    
+                    let box = BKBoxNode(sideLength: boxLength)
+                    box.mutable = false
+                    box.position = center
+                    
+                    wSelf.addChildNode(box)
                 }
             }
         }
     }
     
-    func showBoxes(animated: Bool) {
-        updateInitialBoxes = true
+    func calculateBoxPositions() -> [SCNVector3] {
         
-        let rowCount = Int(ceil(boxGeometry.length / boxSideLength))
-        let columnCount = Int(ceil(boxGeometry.width / boxSideLength))
+        let nodeLength = boxGeometry.length
+        let nodeWidth = boxGeometry.width
+        let boxLength = boxSideLength
         
-        let margin = boxSideLength / 2
-        
-        let y = margin + boxGeometry.height / 2
-        DispatchQueue.concurrentPerform(iterations: rowCount) { (row) in
-            let z = -boxGeometry.length / 2 + margin + CGFloat(row) * boxSideLength
-            DispatchQueue.concurrentPerform(iterations: columnCount) { (column) in
-                let x = -boxGeometry.width / 2 + margin + CGFloat(column) * boxSideLength
-                
-                let box = BKBoxNode(sideLength: boxSideLength)
-                box.mutable = false
-                box.position = SCNVector3(x, y, z)
-                addChildNode(box)
-            }
-        }
-    }
-    
-    func updateBoxes(animated: Bool) {
-        var boxes: [BKBoxNode] = childs { !$0.mutable }
-        
-        let rowCount = Int(ceil(boxGeometry.length / boxSideLength))
-        let columnCount = Int(ceil(boxGeometry.width / boxSideLength))
-        
-        let margin = boxSideLength / 2
+        let rowCount = Int(ceil(nodeLength / boxLength))
+        let columnCount = Int(ceil(nodeWidth / boxLength))
+        let margin = boxLength / 2
         
         let y = margin + boxGeometry.height / 2
+        
+        var result: [SCNVector3] = []
         
         (0..<rowCount).forEach { (row) in
-            let z = -boxGeometry.length / 2 + margin + CGFloat(row) * boxSideLength
+            let z = -nodeLength / 2 + margin + CGFloat(row) * boxLength
             (0..<columnCount).forEach { (column) in
-                let x = -boxGeometry.width / 2 + margin + CGFloat(column) * boxSideLength
-                
-                if boxes.isEmpty {
-                    let box = BKBoxNode(sideLength: boxSideLength)
-                    box.mutable = false
-                    box.position = SCNVector3(x, y, z)
-                    addChildNode(box)
-                } else {
-                    let box = boxes.removeLast()
-                    box.position = SCNVector3(x, y, z)
-                }
+                let x = -nodeWidth / 2 + margin + CGFloat(column) * boxLength
+                result.append(SCNVector3(x, y, z))
             }
         }
+        
+        return result
     }
 }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 public class BKSynchronizedContainer<T> {
-    internal var queue = DispatchQueue(label: "bk-thread-safe-queue", attributes: .concurrent)
+    internal var queue = DispatchQueue(label: "bk-thread-safe-container", attributes: .concurrent)
     internal var container: Array<T> = []
     
     public var count: Int {
@@ -33,15 +33,23 @@ public class BKSynchronizedQueue<T>: BKSynchronizedContainer<T> {
         }
     }
     
-    public func enqueue(_ elements: [T]) {
+    public func enqueue(_ elements: [T], clear: Bool = true) {
         queue.async(flags: .barrier) {
-            self.container.append(contentsOf: elements)
+            if clear {
+                self.container = elements
+            } else {
+                self.container.append(contentsOf: elements)
+            }
         }
     }
     
     public func dequeue() -> T? {
         var element: T?
-        queue.sync { element = self.container.removeFirst() }
+        if self.container.isEmpty { return nil }
+        queue.sync {
+            if self.container.isEmpty { return }
+            element = self.container.removeFirst()
+        }
         return element
     }
     
@@ -66,12 +74,42 @@ public class BKSynchronizedStack<T>: BKSynchronizedContainer<T> {
     
     public func pop() -> T? {
         var element: T?
-        queue.sync { element = self.container.removeLast() }
+        queue.sync { element = self.container.popLast() }
         return element
     }
     
     public func pop(_ count: Int) -> [T] {
         return (0..<count).flatMap { _ in pop() }
+    }
+}
+
+public class BKSynchronizedTable<T: Hashable> {
+    internal var queue = DispatchQueue(label: "bk-thread-safe-table", attributes: .concurrent)
+    internal var checkQueue = DispatchQueue(label: "bk-thread-safe-table-check-queue", attributes: .concurrent)
+    
+    var operationQueue = OperationQueue()
+    
+    var set: Set<T> = Set<T>()
+    
+    
+    init() {
+        operationQueue.maxConcurrentOperationCount = 1
+    }
+    
+    func append(_ elements: [T]) {
+        operationQueue.addOperation {
+            self.queue.sync { self.set = Set<T>(elements) }
+        }
+    }
+    
+    func receive(_ count: Int) -> [T] {
+        return (0..<count).flatMap { _ in receive() }
+    }
+    
+    func receive() -> T? {
+        var value: T?
+        queue.sync { value = set.popFirst() }
+        return value
     }
 }
 
