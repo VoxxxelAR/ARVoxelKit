@@ -68,7 +68,7 @@ open class BKSceneManager: NSObject {
     
     //MARK: - Session Managing
     public func launchSession() {
-        clearStoredDate()
+        clearStoredData()
         let configuration = state.configuration
         scene.session.run(configuration)
     }
@@ -90,14 +90,14 @@ open class BKSceneManager: NSObject {
             options = [.resetTracking]
         default:
             options = [.resetTracking, .removeExistingAnchors]
-            clearStoredDate()
+            clearStoredData()
         }
         
         let configuration = state.configuration
         scene.session.run(configuration, options: options)
     }
     
-    func clearStoredDate() {
+    func clearStoredData() {
         platforms = [:]
         focusContainer = .empty
     }
