@@ -34,6 +34,7 @@
 		F79DE1091F7CB434001E0431 /* BKARSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE1081F7CB434001E0431 /* BKARSessionState.swift */; };
 		F79DE10B1F7CB955001E0431 /* BKSceneManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE10A1F7CB955001E0431 /* BKSceneManagerDelegate.swift */; };
 		F79DE10D1F7D8705001E0431 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F79DE10C1F7D8705001E0431 /* Media.xcassets */; };
+		F7FAF43C1F837D4F0024A666 /* Layers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FAF43B1F837D4F0024A666 /* Layers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		F79DE1081F7CB434001E0431 /* BKARSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKARSessionState.swift; sourceTree = "<group>"; };
 		F79DE10A1F7CB955001E0431 /* BKSceneManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManagerDelegate.swift; sourceTree = "<group>"; };
 		F79DE10C1F7D8705001E0431 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		F7FAF43B1F837D4F0024A666 /* Layers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 		F77B32A41F7ABF80004259B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F7FAF43A1F837D460024A666 /* Layers */,
 				F77214C01F7BCDD600C3224D /* Managers */,
 				F77B32D11F7AF82A004259B8 /* Extensions */,
 				F77B32C81F7AC086004259B8 /* Nodes */,
@@ -259,6 +262,14 @@
 				F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F7FAF43A1F837D460024A666 /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+				F7FAF43B1F837D4F0024A666 /* Layers.swift */,
+			);
+			path = Layers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +431,7 @@
 				F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */,
 				F79DE1071F7CB416001E0431 /* BKSceneFocusContainer.swift in Sources */,
 				F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */,
+				F7FAF43C1F837D4F0024A666 /* Layers.swift in Sources */,
 				758821891F81284400AF56EC /* BKSceneManager+ARSessionDelegate.swift in Sources */,
 				F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */,
 				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
