@@ -1,5 +1,5 @@
 //
-//  BKPlatformNode.swift
+//  BKSurfaceNode.swift
 //  ARBoxKit
 //
 //  Created by Gleb Radchenko on 9/26/17.
@@ -10,7 +10,7 @@ import Foundation
 import SceneKit
 import ARKit
 
-open class BKPlatformNode: SCNNode, BKVoxelDisplayable {
+open class BKSurfaceNode: SCNNode, BKVoxelDisplayable {
     
     var anchor: ARPlaneAnchor
     var boxSideLength: CGFloat

@@ -55,7 +55,7 @@ open class BKViewController: UIViewController {
     @objc func handleTap(gesture: UITapGestureRecognizer) {
         guard let sceneManager = sceneManager else { return }
         
-        if let platform = focusedNode as? BKPlatformNode {
+        if let platform = focusedNode as? BKSurfaceNode {
             sceneManager.setSelected(platform: platform)
         }
         
@@ -72,13 +72,13 @@ extension BKViewController: BKSceneManagerDelegate {
         statusView?.isHidden = state.hint.isEmpty
     }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKPlatformNode, face: BKVoxelFace) {
+    public func bkSceneManager(_ manager: BKSceneManager, didFocus platform: BKSurfaceNode, face: BKVoxelFace) {
         
         focusedNode = platform
         focusedFace = face
     }
     
-    public func bkSceneManager(_ manager: BKSceneManager, didDefocus platform: BKPlatformNode?) {
+    public func bkSceneManager(_ manager: BKSceneManager, didDefocus platform: BKSurfaceNode?) {
         focusedNode = nil
         focusedFace = nil
     }

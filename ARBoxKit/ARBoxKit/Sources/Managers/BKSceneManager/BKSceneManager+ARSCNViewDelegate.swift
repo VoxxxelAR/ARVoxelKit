@@ -24,7 +24,7 @@ extension BKSceneManager: ARSCNViewDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         guard !state.isPlatformSelected else { return }
         
-        let platform = BKPlatformNode(anchor: planeAnchor, boxSideLength: voxelSize)
+        let platform = BKSurfaceNode(anchor: planeAnchor, boxSideLength: voxelSize)
         
         platforms[planeAnchor] = platform
         node.addChildNode(platform)

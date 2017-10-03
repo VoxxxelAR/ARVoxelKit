@@ -29,7 +29,7 @@
 		F77B32BE1F7ABFD5004259B8 /* ARBoxKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARBoxKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F77B32CA1F7AC0B7004259B8 /* BKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32C91F7AC0B7004259B8 /* BKViewController.swift */; };
 		F77B32CE1F7AC59B004259B8 /* BKVoxelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CD1F7AC59B004259B8 /* BKVoxelNode.swift */; };
-		F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */; };
+		F77B32D01F7ACEF9004259B8 /* BKSurfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32CF1F7ACEF9004259B8 /* BKSurfaceNode.swift */; };
 		F77B32D31F7AF844004259B8 /* SCNGeometry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */; };
 		F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE1041F7B793E001E0431 /* BKConstants.swift */; };
 		F79DE1071F7CB416001E0431 /* BKSceneFocusContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79DE1061F7CB416001E0431 /* BKSceneFocusContainer.swift */; };
@@ -98,7 +98,7 @@
 		F77B32C31F7AC02F004259B8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		F77B32C91F7AC0B7004259B8 /* BKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKViewController.swift; sourceTree = "<group>"; };
 		F77B32CD1F7AC59B004259B8 /* BKVoxelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKVoxelNode.swift; sourceTree = "<group>"; };
-		F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKPlatformNode.swift; sourceTree = "<group>"; };
+		F77B32CF1F7ACEF9004259B8 /* BKSurfaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSurfaceNode.swift; sourceTree = "<group>"; };
 		F77B32D21F7AF844004259B8 /* SCNGeometry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Extensions.swift"; sourceTree = "<group>"; };
 		F79DE1041F7B793E001E0431 /* BKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKConstants.swift; sourceTree = "<group>"; };
 		F79DE1061F7CB416001E0431 /* BKSceneFocusContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneFocusContainer.swift; sourceTree = "<group>"; };
@@ -255,7 +255,7 @@
 			children = (
 				7554518B1F7AE85500E77E88 /* BKVoxelProtocols.swift */,
 				F77B32CD1F7AC59B004259B8 /* BKVoxelNode.swift */,
-				F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */,
+				F77B32CF1F7ACEF9004259B8 /* BKSurfaceNode.swift */,
 				759DCB401F83AE4C0041CD30 /* BKVoxelPaintable.swift */,
 				759DCB641F8426460041CD30 /* BKVoxelConvenience.swift */,
 			);
@@ -432,7 +432,7 @@
 				F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */,
 				F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */,
 				F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */,
-				F77B32D01F7ACEF9004259B8 /* BKPlatformNode.swift in Sources */,
+				F77B32D01F7ACEF9004259B8 /* BKSurfaceNode.swift in Sources */,
 				758821881F81284200AF56EC /* BKSceneManager.swift in Sources */,
 				7554518C1F7AE85500E77E88 /* BKVoxelProtocols.swift in Sources */,
 				759DCB651F8426460041CD30 /* BKVoxelConvenience.swift in Sources */,

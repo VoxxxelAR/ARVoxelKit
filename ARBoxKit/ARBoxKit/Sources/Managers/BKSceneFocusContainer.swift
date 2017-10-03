@@ -10,10 +10,10 @@ import ARKit
 import SceneKit
 
 public struct BKSceneFocusContainer {
-    public var focusedPlatform: BKPlatformNode?
+    public var focusedPlatform: BKSurfaceNode?
     
     public var selectedAnchor: ARPlaneAnchor?
-    public var selectedPlatform: BKPlatformNode?
+    public var selectedPlatform: BKSurfaceNode?
     
     public var focusedBox: BKVoxelNode?
     
@@ -37,8 +37,8 @@ public struct BKSceneFocusContainer {
     
     enum State {
         case empty
-        case platformFocused(platform: BKPlatformNode)
-        case platformSelected(platform: BKPlatformNode, anchor: ARPlaneAnchor)
+        case platformFocused(platform: BKSurfaceNode)
+        case platformSelected(platform: BKSurfaceNode, anchor: ARPlaneAnchor)
         case boxFocused(box: BKVoxelNode)
     }
 }

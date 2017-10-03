@@ -24,7 +24,7 @@ open class BKSceneManager: NSObject {
     }
     
     public internal(set) var focusContainer: BKSceneFocusContainer = .empty
-    public internal(set) var platforms: [ARPlaneAnchor: BKPlatformNode] = [:]
+    public internal(set) var platforms: [ARPlaneAnchor: BKSurfaceNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "bk-update-queue", attributes: .concurrent)
     var renderingQueue: BKSynchronizedQueue<BKRenderingCommand> = BKSynchronizedQueue<BKRenderingCommand>()
@@ -141,7 +141,7 @@ extension BKSceneManager {
         }
     }
     
-    public func setSelected(platform: BKPlatformNode) {
+    public func setSelected(platform: BKSurfaceNode) {
         guard focusContainer.selectedPlatform == nil else {
             debugPrint("BKSceneManager: platform already selected")
             return
@@ -292,12 +292,12 @@ extension BKSceneManager {
             focusContainer.focusedPlatform = nil
         }
         
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKPlatformNode.self) else {
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: BKSurfaceNode.self) else {
             unhHighlightAll()
             return
         }
         
-        guard let platform = result.node as? BKPlatformNode else {
+        guard let platform = result.node as? BKSurfaceNode else {
             unhHighlightAll()
             return
         }
@@ -321,14 +321,14 @@ extension BKSceneManager {
         delegate?.bkSceneManager(self, didFocus: platform, face: face)
     }
     
-    func unHighlightPlatforms(except node: BKPlatformNode? = nil) {
+    func unHighlightPlatforms(except node: BKSurfaceNode? = nil) {
         platforms.values.forEach { (platform) in
             if platform == node { return }
             platform.updateState(newState: .normal, true, nil)
         }
     }
     
-    func removePlatforms(except node: BKPlatformNode?, animated: Bool) {
+    func removePlatforms(except node: BKSurfaceNode?, animated: Bool) {
         let pairsToRemove = platforms.filter { $0.value != node }
         
         pairsToRemove.forEach { (anchor, platform) in
