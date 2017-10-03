@@ -65,15 +65,14 @@ public enum BKBoxFace: Int {
     }
 }
 
-public protocol BoxDisplayable: class {
+public protocol BKBoxDisplayable: class {
     var position: SCNVector3 { get }
-    var simdPosition: simd_float3 { get }
     
     var boxGeometry: SCNBox { get }
     var currentState: BKBoxState { get set }
 }
 
-extension BoxDisplayable where Self: SCNNode {
+extension BKBoxDisplayable where Self: SCNNode {
     public var boxGeometry: SCNBox {
         guard let boxGeometry = geometry as? SCNBox else {
             fatalError("Geometry must be of SCNBox type.")
@@ -83,15 +82,7 @@ extension BoxDisplayable where Self: SCNNode {
     }
 }
 
-extension BoxDisplayable where Self: SCNNode {
-    
-    func updateMaterials(for faces: [BKBoxFace], changes: (SCNMaterial) -> Void) {
-        let materials = faces.flatMap { self.boxMaterial(for: $0) }
-        
-        materials.forEach { (material) in
-            changes(material)
-        }
-    }
+extension BKBoxDisplayable where Self: SCNNode {
     
     func updateTransparency(for faces: [BKBoxFace], value: CGFloat,  _ animated: Bool, _ completion: (() -> Void)?) {
         let changes: () -> Void = {
@@ -136,7 +127,11 @@ extension BoxDisplayable where Self: SCNNode {
     }
 }
 
-extension BoxDisplayable {
+extension BKBoxDisplayable {
+    
+    func setupGeometry() {
+        boxGeometry.materials = createBoxMaterials()
+    }
     
     func createBoxMaterials() -> [SCNMaterial] {
         let top = SCNMaterial()
@@ -149,47 +144,28 @@ extension BoxDisplayable {
         return [front, right, back, left, top, bottom]
     }
     
-    func createBoxMaterials(with contents: AnyObject) -> [SCNMaterial] {
-        let materials = createBoxMaterials()
-        materials.forEach { material in
-            material.diffuse.contents = contents
-        }
-        return materials
-    }
-    
-    func createBoxMaterials(with contents: [AnyObject]) -> [SCNMaterial] {
-        let materials = createBoxMaterials()
-        
-        for (i, material) in materials.enumerated() {
-            material.diffuse.contents = contents[i]
-        }
-        return materials
-    }
-    
-    func setupGeometry() {
-        boxGeometry.materials = createBoxMaterials()
-    }
-    
-    public func applyColors() {
-        //MARK: - For debug use
-        let colors: [UIColor] = [.green, //front
-            .red, //right
-            .blue, //back
-            .yellow, //left
-            .purple, //top
-            .gray] //bottom
-        
-        BKBoxFace.all.forEach { (face) in
-            let material = boxMaterial(for: face)
-            let color = colors[face.rawValue]
-            
-            material.diffuse.contents = color
-            material.locksAmbientWithDiffuse = true
-        }
-    }
-    
     public func boxMaterial(for face: BKBoxFace) -> SCNMaterial {
         return boxGeometry.materials[face.rawValue]
+    }
+    
+    func updateBoxMaterials(with contents: AnyObject) {
+        BKBoxFace.all.forEach { updateBoxMaterial(for: $0, newContents: contents) }
+    }
+    
+    func updateBoxMaterials(with contents: [AnyObject]) {
+        assert(contents.count == 6, "Wrong contents count: \(contents.count)")
+        
+        zip(boxGeometry.materials, contents).forEach { (material, content) in
+            material.diffuse.contents = content
+        }
+    }
+    
+    func updateBoxMaterial(for face: BKBoxFace, newContents contents: AnyObject) {
+        boxMaterial(for: face).diffuse.contents = contents
+    }
+    
+    func updateMaterials(for faces: [BKBoxFace], changes: (SCNMaterial) -> Void) {
+        faces.forEach { changes(boxMaterial(for: $0)) }
     }
 }
 

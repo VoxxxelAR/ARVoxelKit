@@ -9,81 +9,59 @@
 import SceneKit
 import ARKit
 
-open class BKBoxNode: SCNNode, BoxDisplayable, BKBoxEditable {
+open class BKBoxNode: SCNNode, BKBoxDisplayable, BKBoxEditable {
     public var currentState: BKBoxState = .normal
     var mutable: Bool = true
     
-    init(sideLength: CGFloat, materials: [SCNMaterial]) {
+    init(sideLength: CGFloat) {
         super.init()
         geometry = SCNBox(sideLength: sideLength)
-        boxGeometry.materials = materials
+        setupGeometry()
     }
     
     public override convenience init() {
-        let layer = ColoredLayer(color: BKConstants.defaultFaceColor)
-        layer.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        
-        let materials = createBoxMaterials(with: layer)
-        self.init(sideLength: BKConstants.voxelSideLength, materials: materials)
+        self.init(color: BKConstants.defaultFaceColor)
     }
     
-    public required convenience init(color: UIColor) {
-        let materials = createBoxMaterials(with: color)
-        self.init(sideLength: BKConstants.voxelSideLength, materials: materials)
+    public convenience required init(color: UIColor) {
+        self.init(sideLength: BKConstants.voxelSideLength)
+        paint(with: color)
     }
     
-    public required convenience init(image: UIImage) {
-        let materials = createBoxMaterials(with: image)
-        self.init(sideLength: BKConstants.voxelSideLength, materials: materials)
+    public convenience required init(image: UIImage) {
+        self.init(sideLength: BKConstants.voxelSideLength)
+        paint(with: image)
     }
 
     public required convenience init(colors: [UIColor], start: CGPoint, end: CGPoint) {
-        let gradient = GradientedLayer(colors: colors, start: start, end: end)
-        let materials = createBoxMaterials(with: gradient)
-        self.init(sideLength: BKConstants.voxelSideLength, materials: materials)
+        self.init(sideLength: BKConstants.voxelSideLength)
+        paint(with: colors, start: start, end: end)
     }
 
     public required convenience init(colors: [UIColor]) {
-        let materials = createBoxMaterials(with: colors)
-        self.init(sideLength: BKConstants.voxelSideLength, materials: materials)
+        self.init(sideLength: BKConstants.voxelSideLength)
+        
+        let layers = colors.map { ColoredLayer(color: $0) }
+        updateBoxMaterials(with: layers)
     }
 
     public required convenience init(images: [UIImage]) {
-        let materials = createBoxMaterials(with: images)
-        self.init(sideLength: BKConstants.voxelSideLength, materials: materials)
+        self.init(sideLength: BKConstants.voxelSideLength)
+        
+        let layers = images.map { TexturedLayer(image: $0) }
+        updateBoxMaterials(with: layers)
     }
 
+    public required convenience init(gradients: [([UIColor], CGPoint, CGPoint)]) {
+        self.init(sideLength: BKConstants.voxelSideLength)
+        
+        let layers = gradients.map { GradientedLayer(colors: $0.0, start: $0.1, end: $0.2) }
+        updateBoxMaterials(with: layers)
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         geometry = SCNBox()
         setupGeometry()
     }
 }
-
-extension BKBoxNode {
-    
-    public func paint(with color: UIColor) {
-        
-    }
-    
-    public func paint(with image: UIImage) {
-        
-    }
-    
-    public func paint(with colors: [UIColor], start: CGPoint, end: CGPoint) {
-        
-    }
-    
-    public func paint(face: BKBoxFace, with color: UIColor) {
-    
-    }
-    
-    public func paint(face: BKBoxFace, with image: UIImage) {
-        
-    }
-    
-    public func paint(face: BKBoxFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {
-    
-    }
-}
-

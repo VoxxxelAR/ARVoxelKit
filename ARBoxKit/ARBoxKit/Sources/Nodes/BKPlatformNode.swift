@@ -10,7 +10,8 @@ import Foundation
 import SceneKit
 import ARKit
 
-open class BKPlatformNode: SCNNode, BoxDisplayable {
+open class BKPlatformNode: SCNNode, BKBoxDisplayable {
+    
     var anchor: ARPlaneAnchor
     var boxSideLength: CGFloat
     
@@ -62,14 +63,12 @@ open class BKPlatformNode: SCNNode, BoxDisplayable {
         isBoxesPrepared = true
         let positions = calculateBoxPositions()
         
-        let boxLength = boxSideLength
-        
         return positions.flatMap { (center) in
             return {
                 DispatchQueue.main.async { [weak self] in
                     guard let wSelf = self else { return }
                     
-                    let box = BKBoxNode(sideLength: boxLength)
+                    let box = BKBoxNode()
                     box.mutable = false
                     box.position = center
                     

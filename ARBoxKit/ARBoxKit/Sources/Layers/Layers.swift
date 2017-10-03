@@ -11,13 +11,12 @@ import CoreGraphics
 
 class BorderedLayer: CALayer {
     override var frame: CGRect {
-        didSet {
-            borderWidth = frame.width / 20
-        }
+        didSet { borderWidth = frame.width / 20 }
     }
     
     override init() {
         super.init()
+        frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         borderColor = UIColor.black.cgColor
         shouldRasterize = true
@@ -63,6 +62,7 @@ class GradientedLayer: CAGradientLayer {
     
     init(colors: [UIColor]) {
         super.init()
+        frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         borderColor = UIColor.black.cgColor
         

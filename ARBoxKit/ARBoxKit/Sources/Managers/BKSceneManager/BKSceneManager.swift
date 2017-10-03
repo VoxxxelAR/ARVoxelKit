@@ -216,7 +216,7 @@ extension BKSceneManager {
         }
     }
     
-    func newPosition(for newNode: BoxDisplayable, attachedTo face: BKBoxFace, of node: BoxDisplayable) -> SCNVector3 {
+    func newPosition(for newNode: BKBoxDisplayable, attachedTo face: BKBoxFace, of node: BKBoxDisplayable) -> SCNVector3 {
         var scalar: CGFloat = 0.0
         
         switch face {
