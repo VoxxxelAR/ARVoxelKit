@@ -46,8 +46,17 @@ extension BKBoxEditable where Self: BKBoxDisplayable {
         updateBoxMaterials(with: layer)
     }
     
-    public func paint(face: BKBoxFace, with color: UIColor) {}
-    public func paint(face: BKBoxFace, with image: UIImage) {}
-    public func paint(face: BKBoxFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {}
+    public func paint(face: BKBoxFace, with color: UIColor) {
+        boxGeometry.materials[face.rawValue].diffuse.contents = color
+    }
+    
+    public func paint(face: BKBoxFace, with image: UIImage) {
+        boxGeometry.materials[face.rawValue].diffuse.contents = image
+    }
+    
+    public func paint(face: BKBoxFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {
+        let gradient = GradientedLayer(colors: colors, start: start, end: end)
+        boxGeometry.materials[face.rawValue].diffuse.contents = gradient
+    }
 }
     
