@@ -13,6 +13,7 @@
 		758821881F81284200AF56EC /* BKSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821871F81268400AF56EC /* BKSceneManager.swift */; };
 		758821891F81284400AF56EC /* BKSceneManager+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821861F81268400AF56EC /* BKSceneManager+ARSessionDelegate.swift */; };
 		7588218A1F81284700AF56EC /* BKSceneManager+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */; };
+		759DCB411F83AE4C0041CD30 /* BKBoxEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759DCB401F83AE4C0041CD30 /* BKBoxEditable.swift */; };
 		F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */; };
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
@@ -76,6 +77,7 @@
 		758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKSceneManager+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
 		758821861F81268400AF56EC /* BKSceneManager+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKSceneManager+ARSessionDelegate.swift"; sourceTree = "<group>"; };
 		758821871F81268400AF56EC /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
+		759DCB401F83AE4C0041CD30 /* BKBoxEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKBoxEditable.swift; sourceTree = "<group>"; };
 		F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				7554518B1F7AE85500E77E88 /* BKBoxProtocols.swift */,
 				F77B32CD1F7AC59B004259B8 /* BKBoxNode.swift */,
 				F77B32CF1F7ACEF9004259B8 /* BKPlatformNode.swift */,
+				759DCB401F83AE4C0041CD30 /* BKBoxEditable.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				F7FAF43C1F837D4F0024A666 /* Layers.swift in Sources */,
 				758821891F81284400AF56EC /* BKSceneManager+ARSessionDelegate.swift in Sources */,
 				F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */,
+				759DCB411F83AE4C0041CD30 /* BKBoxEditable.swift in Sources */,
 				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
 				7588218A1F81284700AF56EC /* BKSceneManager+ARSCNViewDelegate.swift in Sources */,
 			);
