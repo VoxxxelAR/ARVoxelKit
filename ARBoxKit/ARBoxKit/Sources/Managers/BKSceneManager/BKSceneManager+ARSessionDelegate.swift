@@ -55,7 +55,7 @@ extension BKSceneManager: ARSessionDelegate {
         
         let shouldReset = delegate?.bkSceneManager(self, shouldResetSessionFor: state) ?? true
         if shouldReset {
-            updateSession()
+            resetSession()
         }
     }
     
@@ -64,7 +64,7 @@ extension BKSceneManager: ARSessionDelegate {
         
         let shouldReset = delegate?.bkSceneManager(self, shouldResetSessionFor: state) ?? true
         if shouldReset {
-            updateSession()
+            resetSession()
         }
     }
 }

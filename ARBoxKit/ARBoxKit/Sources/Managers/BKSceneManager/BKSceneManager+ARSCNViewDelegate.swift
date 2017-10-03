@@ -16,16 +16,14 @@ extension BKSceneManager: ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.updateFocus()
         }
+        
+        renderingQueue.dequeue(10).forEach { $0() }
     }
     
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        guard !state.isPlatformSelected else { return }
         
-        switch state {
-        case .normal(let platformSelected):
-            if platformSelected { return }
-        default: break
-        }
         let platform = BKPlatformNode(anchor: planeAnchor, boxSideLength: voxelSize)
         
         platforms[planeAnchor] = platform

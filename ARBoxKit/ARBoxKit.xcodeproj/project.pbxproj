@@ -137,9 +137,9 @@
 		758821841F81268400AF56EC /* BKSceneManager */ = {
 			isa = PBXGroup;
 			children = (
+				758821871F81268400AF56EC /* BKSceneManager.swift */,
 				758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */,
 				758821861F81268400AF56EC /* BKSceneManager+ARSessionDelegate.swift */,
-				758821871F81268400AF56EC /* BKSceneManager.swift */,
 			);
 			path = BKSceneManager;
 			sourceTree = "<group>";

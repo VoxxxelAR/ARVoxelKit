@@ -20,7 +20,6 @@ class BorderedLayer: CALayer {
         super.init()
         
         borderColor = UIColor.black.cgColor
-        borderWidth = 3
         shouldRasterize = true
     }
     
@@ -59,16 +58,13 @@ class TexturedLayer: BorderedLayer {
 class GradientedLayer: CAGradientLayer {
     
     override var frame: CGRect {
-        didSet {
-            borderWidth = frame.width / 20
-        }
+        didSet { borderWidth = frame.width / 20 }
     }
     
     init(colors: [UIColor]) {
         super.init()
         
         borderColor = UIColor.black.cgColor
-        borderWidth = 3
         
         self.colors = colors.flatMap { $0.cgColor }
         shouldRasterize = true
