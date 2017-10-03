@@ -36,11 +36,49 @@ class ARBoxKitTests: XCTestCase {
         }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testSynchronizedQueue() {
+        let e = expectation(description: "Adding to queue async")
+        
+        let queue = BKSynchronizedQueue<Int>()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 12) {
+            if queue.count == 400 {
+                e.fulfill()
+            } else {
+                XCTAssert(false, "Wrong queue count: \(queue.count)")
+            }
+        }
+        
+        DispatchQueue.concurrentPerform(iterations: 20) { (i) in
+            DispatchQueue.concurrentPerform(iterations: 20) { (j) in
+                queue.enqueue(j)
+            }
+        }
+        
+        waitForExpectations(timeout: 20) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
+    func testSynchronizedStack() {
+        let e = expectation(description: "Adding to stack async")
+        
+        let stack = BKSynchronizedStack<Int>()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 12) {
+            if stack.count == 400 {
+                e.fulfill()
+            } else {
+                XCTAssert(false, "Wrong queue count: \(stack.count)")
+            }
+        }
+        
+        DispatchQueue.concurrentPerform(iterations: 400) { (j) in
+            stack.push(j)
+        }
+        
+        waitForExpectations(timeout: 20) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
 }
