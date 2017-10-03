@@ -1,5 +1,5 @@
 //
-//  BKVoxelProtocols.swift
+//  BKVoxelDisplayable.swift
 //  ARBoxKit
 //
 //  Created by Vadym Sidorov on 9/26/17.
@@ -48,8 +48,8 @@ extension BKVoxelDisplayable where Self: SCNNode {
         switch newState {
         case .normal:
             setNormalState(animated, completion)
-        case .highlighted(let faces, let alpha):
-            setHighlightedState(faces: faces, alpha: alpha, animated, completion)
+//        case .highlighted(let faces, let alpha):
+//            setHighlightedState(faces: faces, alpha: alpha, animated, completion)
         case .hidden:
             setHiddenState(animated, completion)
         }
@@ -61,9 +61,9 @@ extension BKVoxelDisplayable where Self: SCNNode {
         updateTransparency(for: BKVoxelFace.all, value: 1, animated, completion)
     }
     
-    func setHighlightedState(faces: [BKVoxelFace], alpha: CGFloat, _ animated: Bool, _ completion: (() -> Void)?) {
-        updateTransparency(for: faces, value: alpha, animated, completion)
-    }
+//    func setHighlightedState(faces: [BKVoxelFace], alpha: CGFloat, _ animated: Bool, _ completion: (() -> Void)?) {
+//        updateTransparency(for: faces, value: alpha, animated, completion)
+//    }
     
     func setHiddenState(_ animated: Bool, _ completion: (() -> Void)?) {
         updateTransparency(for: BKVoxelFace.all, value: 0, animated, completion)

@@ -14,7 +14,7 @@
 		7588218A1F81284700AF56EC /* BKSceneManager+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758821851F81268400AF56EC /* BKSceneManager+ARSCNViewDelegate.swift */; };
 		759DCB651F8426460041CD30 /* BKVoxelConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759DCB641F8426460041CD30 /* BKVoxelConvenience.swift */; };
 		759DCB6A1F842B8B0041CD30 /* BKVoxelPaintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759DCB681F842B7B0041CD30 /* BKVoxelPaintable.swift */; };
-		759DCB6B1F842B8D0041CD30 /* BKVoxelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759DCB691F842B7B0041CD30 /* BKVoxelProtocols.swift */; };
+		759DCB6B1F842B8D0041CD30 /* BKVoxelDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759DCB691F842B7B0041CD30 /* BKVoxelDisplayable.swift */; };
 		F77214AC1F7B8AFF00C3224D /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */; };
 		F77214BA1F7BAE2D00C3224D /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */; };
 		F77214BC1F7BB04A00C3224D /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */; };
@@ -79,7 +79,7 @@
 		758821871F81268400AF56EC /* BKSceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSceneManager.swift; sourceTree = "<group>"; };
 		759DCB641F8426460041CD30 /* BKVoxelConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKVoxelConvenience.swift; sourceTree = "<group>"; };
 		759DCB681F842B7B0041CD30 /* BKVoxelPaintable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKVoxelPaintable.swift; sourceTree = "<group>"; };
-		759DCB691F842B7B0041CD30 /* BKVoxelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKVoxelProtocols.swift; sourceTree = "<group>"; };
+		759DCB691F842B7B0041CD30 /* BKVoxelDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKVoxelDisplayable.swift; sourceTree = "<group>"; };
 		F77214AB1F7B8AFF00C3224D /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		F77214B91F7BAE2D00C3224D /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F77214BB1F7BB04A00C3224D /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				759DCB681F842B7B0041CD30 /* BKVoxelPaintable.swift */,
-				759DCB691F842B7B0041CD30 /* BKVoxelProtocols.swift */,
+				759DCB691F842B7B0041CD30 /* BKVoxelDisplayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -453,7 +453,7 @@
 				F7FAF43C1F837D4F0024A666 /* Layers.swift in Sources */,
 				758821891F81284400AF56EC /* BKSceneManager+ARSessionDelegate.swift in Sources */,
 				F79DE1051F7B793E001E0431 /* BKConstants.swift in Sources */,
-				759DCB6B1F842B8D0041CD30 /* BKVoxelProtocols.swift in Sources */,
+				759DCB6B1F842B8D0041CD30 /* BKVoxelDisplayable.swift in Sources */,
 				755451881F7ADB4800E77E88 /* TODO.swift in Sources */,
 				7588218A1F81284700AF56EC /* BKSceneManager+ARSCNViewDelegate.swift in Sources */,
 			);

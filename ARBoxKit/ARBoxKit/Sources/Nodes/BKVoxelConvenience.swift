@@ -11,13 +11,11 @@ import SceneKit
 
 public enum BKVoxelState {
     case normal
-    case highlighted(face: [BKVoxelFace], alpha: CGFloat)
     case hidden
     
     var id: Int {
         switch self {
         case .normal: return 0
-        case .highlighted: return 1
         case .hidden: return 2
         }
     }

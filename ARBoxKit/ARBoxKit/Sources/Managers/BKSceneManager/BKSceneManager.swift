@@ -266,7 +266,6 @@ extension BKSceneManager {
             unHighlightBoxes(except: box)
         }
         
-        box.updateState(newState: .highlighted(face: [face], alpha: 0.5), true, nil)
         focusContainer.focusedBox = box
         
         delegate?.bkSceneManager(self, didFocus: box, face: face)
@@ -315,7 +314,6 @@ extension BKSceneManager {
             unHighlightPlatforms(except: platform)
         }
         
-        platform.updateState(newState: .highlighted(face: [face], alpha: 0.2), true, nil)
         focusContainer.focusedPlatform = platform
         
         delegate?.bkSceneManager(self, didFocus: platform, face: face)
