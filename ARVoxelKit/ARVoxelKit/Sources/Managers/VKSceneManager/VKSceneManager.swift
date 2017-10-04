@@ -15,7 +15,7 @@ typealias VKRenderingCommand = () -> Void
 open class VKSceneManager: NSObject {
     
     public weak var scene: ARSCNView!
-    weak var delegate: VKSceneManagerDelegate?
+    public weak var delegate: VKSceneManagerDelegate?
     
     public internal(set) var voxelSize: CGFloat = VKConstants.voxelSideLength
     

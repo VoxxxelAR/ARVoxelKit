@@ -10,19 +10,56 @@ import Foundation
 import SceneKit
 import ARKit
 
+public enum VKVoxelPaintCommand {
+    
+    case color(content: UIColor)
+    case faceColor(content: UIColor, face: VKVoxelFace)
+    case colors(contents: [UIColor])
+    
+    case image(content: UIImage)
+    case faceImage(content: UIImage, face: VKVoxelFace)
+    case images(contents: [UIImage])
+    
+    case gradient(contents: [UIColor], start: CGPoint, end: CGPoint)
+    case faceGradient(contents: [UIColor], start: CGPoint, end: CGPoint, face: VKVoxelFace)
+    
+    case transparency(value: CGFloat)
+    case faceTransparency(value: CGFloat, face: VKVoxelFace)
+    //etc
+}
+
 public protocol VKVoxelPaintable {
     
-    func paint(with color: UIColor) 
+    func apply(_ command: VKVoxelPaintCommand)
+    
+    func paint(with color: UIColor)
     func paint(with image: UIImage)
     func paint(with colors: [UIColor], start: CGPoint, end: CGPoint)
     
     func paint(face: VKVoxelFace, with color: UIColor)
     func paint(face: VKVoxelFace, with image: UIImage)
     func paint(face: VKVoxelFace, with colors: [UIColor], start: CGPoint, end: CGPoint)
-
+    //etc
 }
 
 extension VKVoxelPaintable where Self: VKVoxelDisplayable {
+    
+    public func apply(_ command: VKVoxelPaintCommand) {
+        //TODO: - Complete this
+        switch command {
+        case .color(let content):
+            paint(with: content)
+        case .faceColor(let content, let face):
+            paint(face: face, with: content)
+        case .transparency(let value):
+            updateVoxelTransparency(with: value)
+        case .faceTransparency(let value, let face):
+            updateVoxelTransparency(for: face, newValue: value)
+        default:
+            break
+        }
+    }
+    
     public func paint(with color: UIColor) {
         let layer = ColoredLayer(color: color)
         updateVoxelMaterials(with: layer)
@@ -39,16 +76,19 @@ extension VKVoxelPaintable where Self: VKVoxelDisplayable {
     }
     
     public func paint(face: VKVoxelFace, with color: UIColor) {
-        voxelGeometry.materials[face.rawValue].diffuse.contents = color
+        let layer = ColoredLayer(color: color)
+        updateVoxelMaterial(for: face, newContents: layer)
     }
     
     public func paint(face: VKVoxelFace, with image: UIImage) {
-        voxelGeometry.materials[face.rawValue].diffuse.contents = image
+        let layer = TexturedLayer(image: image)
+        updateVoxelMaterial(for: face, newContents: layer)
     }
     
     public func paint(face: VKVoxelFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {
-        let gradient = GradientedLayer(colors: colors, start: start, end: end)
-        voxelGeometry.materials[face.rawValue].diffuse.contents = gradient
+        let layer = GradientedLayer(colors: colors, start: start, end: end)
+        updateVoxelMaterial(for: face, newContents: layer
+        )
     }
 }
 

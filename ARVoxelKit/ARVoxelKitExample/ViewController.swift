@@ -1,16 +1,17 @@
 //
-//  VKViewController.swift
-//  ARVoxelKit
+//  ViewController.swift
+//  ARVoxelKitExample
 //
-//  Created by Gleb Radchenko on 9/26/17.
+//  Created by Gleb Radchenko on 10/4/17.
 //  Copyright © 2017 Gleb Radchenko. All rights reserved.
 //
 
 import UIKit
 import ARKit
 import SceneKit
+import ARVoxelKit
 
-open class VKViewController: UIViewController {
+open class ViewController: UIViewController {
     
     @IBOutlet open var sceneView: ARSCNView!
     
@@ -19,7 +20,7 @@ open class VKViewController: UIViewController {
     
     var sceneManager: VKSceneManager?
     
-    var focusedNode: SCNNode?
+    var focusedNode: VKVoxelPaintable?
     var focusedFace: VKVoxelFace?
     
     override open func viewDidLoad() {
@@ -48,9 +49,7 @@ open class VKViewController: UIViewController {
     }
     
     func setupUI() {
-        if VKConstants.debug {
-            addStatusLabel()
-        }
+        addStatusLabel()
     }
     
     @objc func handleTap(gesture: UITapGestureRecognizer) {
@@ -58,6 +57,7 @@ open class VKViewController: UIViewController {
         
         if let surface = focusedNode as? VKSurfaceNode {
             sceneManager.setSelected(surface: surface)
+            surface.apply(.transparency(value: 1))
         }
         
         if let voxel = focusedNode as? VKVoxelNode, let face = focusedFace {
@@ -66,7 +66,7 @@ open class VKViewController: UIViewController {
     }
 }
 
-extension VKViewController: VKSceneManagerDelegate {
+extension ViewController: VKSceneManagerDelegate {
     public func vkSceneManager(_ manager: VKSceneManager, didUpdateState state: VKARSessionState) {
         print(state)
         statusLabel?.text = state.hint
@@ -74,12 +74,17 @@ extension VKViewController: VKSceneManagerDelegate {
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKSurfaceNode, face: VKVoxelFace) {
-        
         focusedNode = surface
         focusedFace = face
+        
+        surface.apply(.transparency(value: 0.7))
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKSurfaceNode?) {
+        guard let node = focusedNode else { return }
+        
+        node.apply(.transparency(value: 1))
+        
         focusedNode = nil
         focusedFace = nil
     }
@@ -87,9 +92,15 @@ extension VKViewController: VKSceneManagerDelegate {
     public func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace) {
         focusedNode = voxel
         focusedFace = face
+        
+        voxel.apply(.faceTransparency(value: 0.7, face: face))
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?) {
+        guard let node = focusedNode, let face = focusedFace else { return }
+        
+        node.apply(.faceTransparency(value: 1, face: face))
+        
         focusedNode = nil
         focusedFace = nil
     }
@@ -99,13 +110,13 @@ extension VKViewController: VKSceneManagerDelegate {
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, voxelFor index: Int) -> VKVoxelNode {
-        return VKVoxelNode(sideLength: 1)
+        return VKVoxelNode()
     }
-
+    
 }
 
 //MARK: - UI Setuping
-extension VKViewController {
+extension ViewController {
     func addStatusLabel() {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         
@@ -139,6 +150,3 @@ extension VKViewController {
         statusView = view
     }
 }
-
-
-

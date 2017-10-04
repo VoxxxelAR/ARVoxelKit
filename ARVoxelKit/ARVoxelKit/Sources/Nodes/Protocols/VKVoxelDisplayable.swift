@@ -60,8 +60,12 @@ extension VKVoxelDisplayable {
         voxelMaterial(for: face).diffuse.contents = contents
     }
     
-    func updateMaterials(for faces: [VKVoxelFace], changes: (SCNMaterial) -> Void) {
-        faces.forEach { changes(voxelMaterial(for: $0)) }
+    func updateVoxelTransparency(with value: CGFloat) {
+        VKVoxelFace.all.forEach { updateVoxelTransparency(for: $0, newValue: value) }
+    }
+    
+    func updateVoxelTransparency(for face: VKVoxelFace, newValue value: CGFloat) {
+        voxelMaterial(for: face).transparency = value
     }
 }
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4db-d7-dYF">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Aqd-Ci-d8y">
+            <objects>
+                <viewController id="4db-d7-dYF" customClass="ViewController" customModule="ARVoxelKitExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7fe-16-HtZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W65-Ip-QFG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZX-1H-p8B">
+                                <rect key="frame" x="182" y="338.5" width="10" height="10"/>
+                                <color key="backgroundColor" red="0.19827699660000001" green="0.66890776159999998" blue="0.88008338210000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="WPM-s4-C9O"/>
+                                    <constraint firstAttribute="width" secondItem="qZX-1H-p8B" secondAttribute="height" id="bqH-HC-6AW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="W65-Ip-QFG" firstAttribute="leading" secondItem="TNf-3j-inL" secondAttribute="leading" id="5As-fm-dcb"/>
+                            <constraint firstItem="qZX-1H-p8B" firstAttribute="centerY" secondItem="TNf-3j-inL" secondAttribute="centerY" id="7Yq-j7-SlI"/>
+                            <constraint firstItem="qZX-1H-p8B" firstAttribute="centerX" secondItem="TNf-3j-inL" secondAttribute="centerX" id="GuL-XF-cqn"/>
+                            <constraint firstItem="W65-Ip-QFG" firstAttribute="trailing" secondItem="TNf-3j-inL" secondAttribute="trailing" id="NMC-BT-v21"/>
+                            <constraint firstItem="W65-Ip-QFG" firstAttribute="top" secondItem="7fe-16-HtZ" secondAttribute="top" id="Vkc-2q-Tu3"/>
+                            <constraint firstItem="W65-Ip-QFG" firstAttribute="bottom" secondItem="TNf-3j-inL" secondAttribute="bottom" id="l8l-sX-dq4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TNf-3j-inL"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="W65-Ip-QFG" id="fei-Bp-YU8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H17-co-UiH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-124" y="-62.518740629685162"/>
+        </scene>
+    </scenes>
+</document>

@@ -29,9 +29,16 @@
 		F7A404581F8477C20063C8CC /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404341F8477C20063C8CC /* SCNTransaction+Extensions.swift */; };
 		F7A404591F8477C20063C8CC /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404351F8477C20063C8CC /* ARSCNView+Extensions.swift */; };
 		F7A4045A1F8477C20063C8CC /* SCNGeometry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404361F8477C20063C8CC /* SCNGeometry+Extensions.swift */; };
-		F7A4045B1F8477C20063C8CC /* VKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404381F8477C20063C8CC /* VKViewController.swift */; };
 		F7A4045C1F8477C20063C8CC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7A404391F8477C20063C8CC /* Info.plist */; };
 		F7A404651F8477C20063C8CC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7A404461F8477C20063C8CC /* Info.plist */; };
+		F7F9EEE61F8482BE00987E03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F9EEE51F8482BE00987E03 /* AppDelegate.swift */; };
+		F7F9EEEA1F8482BE00987E03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F9EEE91F8482BE00987E03 /* ViewController.swift */; };
+		F7F9EEED1F8482BE00987E03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7F9EEEB1F8482BE00987E03 /* Main.storyboard */; };
+		F7F9EEEF1F8482BE00987E03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7F9EEEE1F8482BE00987E03 /* Assets.xcassets */; };
+		F7F9EEF21F8482BE00987E03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7F9EEF01F8482BE00987E03 /* LaunchScreen.storyboard */; };
+		F7F9EEF71F84834800987E03 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B32C31F7AC02F004259B8 /* ARKit.framework */; };
+		F7F9EEF91F84838F00987E03 /* ARVoxelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */; };
+		F7F9EEFA1F84838F00987E03 /* ARVoxelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +49,28 @@
 			remoteGlobalIDString = F77B32891F7ABD8D004259B8;
 			remoteInfo = ARVoxelKit;
 		};
+		F7F9EEFB1F84838F00987E03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F77B32811F7ABD8D004259B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F77B32891F7ABD8D004259B8;
+			remoteInfo = ARVoxelKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F7F9EEFD1F84838F00987E03 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F7F9EEFA1F84838F00987E03 /* ARVoxelKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F728C8AB1F84794300EB6B48 /* ARVoxelKitKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVoxelKitKitTests.swift; sourceTree = "<group>"; };
@@ -69,9 +97,16 @@
 		F7A404341F8477C20063C8CC /* SCNTransaction+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extensions.swift"; sourceTree = "<group>"; };
 		F7A404351F8477C20063C8CC /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		F7A404361F8477C20063C8CC /* SCNGeometry+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Extensions.swift"; sourceTree = "<group>"; };
-		F7A404381F8477C20063C8CC /* VKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKViewController.swift; sourceTree = "<group>"; };
 		F7A404391F8477C20063C8CC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7A404461F8477C20063C8CC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F7F9EEE31F8482BE00987E03 /* ARVoxelKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARVoxelKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7F9EEE51F8482BE00987E03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F7F9EEE91F8482BE00987E03 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F7F9EEEC1F8482BE00987E03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F7F9EEEE1F8482BE00987E03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F7F9EEF11F8482BE00987E03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F7F9EEF31F8482BE00987E03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F7F9EEF81F84834F00987E03 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7F9EEF71F84834800987E03 /* ARKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +126,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F7F9EEE01F8482BE00987E03 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7F9EEF91F84838F00987E03 /* ARVoxelKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -98,6 +142,7 @@
 			children = (
 				F7A404191F8477C20063C8CC /* ARVoxelKit */,
 				F7A404441F8477C20063C8CC /* ARVoxelKitTests */,
+				F7F9EEE41F8482BE00987E03 /* ARVoxelKitExample */,
 				F77B328B1F7ABD8D004259B8 /* Products */,
 				F77B32C21F7AC02E004259B8 /* Frameworks */,
 			);
@@ -108,6 +153,7 @@
 			children = (
 				F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */,
 				F77B32931F7ABD8D004259B8 /* ARVoxelKitTests.xctest */,
+				F7F9EEE31F8482BE00987E03 /* ARVoxelKitExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +161,7 @@
 		F77B32C21F7AC02E004259B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7F9EEF81F84834F00987E03 /* SceneKit.framework */,
 				F77B32C31F7AC02F004259B8 /* ARKit.framework */,
 			);
 			name = Frameworks;
@@ -147,7 +194,6 @@
 				F7A404211F8477C20063C8CC /* Nodes */,
 				F7A404291F8477C20063C8CC /* Managers */,
 				F7A404321F8477C20063C8CC /* Extensions */,
-				F7A404371F8477C20063C8CC /* ViewControllers */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -213,14 +259,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		F7A404371F8477C20063C8CC /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				F7A404381F8477C20063C8CC /* VKViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		F7A404441F8477C20063C8CC /* ARVoxelKitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +266,19 @@
 				F7A404461F8477C20063C8CC /* Info.plist */,
 			);
 			path = ARVoxelKitTests;
+			sourceTree = "<group>";
+		};
+		F7F9EEE41F8482BE00987E03 /* ARVoxelKitExample */ = {
+			isa = PBXGroup;
+			children = (
+				F7F9EEE51F8482BE00987E03 /* AppDelegate.swift */,
+				F7F9EEE91F8482BE00987E03 /* ViewController.swift */,
+				F7F9EEEB1F8482BE00987E03 /* Main.storyboard */,
+				F7F9EEEE1F8482BE00987E03 /* Assets.xcassets */,
+				F7F9EEF01F8482BE00987E03 /* LaunchScreen.storyboard */,
+				F7F9EEF31F8482BE00987E03 /* Info.plist */,
+			);
+			path = ARVoxelKitExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,13 +331,32 @@
 			productReference = F77B32931F7ABD8D004259B8 /* ARVoxelKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F7F9EEE21F8482BE00987E03 /* ARVoxelKitExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7F9EEF41F8482BE00987E03 /* Build configuration list for PBXNativeTarget "ARVoxelKitExample" */;
+			buildPhases = (
+				F7F9EEDF1F8482BE00987E03 /* Sources */,
+				F7F9EEE01F8482BE00987E03 /* Frameworks */,
+				F7F9EEE11F8482BE00987E03 /* Resources */,
+				F7F9EEFD1F84838F00987E03 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F7F9EEFC1F84838F00987E03 /* PBXTargetDependency */,
+			);
+			name = ARVoxelKitExample;
+			productName = ARVoxelKitExample;
+			productReference = F7F9EEE31F8482BE00987E03 /* ARVoxelKitExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		F77B32811F7ABD8D004259B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Gleb Radchenko";
 				TargetAttributes = {
@@ -298,6 +368,10 @@
 					F77B32921F7ABD8D004259B8 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0910;
+						ProvisioningStyle = Automatic;
+					};
+					F7F9EEE21F8482BE00987E03 = {
+						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -317,6 +391,7 @@
 			targets = (
 				F77B32891F7ABD8D004259B8 /* ARVoxelKit */,
 				F77B32921F7ABD8D004259B8 /* ARVoxelKitTests */,
+				F7F9EEE21F8482BE00987E03 /* ARVoxelKitExample */,
 			);
 		};
 /* End PBXProject section */
@@ -339,6 +414,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F7F9EEE11F8482BE00987E03 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7F9EEF21F8482BE00987E03 /* LaunchScreen.storyboard in Resources */,
+				F7F9EEEF1F8482BE00987E03 /* Assets.xcassets in Resources */,
+				F7F9EEED1F8482BE00987E03 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -351,7 +436,6 @@
 				F7A404531F8477C20063C8CC /* VKSceneManager+ARSessionDelegate.swift in Sources */,
 				F7A4045A1F8477C20063C8CC /* SCNGeometry+Extensions.swift in Sources */,
 				F7A404491F8477C20063C8CC /* VKConstants.swift in Sources */,
-				F7A4045B1F8477C20063C8CC /* VKViewController.swift in Sources */,
 				F7A4044D1F8477C20063C8CC /* VKVoxelNode.swift in Sources */,
 				F7A404511F8477C20063C8CC /* VKSynchronizedDataStructures.swift in Sources */,
 				F7A404591F8477C20063C8CC /* ARSCNView+Extensions.swift in Sources */,
@@ -376,6 +460,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F7F9EEDF1F8482BE00987E03 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7F9EEEA1F8482BE00987E03 /* ViewController.swift in Sources */,
+				F7F9EEE61F8482BE00987E03 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -384,7 +477,31 @@
 			target = F77B32891F7ABD8D004259B8 /* ARVoxelKit */;
 			targetProxy = F77B32951F7ABD8D004259B8 /* PBXContainerItemProxy */;
 		};
+		F7F9EEFC1F84838F00987E03 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F77B32891F7ABD8D004259B8 /* ARVoxelKit */;
+			targetProxy = F7F9EEFB1F84838F00987E03 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F7F9EEEB1F8482BE00987E03 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F7F9EEEC1F8482BE00987E03 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F7F9EEF01F8482BE00987E03 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F7F9EEF11F8482BE00987E03 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F77B329C1F7ABD8D004259B8 /* Debug */ = {
@@ -508,7 +625,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 76RXYZCS9Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -533,7 +650,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 76RXYZCS9Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -582,6 +699,40 @@
 			};
 			name = Release;
 		};
+		F7F9EEF51F8482BE00987E03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76RXYZCS9Y;
+				INFOPLIST_FILE = ARVoxelKitExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARVoxelKitExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F7F9EEF61F8482BE00987E03 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76RXYZCS9Y;
+				INFOPLIST_FILE = ARVoxelKitExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = gleb.radchenko.ARVoxelKitExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -608,6 +759,15 @@
 			buildConfigurations = (
 				F77B32A21F7ABD8D004259B8 /* Debug */,
 				F77B32A31F7ABD8D004259B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F7F9EEF41F8482BE00987E03 /* Build configuration list for PBXNativeTarget "ARVoxelKitExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7F9EEF51F8482BE00987E03 /* Debug */,
+				F7F9EEF61F8482BE00987E03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
