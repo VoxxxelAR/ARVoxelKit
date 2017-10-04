@@ -12,7 +12,6 @@ import ARKit
 public protocol VKVoxelDisplayable: class, VKVoxelPaintable {
     var position: SCNVector3 { get }
     var voxelGeometry: SCNBox { get }
-    var currentState: VKVoxelState { get set }
 }
 
 extension VKVoxelDisplayable where Self: SCNNode {

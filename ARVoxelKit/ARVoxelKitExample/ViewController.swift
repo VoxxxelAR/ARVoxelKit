@@ -22,6 +22,7 @@ open class ViewController: UIViewController {
     
     var focusedNode: VKVoxelPaintable?
     var focusedFace: VKVoxelFace?
+    var addingVoxel: VKVoxelNode?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -57,11 +58,13 @@ open class ViewController: UIViewController {
         
         if let surface = focusedNode as? VKSurfaceNode {
             sceneManager.setSelected(surface: surface)
-            surface.apply(.transparency(value: 1))
+            surface.apply(.transparency(value: 0), animated: true)
         }
         
-        if let voxel = focusedNode as? VKVoxelNode, let face = focusedFace {
-            sceneManager.add(new: VKVoxelNode(), to: voxel, face: face)
+        if let addingVoxel = addingVoxel {
+            addingVoxel.isInstalled = true
+            addingVoxel.apply([.color(content: VKConstants.defaultFaceColor), .transparency(value: 1)], animated: true)
+            self.addingVoxel = nil
         }
     }
 }
@@ -77,13 +80,13 @@ extension ViewController: VKSceneManagerDelegate {
         focusedNode = surface
         focusedFace = face
         
-        surface.apply(.transparency(value: 0.7))
+        surface.apply(.transparency(value: 0.5), animated: true)
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKSurfaceNode?) {
         guard let node = focusedNode else { return }
         
-        node.apply(.transparency(value: 1))
+        node.apply(.transparency(value: 1), animated: true)
         
         focusedNode = nil
         focusedFace = nil
@@ -93,16 +96,21 @@ extension ViewController: VKSceneManagerDelegate {
         focusedNode = voxel
         focusedFace = face
         
-        voxel.apply(.faceTransparency(value: 0.7, face: face))
+        let propotype = VKVoxelNode(color: .white)
+        propotype.isInstalled = false
+        propotype.apply(.transparency(value: 0.5), animated: false)
+        
+        manager.add(new: propotype, to: voxel, face: face)
+        
+        self.addingVoxel = propotype
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?) {
-        guard let node = focusedNode, let face = focusedFace else { return }
-        
-        node.apply(.faceTransparency(value: 1, face: face))
-        
         focusedNode = nil
         focusedFace = nil
+        
+        addingVoxel?.removeFromParentNode()
+        addingVoxel = nil
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, countOfVoxelesIn scene: ARSCNView) -> Int {
@@ -150,3 +158,4 @@ extension ViewController {
         statusView = view
     }
 }
+

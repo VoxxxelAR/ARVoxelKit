@@ -10,7 +10,7 @@ import SceneKit
 import ARKit
 
 open class VKVoxelNode: SCNNode, VKVoxelDisplayable {
-    public var currentState: VKVoxelState = .normal
+    public var isInstalled: Bool = true
     var mutable: Bool = true
     
     init(sideLength: CGFloat) {

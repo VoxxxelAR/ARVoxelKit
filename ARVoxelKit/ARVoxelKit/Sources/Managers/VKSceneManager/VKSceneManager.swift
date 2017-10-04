@@ -235,16 +235,15 @@ extension VKSceneManager {
 extension VKSceneManager {
     
     func updateVoxelesFocus() {
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: VKVoxelNode.self),
-            let voxel = result.node as? VKVoxelNode,
-            let face = VKVoxelFace(rawValue: result.geometryIndex) else {
-                defocusVoxelIfNeeded()
-                return
+        let predicate: (_ voxel: VKVoxelNode) -> Bool = { $0.isInstalled }
+        guard let result = scene.hitTestNode(from: scene.center, predicate: predicate) else {
+            defocusVoxelIfNeeded()
+            return
         }
         
         defocusVoxelIfNeeded()
-        focusContainer.focusedVoxel = voxel
-        delegate?.vkSceneManager(self, didFocus: voxel, face: face)
+        focusContainer.focusedVoxel = result.0
+        delegate?.vkSceneManager(self, didFocus: result.0, face: result.1)
     }
     
     func defocusVoxelIfNeeded() {
@@ -260,16 +259,14 @@ extension VKSceneManager {
 //MARK: - Surface processing
 extension VKSceneManager {
     func updateSurfacesFocus() {
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: VKSurfaceNode.self),
-            let surface = result.node as? VKSurfaceNode,
-            let face = VKVoxelFace(rawValue: result.geometryIndex) else {
-                defocusSurfaceIfNeeded()
-                return
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: VKSurfaceNode.self) else {
+            defocusSurfaceIfNeeded()
+            return
         }
         
         defocusSurfaceIfNeeded()
-        focusContainer.focusedSurface = surface
-        delegate?.vkSceneManager(self, didFocus: surface, face: face)
+        focusContainer.focusedSurface = result.0
+        delegate?.vkSceneManager(self, didFocus: result.0, face: result.1)
     }
     
     func defocusSurfaceIfNeeded() {

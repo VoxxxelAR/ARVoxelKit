@@ -15,7 +15,6 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
     var anchor: ARPlaneAnchor
     var voxelSideLength: CGFloat
     
-    public var currentState: VKVoxelState = .normal
     public var isAnimating = false
     
     var isVoxelesPrepared: Bool = false
@@ -28,6 +27,7 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
         geometry = SCNBox(width: 0, height: 0.001, length: 0, chamferRadius: 0)
         
         setupGeometry()
+        
         update(anchor, animated: true)
     }
     

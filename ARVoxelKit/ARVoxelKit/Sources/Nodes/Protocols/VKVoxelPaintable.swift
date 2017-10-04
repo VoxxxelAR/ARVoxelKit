@@ -30,7 +30,8 @@ public enum VKVoxelPaintCommand {
 
 public protocol VKVoxelPaintable {
     
-    func apply(_ command: VKVoxelPaintCommand)
+    func apply(_ command: VKVoxelPaintCommand, animated: Bool)
+    func apply(_ commands: [VKVoxelPaintCommand], animated: Bool)
     
     func paint(with color: UIColor)
     func paint(with image: UIImage)
@@ -44,20 +45,29 @@ public protocol VKVoxelPaintable {
 
 extension VKVoxelPaintable where Self: VKVoxelDisplayable {
     
-    public func apply(_ command: VKVoxelPaintCommand) {
-        //TODO: - Complete this
-        switch command {
-        case .color(let content):
-            paint(with: content)
-        case .faceColor(let content, let face):
-            paint(face: face, with: content)
-        case .transparency(let value):
-            updateVoxelTransparency(with: value)
-        case .faceTransparency(let value, let face):
-            updateVoxelTransparency(for: face, newValue: value)
-        default:
-            break
+    public func apply(_ commands: [VKVoxelPaintCommand], animated: Bool) {
+        let changes = { commands.forEach { self.apply($0, animated: false) } }
+        animated ? SCNTransaction.animate(with: VKConstants.defaultAnimationDuration, changes) : changes()
+    }
+    
+    public func apply(_ command: VKVoxelPaintCommand, animated: Bool) {
+        let changes = {
+            //TODO: - Complete this
+            switch command {
+            case .color(let content):
+                self.paint(with: content)
+            case .faceColor(let content, let face):
+                self.paint(face: face, with: content)
+            case .transparency(let value):
+                self.updateVoxelTransparency(with: value)
+            case .faceTransparency(let value, let face):
+                self.updateVoxelTransparency(for: face, newValue: value)
+            default:
+                break
+            }
         }
+        
+        animated ? SCNTransaction.animate(with: VKConstants.defaultAnimationDuration, changes) : changes()
     }
     
     public func paint(with color: UIColor) {
@@ -87,8 +97,7 @@ extension VKVoxelPaintable where Self: VKVoxelDisplayable {
     
     public func paint(face: VKVoxelFace, with colors: [UIColor], start: CGPoint, end: CGPoint) {
         let layer = GradientedLayer(colors: colors, start: start, end: end)
-        updateVoxelMaterial(for: face, newContents: layer
-        )
+        updateVoxelMaterial(for: face, newContents: layer)
     }
 }
 

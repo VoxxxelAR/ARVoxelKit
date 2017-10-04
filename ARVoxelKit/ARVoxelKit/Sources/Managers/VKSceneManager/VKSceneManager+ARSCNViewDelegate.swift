@@ -16,7 +16,7 @@ extension VKSceneManager: ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.updateFocus()
         }
-        
+
         renderingQueue.dequeue(10).forEach { $0() }
     }
     

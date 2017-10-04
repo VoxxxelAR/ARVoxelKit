@@ -9,18 +9,6 @@
 import Foundation
 import SceneKit
 
-public enum VKVoxelState {
-    case normal
-    case hidden
-    
-    var id: Int {
-        switch self {
-        case .normal: return 0
-        case .hidden: return 2
-        }
-    }
-}
-
 public enum VKVoxelFace: Int {
     case front = 0, right, back, left, top, bottom
     

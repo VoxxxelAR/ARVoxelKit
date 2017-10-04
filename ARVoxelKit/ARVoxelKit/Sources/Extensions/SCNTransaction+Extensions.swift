@@ -9,7 +9,7 @@
 import ARKit
 import SceneKit
 
-enum SCNTransactionTimingFunction {
+public enum SCNTransactionTimingFunction {
     case linear, easeIn, easeOut, easeInOut, `default`
     
     var value: String {
@@ -29,10 +29,10 @@ enum SCNTransactionTimingFunction {
 }
 
 extension SCNTransaction {
-    static func animate(with duration: TimeInterval,
-                        timingFunction: SCNTransactionTimingFunction = .default,
-                        _ animation: @escaping () -> Void,
-                        _ completion: (() -> Void)? = nil) {
+    public static func animate(with duration: TimeInterval,
+                               timingFunction: SCNTransactionTimingFunction = .default,
+                               _ animation: @escaping () -> Void,
+                               _ completion: (() -> Void)? = nil) {
         
         SCNTransaction.begin()
         SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: timingFunction.value)
@@ -45,3 +45,4 @@ extension SCNTransaction {
         SCNTransaction.commit()
     }
 }
+
