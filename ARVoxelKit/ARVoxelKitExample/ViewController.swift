@@ -30,7 +30,7 @@ open class ViewController: UIViewController {
         super.viewDidLoad()
         
         sceneManager.delegate = self
-        setupUI()
+        addStatusLabel()
         
         setupGestures()
     }
@@ -48,10 +48,6 @@ open class ViewController: UIViewController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneManager?.pauseSession()
-    }
-    
-    func setupUI() {
-        addStatusLabel()
     }
     
     @objc func handleTap(gesture: UITapGestureRecognizer) {
@@ -73,9 +69,9 @@ open class ViewController: UIViewController {
     func addVoxel() {
         guard let voxel = addingVoxel else { return }
         
-        voxel.isInstalled = true
+        addingVoxel = nil
         voxel.apply([.color(content: VKConstants.defaultFaceColor), .transparency(value: 1)], animated: true)
-        self.addingVoxel = nil
+        voxel.isInstalled = true
     }
     
     func removeVoxel() {
@@ -86,15 +82,12 @@ open class ViewController: UIViewController {
             self.sceneManager.remove(focusedVoxel)
         }
         
-        guard let addingVoxel = addingVoxel else {
-            return
-        }
+        guard let addingVoxel = addingVoxel else { return }
         self.addingVoxel = nil
         
         addingVoxel.apply(.transparency(value: 0), animated: true) {
             addingVoxel.removeFromParentNode()
         }
-        
     }
 }
 
@@ -153,7 +146,6 @@ extension ViewController: VKSceneManagerDelegate {
     public func vkSceneManager(_ manager: VKSceneManager, voxelFor index: Int) -> VKVoxelNode {
         return VKVoxelNode()
     }
-    
 }
 
 //MARK: - UI Setuping
