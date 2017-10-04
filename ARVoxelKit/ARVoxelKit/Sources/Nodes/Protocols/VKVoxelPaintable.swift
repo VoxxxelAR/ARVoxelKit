@@ -30,8 +30,8 @@ public enum VKVoxelPaintCommand {
 
 public protocol VKVoxelPaintable {
     
-    func apply(_ command: VKVoxelPaintCommand, animated: Bool)
-    func apply(_ commands: [VKVoxelPaintCommand], animated: Bool)
+    func apply(_ command: VKVoxelPaintCommand)
+    func apply(_ commands: [VKVoxelPaintCommand])
     
     func paint(with color: UIColor)
     func paint(with image: UIImage)
@@ -43,14 +43,17 @@ public protocol VKVoxelPaintable {
     //etc
 }
 
-extension VKVoxelPaintable where Self: VKVoxelDisplayable {
+extension VKVoxelDisplayable {
     
-    public func apply(_ commands: [VKVoxelPaintCommand], animated: Bool) {
-        let changes = { commands.forEach { self.apply($0, animated: false) } }
-        animated ? SCNTransaction.animate(with: VKConstants.defaultAnimationDuration, changes) : changes()
+    public func apply(_ command: VKVoxelPaintCommand) {
+        apply(command, animated: false)
     }
     
-    public func apply(_ command: VKVoxelPaintCommand, animated: Bool) {
+    public func apply(_ commands: [VKVoxelPaintCommand]) {
+        apply(commands, animated: false)
+    }
+    
+    public func apply(_ command: VKVoxelPaintCommand, animated: Bool, completion: (() -> Void)? = nil) {
         let changes = {
             //TODO: - Complete this
             switch command {
@@ -67,7 +70,23 @@ extension VKVoxelPaintable where Self: VKVoxelDisplayable {
             }
         }
         
-        animated ? SCNTransaction.animate(with: VKConstants.defaultAnimationDuration, changes) : changes()
+        if animated {
+            SCNTransaction.animate(with: VKConstants.defaultAnimationDuration, changes, completion)
+        } else {
+            changes()
+            completion?()
+        }
+    }
+    
+    public func apply(_ commands: [VKVoxelPaintCommand], animated: Bool, completion: (() -> Void)? = nil) {
+        let changes = { commands.forEach { self.apply($0, animated: false) } }
+        
+        if animated {
+            SCNTransaction.animate(with: VKConstants.defaultAnimationDuration, changes, completion)
+        } else {
+            changes()
+            completion?()
+        }
     }
     
     public func paint(with color: UIColor) {

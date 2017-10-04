@@ -10,6 +10,7 @@ import SceneKit
 import ARKit
 
 open class VKVoxelNode: SCNNode, VKVoxelDisplayable {
+    
     public var isInstalled: Bool = true
     var mutable: Bool = true
     
@@ -32,26 +33,26 @@ open class VKVoxelNode: SCNNode, VKVoxelDisplayable {
         self.init(sideLength: VKConstants.voxelSideLength)
         paint(with: image)
     }
-
+    
     public required convenience init(colors: [UIColor], start: CGPoint, end: CGPoint) {
         self.init(sideLength: VKConstants.voxelSideLength)
         paint(with: colors, start: start, end: end)
     }
-
+    
     public required convenience init(colors: [UIColor]) {
         self.init(sideLength: VKConstants.voxelSideLength)
         
         let layers = colors.map { ColoredLayer(color: $0) }
         updateVoxelMaterials(with: layers)
     }
-
+    
     public required convenience init(images: [UIImage]) {
         self.init(sideLength: VKConstants.voxelSideLength)
         
         let layers = images.map { TexturedLayer(image: $0) }
         updateVoxelMaterials(with: layers)
     }
-
+    
     public required convenience init(gradients: [([UIColor], CGPoint, CGPoint)]) {
         self.init(sideLength: VKConstants.voxelSideLength)
         
@@ -65,3 +66,4 @@ open class VKVoxelNode: SCNNode, VKVoxelDisplayable {
         setupGeometry()
     }
 }
+

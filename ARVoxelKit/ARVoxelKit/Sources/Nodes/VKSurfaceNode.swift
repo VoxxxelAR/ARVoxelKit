@@ -17,7 +17,7 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
     
     public var isAnimating = false
     
-    var isVoxelesPrepared: Bool = false
+    var isVoxelsPrepared: Bool = false
     
     init(anchor: ARPlaneAnchor, voxelSideLength: CGFloat) {
         self.anchor = anchor
@@ -44,7 +44,7 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
         let changes = {
             self.simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
             
-            if !self.isVoxelesPrepared {
+            if !self.isVoxelsPrepared {
                 self.voxelGeometry.width = min(VKConstants.maxSurfaceWidth, extendedX)
                 self.voxelGeometry.length = min(VKConstants.maxSurfaceLength, extendedZ)
             }
@@ -59,8 +59,8 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
         }
     }
     
-    func prepareCreateVoxeles() -> [VKRenderingCommand] {
-        isVoxelesPrepared = true
+    func prepareCreateVoxels() -> [VKRenderingCommand] {
+        isVoxelsPrepared = true
         let positions = calculateVoxelPositions()
         
         return positions.flatMap { (center) in

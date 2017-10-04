@@ -128,7 +128,7 @@ extension VKSceneManager {
             }
             
             updateQueue.async {
-                let countToAdd = self.delegate?.vkSceneManager(self, countOfVoxelesIn: self.scene) ?? 0
+                let countToAdd = self.delegate?.vkSceneManager(self, countOfVoxelsIn: self.scene) ?? 0
                 
                 (0..<countToAdd).forEach { (index) in
                     guard let nodeToAdd = self.delegate?.vkSceneManager(self, voxelFor: index) else { return }
@@ -159,7 +159,7 @@ extension VKSceneManager {
         
         removeSurfaces(except: surface, animated: true)
         
-        renderingQueue.enqueue(surface.prepareCreateVoxeles())
+        renderingQueue.enqueue(surface.prepareCreateVoxels())
         reloadSession()
     }
     
@@ -209,7 +209,7 @@ extension VKSceneManager {
     func updateFocus() {
         switch state {
         case .normal(let surfaceSelected):
-            surfaceSelected ? updateVoxelesFocus() : updateSurfacesFocus()
+            surfaceSelected ? updateVoxelsFocus() : updateSurfacesFocus()
         default:
             break
         }
@@ -234,7 +234,7 @@ extension VKSceneManager {
 //MARK: - Voxel processing
 extension VKSceneManager {
     
-    func updateVoxelesFocus() {
+    func updateVoxelsFocus() {
         let predicate: (_ voxel: VKVoxelNode) -> Bool = { $0.isInstalled }
         guard let result = scene.hitTestNode(from: scene.center, predicate: predicate) else {
             defocusVoxelIfNeeded()

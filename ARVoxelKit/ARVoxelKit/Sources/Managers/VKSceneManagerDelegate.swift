@@ -21,7 +21,7 @@ public protocol VKSceneManagerDelegate: class {
     func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace)
     func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?)
     
-    func vkSceneManager(_ manager: VKSceneManager, countOfVoxelesIn scene: ARSCNView) -> Int
+    func vkSceneManager(_ manager: VKSceneManager, countOfVoxelsIn scene: ARSCNView) -> Int
     func vkSceneManager(_ manager: VKSceneManager, voxelFor index: Int) -> VKVoxelNode
 }
 
@@ -43,5 +43,5 @@ extension VKSceneManagerDelegate {
     public func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace) { }
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?) { }
     
-    public func vkSceneManager(_ manager: VKSceneManager, countOfVoxelesIn scene: ARSCNView) -> Int { return 0 }
+    public func vkSceneManager(_ manager: VKSceneManager, countOfVoxelsIn scene: ARSCNView) -> Int { return 0 }
 }

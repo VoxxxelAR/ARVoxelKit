@@ -13,22 +13,23 @@ import ARVoxelKit
 
 open class ViewController: UIViewController {
     
-    @IBOutlet open var sceneView: ARSCNView!
+    @IBOutlet open var sceneView: ARSCNView! {
+        didSet { sceneManager = VKSceneManager(with: sceneView) }
+    }
     
     weak var statusView: UIView?
     weak var statusLabel: UILabel?
     
-    var sceneManager: VKSceneManager?
+    var sceneManager: VKSceneManager!
     
-    var focusedNode: VKVoxelPaintable?
+    var focusedNode: VKVoxelDisplayable?
     var focusedFace: VKVoxelFace?
     var addingVoxel: VKVoxelNode?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneManager = VKSceneManager(with: sceneView)
-        sceneManager?.delegate = self
+        sceneManager.delegate = self
         setupUI()
         
         setupGestures()
@@ -59,13 +60,41 @@ open class ViewController: UIViewController {
         if let surface = focusedNode as? VKSurfaceNode {
             sceneManager.setSelected(surface: surface)
             surface.apply(.transparency(value: 0), animated: true)
+            return
         }
         
-        if let addingVoxel = addingVoxel {
-            addingVoxel.isInstalled = true
-            addingVoxel.apply([.color(content: VKConstants.defaultFaceColor), .transparency(value: 1)], animated: true)
-            self.addingVoxel = nil
+        if gesture.location(in: view).x < view.bounds.midX {
+            removeVoxel()
+        } else {
+            addVoxel()
         }
+    }
+    
+    func addVoxel() {
+        guard let voxel = addingVoxel else { return }
+        
+        voxel.isInstalled = true
+        voxel.apply([.color(content: VKConstants.defaultFaceColor), .transparency(value: 1)], animated: true)
+        self.addingVoxel = nil
+    }
+    
+    func removeVoxel() {
+        guard let focusedVoxel = focusedNode as? VKVoxelNode else { return }
+        focusedNode = nil
+        
+        focusedVoxel.apply(.transparency(value: 0), animated: true) {
+            self.sceneManager.remove(focusedVoxel)
+        }
+        
+        guard let addingVoxel = addingVoxel else {
+            return
+        }
+        self.addingVoxel = nil
+        
+        addingVoxel.apply(.transparency(value: 0), animated: true) {
+            addingVoxel.removeFromParentNode()
+        }
+        
     }
 }
 
@@ -80,13 +109,13 @@ extension ViewController: VKSceneManagerDelegate {
         focusedNode = surface
         focusedFace = face
         
-        surface.apply(.transparency(value: 0.5), animated: true)
+        surface.apply(.transparency(value: 1), animated: true)
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKSurfaceNode?) {
         guard let node = focusedNode else { return }
         
-        node.apply(.transparency(value: 1), animated: true)
+        node.apply(.transparency(value: 0.5), animated: true)
         
         focusedNode = nil
         focusedFace = nil
@@ -98,8 +127,8 @@ extension ViewController: VKSceneManagerDelegate {
         
         let propotype = VKVoxelNode(color: .white)
         propotype.isInstalled = false
-        propotype.apply(.transparency(value: 0.5), animated: false)
         
+        propotype.apply(.transparency(value: 0.4), animated: false)
         manager.add(new: propotype, to: voxel, face: face)
         
         self.addingVoxel = propotype
@@ -109,11 +138,15 @@ extension ViewController: VKSceneManagerDelegate {
         focusedNode = nil
         focusedFace = nil
         
-        addingVoxel?.removeFromParentNode()
+        guard let voxel = addingVoxel else { return }
         addingVoxel = nil
+        
+        voxel.apply(.transparency(value: 0), animated: true) {
+            voxel.removeFromParentNode()
+        }
     }
     
-    public func vkSceneManager(_ manager: VKSceneManager, countOfVoxelesIn scene: ARSCNView) -> Int {
+    public func vkSceneManager(_ manager: VKSceneManager, countOfVoxelsIn scene: ARSCNView) -> Int {
         return 0
     }
     
