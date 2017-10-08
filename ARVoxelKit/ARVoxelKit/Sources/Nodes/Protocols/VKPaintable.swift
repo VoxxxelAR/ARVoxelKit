@@ -78,16 +78,3 @@ extension VKSurfaceDisplayable {
         updateSurfaceMaterial(with: layer)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

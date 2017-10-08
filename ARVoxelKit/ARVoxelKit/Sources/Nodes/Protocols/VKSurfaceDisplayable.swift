@@ -57,18 +57,3 @@ extension VKSurfaceDisplayable {
         surfaceMaterial().transparency = value
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
