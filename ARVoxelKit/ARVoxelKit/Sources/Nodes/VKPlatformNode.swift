@@ -60,44 +60,48 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         }
     }
     
-    func prepareCreateVoxels() -> [VKRenderingCommand] {
+    func prepareCreateVoxels() {
         isVoxelsPrepared = true
-        let positions = calculateVoxelPositions()
+        var positions = calculateVoxelPositions()
         
-        return positions.flatMap { (center) in
-            return {
-                DispatchQueue.main.async { [weak self] in
-                    guard let wSelf = self else { return }
-                    
-                    let voxel = VKVoxelNode()
-                    voxel.mutable = false
-                    voxel.position = center
-                    
-                    wSelf.addChildNode(voxel)
-                }
-            }
+        let renderBlock = {  [weak self] (node: SCNNode) in
+            guard let wSelf = self else { return }
+            guard let position = positions.popLast() else { return }
+            
+            let voxel = VKVoxelNode()
+            voxel.mutable = false
+            voxel.position = position
+            
+            wSelf.addChildNode(voxel)
         }
+        
+        let actions = [SCNAction.wait(duration: 0.01), SCNAction.run(renderBlock, queue: .main)]
+        let sequence = SCNAction.sequence(actions)
+        let repeatAction = SCNAction.repeat(sequence, count: positions.count)
+        
+        runAction(repeatAction)
     }
     
     func calculateVoxelPositions() -> [SCNVector3] {
         
-        let nodeHeight = surfaceGeometry.height
+        let nodeLength = surfaceGeometry.height
         let nodeWidth = surfaceGeometry.width
+        
         let voxelLength = voxelSideLength
         
-        let rowCount = Int(ceil(nodeHeight / voxelLength))
+        let rowCount = Int(ceil(nodeLength / voxelLength))
         let columnCount = Int(ceil(nodeWidth / voxelLength))
         
         let margin = voxelLength / 2.0 //TODO - check what this affects or remove
-        let y = CGFloat(margin)
+        let z = CGFloat(margin)
         
         var result: [SCNVector3] = []
         
         (0..<rowCount).forEach { (row) in
-            let z = -nodeHeight / 2 + margin + CGFloat(row) * voxelLength
+            let y = -nodeLength / 2 + margin + CGFloat(row) * voxelLength
             (0..<columnCount).forEach { (column) in
                 let x = -nodeWidth / 2 + margin + CGFloat(column) * voxelLength
-                result.append(SCNVector3(x, z, y)) //TODO - coordinate system get rotated by parent (platform tranform). Consider a better solution.
+                result.append(SCNVector3(x, y, z))
             }
         }
         

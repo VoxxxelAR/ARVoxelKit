@@ -27,6 +27,8 @@ open class VKSceneManager: NSObject {
     public internal(set) var surfaces: [ARPlaneAnchor: VKPlatformNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "vk-update-queue", attributes: .concurrent)
+    
+    //TODO - Remove it
     var renderingQueue: VKSynchronizedQueue<VKRenderingCommand> = VKSynchronizedQueue<VKRenderingCommand>()
     
     public init(with scene: ARSCNView) {
@@ -158,8 +160,8 @@ extension VKSceneManager {
         state = .normal(true)
         
         removeSurfaces(except: surface, animated: true)
+        surface.prepareCreateVoxels()
         
-        renderingQueue.enqueue(surface.prepareCreateVoxels())
         reloadSession()
     }
     
@@ -270,9 +272,7 @@ extension VKSceneManager {
     }
     
     func defocusSurfaceIfNeeded() {
-        guard let focusedSurface = focusContainer.focusedSurface else {
-            return
-        }
+        guard let focusedSurface = focusContainer.focusedSurface else { return }
         
         focusContainer.focusedSurface = nil
         delegate?.vkSceneManager(self, didDefocus: focusedSurface)

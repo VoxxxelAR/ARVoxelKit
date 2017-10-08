@@ -52,14 +52,11 @@ open class ViewController: UIViewController {
     
     @objc func handleTap(gesture: UITapGestureRecognizer) {
         guard let sceneManager = sceneManager else { return }
+        guard let focusedNode = focusedNode else { return }
         
-        if focusedNode == nil {
-            print("Nu pizda")
-        }
         if let surface = focusedNode as? VKPlatformNode {
             sceneManager.setSelected(surface: surface)
             surface.apply(.transparency(value: 0), animated: true)
-                   print("Tap, yopta")
             return
         }
         
@@ -103,7 +100,7 @@ extension ViewController: VKSceneManagerDelegate {
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKPlatformNode) {
-        focusedNode = surface as? VKDisplayable
+        focusedNode = surface
         focusedFace = nil
         
         print(type(of: surface))

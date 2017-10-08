@@ -96,4 +96,3 @@ extension VKVoxelDisplayable {
         updateVoxelMaterial(for: face, newContents: layer)
     }
 }
-

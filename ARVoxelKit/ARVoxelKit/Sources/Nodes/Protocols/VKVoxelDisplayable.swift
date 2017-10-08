@@ -10,7 +10,6 @@ import SceneKit
 import ARKit
 
 public protocol VKVoxelDisplayable: VKDisplayable, VKVoxelPaintable {
-    // var position: SCNVector3 { get }
     var voxelGeometry: SCNBox { get }
 }
 
