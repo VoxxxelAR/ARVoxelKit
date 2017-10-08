@@ -9,12 +9,12 @@
 import SceneKit
 import ARKit
 
-public protocol VKVoxelDisplayable: class, VKVoxelPaintable {
-    var position: SCNVector3 { get }
+public protocol VKVoxelDisplayable: VKDisplayable, VKVoxelPaintable {
+    // var position: SCNVector3 { get }
     var voxelGeometry: SCNBox { get }
 }
 
-extension VKVoxelDisplayable where Self: SCNNode {
+extension VKVoxelDisplayable where Self: VKVoxelNode {
     public var voxelGeometry: SCNBox {
         guard let voxelGeometry = geometry as? SCNBox else {
             fatalError("Geometry must be of SCNBox type.")
@@ -26,7 +26,7 @@ extension VKVoxelDisplayable where Self: SCNNode {
 
 extension VKVoxelDisplayable {
     
-    func setupGeometry() {
+    func setupGeometry() {  
         voxelGeometry.materials = createVoxelMaterials()
     }
     

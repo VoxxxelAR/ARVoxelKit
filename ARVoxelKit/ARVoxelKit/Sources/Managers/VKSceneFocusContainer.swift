@@ -10,10 +10,10 @@ import ARKit
 import SceneKit
 
 public struct VKSceneFocusContainer {
-    public var focusedSurface: VKSurfaceNode?
+    public var focusedSurface: VKPlatformNode?
     
     public var selectedAnchor: ARPlaneAnchor?
-    public var selectedSurface: VKSurfaceNode?
+    public var selectedSurface: VKPlatformNode?
     
     public var focusedVoxel: VKVoxelNode?
     
@@ -37,8 +37,8 @@ public struct VKSceneFocusContainer {
     
     enum State {
         case empty
-        case surfaceFocused(surface: VKSurfaceNode)
-        case surfaceSelected(surface: VKSurfaceNode, anchor: ARPlaneAnchor)
+        case surfaceFocused(surface: VKPlatformNode)
+        case surfaceSelected(surface: VKPlatformNode, anchor: ARPlaneAnchor)
         case voxelFocused(voxel: VKVoxelNode)
     }
 }

@@ -22,7 +22,7 @@ open class ViewController: UIViewController {
     
     var sceneManager: VKSceneManager!
     
-    var focusedNode: VKVoxelDisplayable?
+    var focusedNode: VKDisplayable?
     var focusedFace: VKVoxelFace?
     var addingVoxel: VKVoxelNode?
     
@@ -53,9 +53,13 @@ open class ViewController: UIViewController {
     @objc func handleTap(gesture: UITapGestureRecognizer) {
         guard let sceneManager = sceneManager else { return }
         
-        if let surface = focusedNode as? VKSurfaceNode {
+        if focusedNode == nil {
+            print("Nu pizda")
+        }
+        if let surface = focusedNode as? VKPlatformNode {
             sceneManager.setSelected(surface: surface)
             surface.apply(.transparency(value: 0), animated: true)
+                   print("Tap, yopta")
             return
         }
         
@@ -98,17 +102,19 @@ extension ViewController: VKSceneManagerDelegate {
         statusView?.isHidden = state.hint.isEmpty
     }
     
-    public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKSurfaceNode, face: VKVoxelFace) {
-        focusedNode = surface
-        focusedFace = face
+    public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKPlatformNode) {
+        focusedNode = surface as? VKDisplayable
+        focusedFace = nil
+        
+        print(type(of: surface))
         
         surface.apply(.transparency(value: 1), animated: true)
     }
     
-    public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKSurfaceNode?) {
+    public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKPlatformNode?) {
         guard let node = focusedNode else { return }
         
-        node.apply(.transparency(value: 0.5), animated: true)
+        node.apply(.transparency(value: 0.5), animated: true, completion: nil)
         
         focusedNode = nil
         focusedFace = nil

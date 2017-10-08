@@ -1,5 +1,5 @@
 //
-//  VKSurfaceNode.swift
+//  VKPlatformNode.swift
 //  ARVoxelKit
 //
 //  Created by Gleb Radchenko on 9/26/17.
@@ -10,7 +10,7 @@ import Foundation
 import SceneKit
 import ARKit
 
-open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
+open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
     
     var anchor: ARPlaneAnchor
     var voxelSideLength: CGFloat
@@ -24,8 +24,9 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
         self.voxelSideLength = voxelSideLength
         
         super.init()
-        geometry = SCNBox(width: 0, height: 0.001, length: 0, chamferRadius: 0)
+        geometry = SCNPlane(width: 0, height: 0)
         
+        setupTransform()
         setupGeometry()
         
         update(anchor, animated: true)
@@ -45,8 +46,8 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
             self.simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
             
             if !self.isVoxelsPrepared {
-                self.voxelGeometry.width = min(VKConstants.maxSurfaceWidth, extendedX)
-                self.voxelGeometry.length = min(VKConstants.maxSurfaceLength, extendedZ)
+                self.surfaceGeometry.width = min(VKConstants.maxSurfaceWidth, extendedX)
+                self.surfaceGeometry.height = min(VKConstants.maxSurfaceLength, extendedZ)
             }
         }
         
@@ -80,23 +81,23 @@ open class VKSurfaceNode: SCNNode, VKVoxelDisplayable {
     
     func calculateVoxelPositions() -> [SCNVector3] {
         
-        let nodeLength = voxelGeometry.length
-        let nodeWidth = voxelGeometry.width
+        let nodeHeight = surfaceGeometry.height
+        let nodeWidth = surfaceGeometry.width
         let voxelLength = voxelSideLength
         
-        let rowCount = Int(ceil(nodeLength / voxelLength))
+        let rowCount = Int(ceil(nodeHeight / voxelLength))
         let columnCount = Int(ceil(nodeWidth / voxelLength))
-        let margin = voxelLength / 2
         
-        let y = margin + voxelGeometry.height / 2
+        let margin = voxelLength / 2.0 //TODO - check what this affects or remove
+        let y = CGFloat(margin)
         
         var result: [SCNVector3] = []
         
         (0..<rowCount).forEach { (row) in
-            let z = -nodeLength / 2 + margin + CGFloat(row) * voxelLength
+            let z = -nodeHeight / 2 + margin + CGFloat(row) * voxelLength
             (0..<columnCount).forEach { (column) in
                 let x = -nodeWidth / 2 + margin + CGFloat(column) * voxelLength
-                result.append(SCNVector3(x, y, z))
+                result.append(SCNVector3(x, z, y)) //TODO - coordinate system get rotated by parent (platform tranform). Consider a better solution.
             }
         }
         

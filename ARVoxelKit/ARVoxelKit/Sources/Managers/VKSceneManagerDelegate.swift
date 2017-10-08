@@ -15,8 +15,8 @@ public protocol VKSceneManagerDelegate: class {
     func vkSceneManager(_ manager: VKSceneManager, shouldResetSessionFor state: VKARSessionState) -> Bool
     func vkSceneManager(_ manager: VKSceneManager, didUpdateState state: VKARSessionState)
     
-    func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKSurfaceNode, face: VKVoxelFace)
-    func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKSurfaceNode?)
+    func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKPlatformNode)
+    func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKPlatformNode?)
     
     func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace)
     func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?)
@@ -37,8 +37,8 @@ extension VKSceneManagerDelegate {
     
     public func vkSceneManager(_ manager: VKSceneManager, didUpdateState state: VKARSessionState) { }
     
-    public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKSurfaceNode, face: VKVoxelFace) { }
-    public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKSurfaceNode?) { }
+    public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKPlatformNode, face: VKVoxelFace) { }
+    public func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKPlatformNode?) { }
     
     public func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace) { }
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?) { }

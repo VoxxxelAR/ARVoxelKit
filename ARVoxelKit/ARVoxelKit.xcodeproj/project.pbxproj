@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7564DB7F1F8A8D8C004CFD5F /* VKDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7564DB7E1F8A8D8C004CFD5F /* VKDisplayable.swift */; };
+		75B1A0B51F892D8E00522F01 /* VKSurfaceDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B1A0B41F892D8E00522F01 /* VKSurfaceDisplayable.swift */; };
+		75B1A0B91F892F4900522F01 /* VKPaintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B1A0B81F892F4900522F01 /* VKPaintable.swift */; };
 		F728C8AC1F84794300EB6B48 /* ARVoxelKitKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C8AB1F84794300EB6B48 /* ARVoxelKitKitTests.swift */; };
 		F77B32941F7ABD8D004259B8 /* ARVoxelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */; };
 		F7A404471F8477C20063C8CC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7A4041B1F8477C20063C8CC /* Media.xcassets */; };
@@ -14,7 +17,7 @@
 		F7A404491F8477C20063C8CC /* VKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4041D1F8477C20063C8CC /* VKConstants.swift */; };
 		F7A4044A1F8477C20063C8CC /* Layers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404201F8477C20063C8CC /* Layers.swift */; };
 		F7A4044B1F8477C20063C8CC /* VKVoxelStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404221F8477C20063C8CC /* VKVoxelStructs.swift */; };
-		F7A4044C1F8477C20063C8CC /* VKSurfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404231F8477C20063C8CC /* VKSurfaceNode.swift */; };
+		F7A4044C1F8477C20063C8CC /* VKPlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404231F8477C20063C8CC /* VKPlatformNode.swift */; };
 		F7A4044D1F8477C20063C8CC /* VKVoxelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404241F8477C20063C8CC /* VKVoxelNode.swift */; };
 		F7A4044E1F8477C20063C8CC /* VKVoxelDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404261F8477C20063C8CC /* VKVoxelDisplayable.swift */; };
 		F7A4044F1F8477C20063C8CC /* VKVoxelPaintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404271F8477C20063C8CC /* VKVoxelPaintable.swift */; };
@@ -73,6 +76,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7564DB7E1F8A8D8C004CFD5F /* VKDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDisplayable.swift; sourceTree = "<group>"; };
+		75B1A0B41F892D8E00522F01 /* VKSurfaceDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKSurfaceDisplayable.swift; sourceTree = "<group>"; };
+		75B1A0B81F892F4900522F01 /* VKPaintable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPaintable.swift; sourceTree = "<group>"; };
 		F728C8AB1F84794300EB6B48 /* ARVoxelKitKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVoxelKitKitTests.swift; sourceTree = "<group>"; };
 		F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARVoxelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B32931F7ABD8D004259B8 /* ARVoxelKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARVoxelKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +88,7 @@
 		F7A4041D1F8477C20063C8CC /* VKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKConstants.swift; sourceTree = "<group>"; };
 		F7A404201F8477C20063C8CC /* Layers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layers.swift; sourceTree = "<group>"; };
 		F7A404221F8477C20063C8CC /* VKVoxelStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKVoxelStructs.swift; sourceTree = "<group>"; };
-		F7A404231F8477C20063C8CC /* VKSurfaceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKSurfaceNode.swift; sourceTree = "<group>"; };
+		F7A404231F8477C20063C8CC /* VKPlatformNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKPlatformNode.swift; sourceTree = "<group>"; };
 		F7A404241F8477C20063C8CC /* VKVoxelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKVoxelNode.swift; sourceTree = "<group>"; };
 		F7A404261F8477C20063C8CC /* VKVoxelDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKVoxelDisplayable.swift; sourceTree = "<group>"; };
 		F7A404271F8477C20063C8CC /* VKVoxelPaintable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKVoxelPaintable.swift; sourceTree = "<group>"; };
@@ -209,7 +215,7 @@
 		F7A404211F8477C20063C8CC /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				F7A404231F8477C20063C8CC /* VKSurfaceNode.swift */,
+				F7A404231F8477C20063C8CC /* VKPlatformNode.swift */,
 				F7A404241F8477C20063C8CC /* VKVoxelNode.swift */,
 				F7A404221F8477C20063C8CC /* VKVoxelStructs.swift */,
 				F7A404251F8477C20063C8CC /* Protocols */,
@@ -220,7 +226,10 @@
 		F7A404251F8477C20063C8CC /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7564DB7E1F8A8D8C004CFD5F /* VKDisplayable.swift */,
 				F7A404261F8477C20063C8CC /* VKVoxelDisplayable.swift */,
+				75B1A0B41F892D8E00522F01 /* VKSurfaceDisplayable.swift */,
+				75B1A0B81F892F4900522F01 /* VKPaintable.swift */,
 				F7A404271F8477C20063C8CC /* VKVoxelPaintable.swift */,
 			);
 			path = Protocols;
@@ -437,10 +446,13 @@
 				F7A4045A1F8477C20063C8CC /* SCNGeometry+Extensions.swift in Sources */,
 				F7A404491F8477C20063C8CC /* VKConstants.swift in Sources */,
 				F7A4044D1F8477C20063C8CC /* VKVoxelNode.swift in Sources */,
+				75B1A0B51F892D8E00522F01 /* VKSurfaceDisplayable.swift in Sources */,
 				F7A404511F8477C20063C8CC /* VKSynchronizedDataStructures.swift in Sources */,
+				75B1A0B91F892F4900522F01 /* VKPaintable.swift in Sources */,
+				7564DB7F1F8A8D8C004CFD5F /* VKDisplayable.swift in Sources */,
 				F7A404591F8477C20063C8CC /* ARSCNView+Extensions.swift in Sources */,
 				F7A4044E1F8477C20063C8CC /* VKVoxelDisplayable.swift in Sources */,
-				F7A4044C1F8477C20063C8CC /* VKSurfaceNode.swift in Sources */,
+				F7A4044C1F8477C20063C8CC /* VKPlatformNode.swift in Sources */,
 				F7A4044F1F8477C20063C8CC /* VKVoxelPaintable.swift in Sources */,
 				F7A404551F8477C20063C8CC /* VKSceneManagerDelegate.swift in Sources */,
 				F7A4044A1F8477C20063C8CC /* Layers.swift in Sources */,

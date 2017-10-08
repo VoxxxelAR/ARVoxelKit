@@ -24,7 +24,7 @@ extension VKSceneManager: ARSCNViewDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         guard !state.isSurfaceSelected else { return }
         
-        let surface = VKSurfaceNode(anchor: planeAnchor, voxelSideLength: voxelSize)
+        let surface = VKPlatformNode(anchor: planeAnchor, voxelSideLength: voxelSize)
         
         surfaces[planeAnchor] = surface
         node.addChildNode(surface)

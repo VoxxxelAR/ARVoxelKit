@@ -24,7 +24,7 @@ open class VKSceneManager: NSObject {
     }
     
     public internal(set) var focusContainer: VKSceneFocusContainer = .empty
-    public internal(set) var surfaces: [ARPlaneAnchor: VKSurfaceNode] = [:]
+    public internal(set) var surfaces: [ARPlaneAnchor: VKPlatformNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "vk-update-queue", attributes: .concurrent)
     var renderingQueue: VKSynchronizedQueue<VKRenderingCommand> = VKSynchronizedQueue<VKRenderingCommand>()
@@ -141,7 +141,7 @@ extension VKSceneManager {
         }
     }
     
-    public func setSelected(surface: VKSurfaceNode) {
+    public func setSelected(surface: VKPlatformNode) {
         guard focusContainer.selectedSurface == nil else {
             debugPrint("VKSceneManager: surface already selected")
             return
@@ -259,14 +259,14 @@ extension VKSceneManager {
 //MARK: - Surface processing
 extension VKSceneManager {
     func updateSurfacesFocus() {
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: VKSurfaceNode.self) else {
+        guard let result = scene.hitTestNode(from: scene.center, nodeType: VKPlatformNode.self) else {
             defocusSurfaceIfNeeded()
             return
         }
         
         defocusSurfaceIfNeeded()
         focusContainer.focusedSurface = result.0
-        delegate?.vkSceneManager(self, didFocus: result.0, face: result.1)
+        delegate?.vkSceneManager(self, didFocus: result.0)
     }
     
     func defocusSurfaceIfNeeded() {
@@ -278,7 +278,7 @@ extension VKSceneManager {
         delegate?.vkSceneManager(self, didDefocus: focusedSurface)
     }
     
-    func removeSurfaces(except node: VKSurfaceNode?, animated: Bool) {
+    func removeSurfaces(except node: VKPlatformNode?, animated: Bool) {
         let pairsToRemove = surfaces.filter { $0.value != node }
         
         pairsToRemove.forEach { (pair) in

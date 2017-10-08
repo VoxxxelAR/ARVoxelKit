@@ -10,32 +10,9 @@ import Foundation
 import SceneKit
 import ARKit
 
-public enum VKVoxelPaintCommand {
+public protocol VKVoxelPaintable: VKPaintable {
     
-    case color(content: UIColor)
-    case faceColor(content: UIColor, face: VKVoxelFace)
-    case colors(contents: [UIColor])
-    
-    case image(content: UIImage)
-    case faceImage(content: UIImage, face: VKVoxelFace)
-    case images(contents: [UIImage])
-    
-    case gradient(contents: [UIColor], start: CGPoint, end: CGPoint)
-    case faceGradient(contents: [UIColor], start: CGPoint, end: CGPoint, face: VKVoxelFace)
-    
-    case transparency(value: CGFloat)
-    case faceTransparency(value: CGFloat, face: VKVoxelFace)
-    //etc
-}
-
-public protocol VKVoxelPaintable {
-    
-    func apply(_ command: VKVoxelPaintCommand)
-    func apply(_ commands: [VKVoxelPaintCommand])
-    
-    func paint(with color: UIColor)
-    func paint(with image: UIImage)
-    func paint(with colors: [UIColor], start: CGPoint, end: CGPoint)
+    func apply(_ commands: [VKPaintCommand])
     
     func paint(face: VKVoxelFace, with color: UIColor)
     func paint(face: VKVoxelFace, with image: UIImage)
@@ -45,15 +22,15 @@ public protocol VKVoxelPaintable {
 
 extension VKVoxelDisplayable {
     
-    public func apply(_ command: VKVoxelPaintCommand) {
+    public func apply(_ command: VKPaintCommand) {
         apply(command, animated: false)
     }
     
-    public func apply(_ commands: [VKVoxelPaintCommand]) {
+    public func apply(_ commands: [VKPaintCommand]) {
         apply(commands, animated: false)
     }
     
-    public func apply(_ command: VKVoxelPaintCommand, animated: Bool, completion: (() -> Void)? = nil) {
+    public func apply(_ command: VKPaintCommand, animated: Bool, completion: (() -> Void)? = nil) {
         let changes = {
             //TODO: - Complete this
             switch command {
@@ -78,7 +55,7 @@ extension VKVoxelDisplayable {
         }
     }
     
-    public func apply(_ commands: [VKVoxelPaintCommand], animated: Bool, completion: (() -> Void)? = nil) {
+    public func apply(_ commands: [VKPaintCommand], animated: Bool, completion: (() -> Void)? = nil) {
         let changes = { commands.forEach { self.apply($0, animated: false) } }
         
         if animated {
