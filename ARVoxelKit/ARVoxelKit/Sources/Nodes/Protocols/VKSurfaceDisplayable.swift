@@ -14,7 +14,7 @@ public protocol VKSurfaceDisplayable: VKDisplayable {
     var surfaceGeometry: SCNPlane { get }
 }
 
-extension VKSurfaceDisplayable where Self: VKPlatformNode {
+extension VKSurfaceDisplayable where Self: SCNNode {
     
     public var surfaceGeometry: SCNPlane {
         guard let surfaceGeometry = geometry as? SCNPlane else {
