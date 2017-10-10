@@ -94,7 +94,6 @@ open class ViewController: UIViewController {
 
 extension ViewController: VKSceneManagerDelegate {
     public func vkSceneManager(_ manager: VKSceneManager, didUpdateState state: VKARSessionState) {
-        print(state)
         statusLabel?.text = state.hint
         statusView?.isHidden = state.hint.isEmpty
     }
@@ -102,8 +101,6 @@ extension ViewController: VKSceneManagerDelegate {
     public func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKPlatformNode) {
         focusedNode = surface
         focusedFace = nil
-        
-        print(type(of: surface))
         
         surface.apply(.transparency(value: 1), animated: true)
     }
