@@ -160,9 +160,18 @@ extension VKSceneManager {
         state = .normal(true)
         
         removeSurfaces(except: surface, animated: true)
-        surface.prepareCreateVoxels()
+        surface.prepareCreateTiles()
         
         reloadSession()
+    }
+    
+    public func add(new voxel: VKVoxelNode) {
+        guard let surface = focusContainer.selectedSurface else {
+            debugPrint("VKSceneManager: Adding, when surface not selected")
+            return
+        }
+        
+        surface.addChildNode(voxel)
     }
     
     public func add(new voxel: VKVoxelNode, to otherVoxel: VKVoxelNode, face: VKVoxelFace) {
@@ -182,13 +191,21 @@ extension VKSceneManager {
         add(new: voxel)
     }
     
-    public func add(new voxel: VKVoxelNode) {
+    public func add(new voxel: VKVoxelNode, to tile: VKTileNode) {
         guard let surface = focusContainer.selectedSurface else {
             debugPrint("VKSceneManager: Adding, when surface not selected")
             return
         }
         
-        surface.addChildNode(voxel)
+        guard tile.parent == surface else {
+            debugPrint("VKSceneManager: Adding, when otherVoxel value not in surface hierarchy")
+            return
+        }
+        
+        let position = newPosition(for: voxel, attachedTo: tile)
+        voxel.position = position
+        
+        add(new: voxel)
     }
     
     public func remove(_ voxel: VKVoxelNode) {
@@ -211,7 +228,7 @@ extension VKSceneManager {
     func updateFocus() {
         switch state {
         case .normal(let surfaceSelected):
-            surfaceSelected ? updateVoxelsFocus() : updateSurfacesFocus()
+            surfaceSelected ? updateSceneContentsFocus() : updateSurfacesFocus()
         default:
             break
         }
@@ -231,22 +248,30 @@ extension VKSceneManager {
         
         return node.position + face.normalizedVector3 * Float(scalar)
     }
+    
+    func newPosition(for newNode: VKVoxelDisplayable, attachedTo tile: VKTileNode) -> SCNVector3 {
+        
+        return tile.position + VKTileNode.normalizedVector3 * Float(newNode.voxelGeometry.height / 2)
+    }
 }
 
 //MARK: - Voxel processing
 extension VKSceneManager {
     
-    func updateVoxelsFocus() {
+    func updateSceneContentsFocus() {
         let predicate: (_ voxel: VKVoxelNode) -> Bool = { $0.isInstalled }
         guard let result = scene.hitTestNode(from: scene.center, predicate: predicate) else {
             defocusVoxelIfNeeded()
             return
         }
         
+        
         defocusVoxelIfNeeded()
         focusContainer.focusedVoxel = result.0
         delegate?.vkSceneManager(self, didFocus: result.0, face: result.1)
     }
+    
+    
     
     func defocusVoxelIfNeeded() {
         guard let focusedVoxel = focusContainer.focusedVoxel else {

@@ -24,7 +24,7 @@ open class ViewController: UIViewController {
     
     var focusedNode: VKDisplayable?
     var focusedFace: VKVoxelFace?
-    var addingVoxel: VKVoxelNode?
+    var cursorVoxel: VKVoxelNode?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -68,9 +68,9 @@ open class ViewController: UIViewController {
     }
     
     func addVoxel() {
-        guard let voxel = addingVoxel else { return }
+        guard let voxel = cursorVoxel else { return }
         
-        addingVoxel = nil
+        cursorVoxel = nil
         voxel.apply([.color(content: VKConstants.defaultFaceColor), .transparency(value: 1)], animated: true)
         voxel.isInstalled = true
     }
@@ -83,8 +83,8 @@ open class ViewController: UIViewController {
             self.sceneManager.remove(focusedVoxel)
         }
         
-        guard let addingVoxel = addingVoxel else { return }
-        self.addingVoxel = nil
+        guard let addingVoxel = cursorVoxel else { return }
+        self.cursorVoxel = nil
         
         addingVoxel.apply(.transparency(value: 0), animated: true) {
             addingVoxel.removeFromParentNode()
@@ -93,6 +93,13 @@ open class ViewController: UIViewController {
 }
 
 extension ViewController: VKSceneManagerDelegate {
+    func removeCursorVoxelWithFade(voxel: VKVoxelNode) {
+        cursorVoxel = nil
+        voxel.apply(.transparency(value: 0), animated: true) {
+            voxel.removeFromParentNode()
+        }
+    }
+    
     public func vkSceneManager(_ manager: VKSceneManager, didUpdateState state: VKARSessionState) {
         statusLabel?.text = state.hint
         statusView?.isHidden = state.hint.isEmpty
@@ -114,6 +121,28 @@ extension ViewController: VKSceneManagerDelegate {
         focusedFace = nil
     }
     
+    public func vkSceneManager(_ manager: VKSceneManager, didFocus tile: VKTileNode) {
+        focusedNode = tile
+        focusedFace = nil
+        
+        let prototype = VKVoxelNode(color: .white)
+        prototype.isInstalled = false
+        
+        prototype.apply(.transparency(value: 0.4), animated: false)
+        manager.add(new: prototype, to: tile)
+        
+        self.cursorVoxel = prototype
+    }
+    
+    public func vkSceneManager(_ manager: VKSceneManager, didDefocus tile: VKTileNode?) {
+        focusedNode = nil
+        focusedFace = nil
+        
+        guard let voxel = cursorVoxel else { return }
+        
+        removeCursorVoxelWithFade(voxel: voxel)
+    }
+    
     public func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace) {
         focusedNode = voxel
         focusedFace = face
@@ -124,19 +153,16 @@ extension ViewController: VKSceneManagerDelegate {
         propotype.apply(.transparency(value: 0.4), animated: false)
         manager.add(new: propotype, to: voxel, face: face)
         
-        self.addingVoxel = propotype
+        self.cursorVoxel = propotype
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?) {
         focusedNode = nil
         focusedFace = nil
         
-        guard let voxel = addingVoxel else { return }
-        addingVoxel = nil
-        
-        voxel.apply(.transparency(value: 0), animated: true) {
-            voxel.removeFromParentNode()
-        }
+        guard let voxel = cursorVoxel else { return }
+
+        removeCursorVoxelWithFade(voxel: voxel)
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, countOfVoxelsIn scene: ARSCNView) -> Int {

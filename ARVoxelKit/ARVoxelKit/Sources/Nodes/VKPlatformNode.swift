@@ -17,7 +17,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
     
     public var isAnimating = false
     
-    var isVoxelsPrepared: Bool = false
+    var areTilesPrepared: Bool = false
     
     init(anchor: ARPlaneAnchor, voxelSideLength: CGFloat) {
         self.anchor = anchor
@@ -45,7 +45,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         let changes = {
             self.simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
             
-            if !self.isVoxelsPrepared {
+            if !self.areTilesPrepared {
                 self.surfaceGeometry.width = min(VKConstants.maxSurfaceWidth, extendedX)
                 self.surfaceGeometry.height = min(VKConstants.maxSurfaceLength, extendedZ)
             }
@@ -60,16 +60,16 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         }
     }
     
-    func prepareCreateVoxels() {
-        isVoxelsPrepared = true
-        var positions = calculateVoxelPositions()
+    func prepareCreateTiles() {
+        areTilesPrepared = true
+        var positions = calculateTilesPositions()
         
         let renderBlock = {  [weak self] (node: SCNNode) in
             guard let wSelf = self else { return }
             guard let position = positions.popLast() else { return }
             
-            let voxel = VKVoxelNode()
-            voxel.mutable = false
+            let voxel = VKTileNode()
+//            voxel.mutable = false
             voxel.position = position
             
             wSelf.addChildNode(voxel)
@@ -82,25 +82,26 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         runAction(repeatAction)
     }
     
-    func calculateVoxelPositions() -> [SCNVector3] {
+    func calculateTilesPositions() -> [SCNVector3] {
         
         let nodeLength = surfaceGeometry.height
         let nodeWidth = surfaceGeometry.width
         
-        let voxelLength = voxelSideLength
+        let tileLength = voxelSideLength
         
-        let rowCount = Int(ceil(nodeLength / voxelLength))
-        let columnCount = Int(ceil(nodeWidth / voxelLength))
+        let rowCount = Int(ceil(nodeLength / tileLength))
+        let columnCount = Int(ceil(nodeWidth / tileLength))
         
-        let margin = voxelLength / 2.0 //TODO - check what this affects or remove
-        let z = CGFloat(margin)
+        let margin = tileLength / 2.0
+        
+        let z = CGFloat(0)
         
         var result: [SCNVector3] = []
         
         (0..<rowCount).forEach { (row) in
-            let y = -nodeLength / 2 + margin + CGFloat(row) * voxelLength
+            let y = -nodeLength / 2 + margin + CGFloat(row) * tileLength
             (0..<columnCount).forEach { (column) in
-                let x = -nodeWidth / 2 + margin + CGFloat(column) * voxelLength
+                let x = -nodeWidth / 2 + margin + CGFloat(column) * tileLength
                 result.append(SCNVector3(x, y, z))
             }
         }
