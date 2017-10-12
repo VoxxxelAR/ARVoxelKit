@@ -100,56 +100,6 @@ open class VKSceneManager: NSObject {
 //MARK: - Public API
 extension VKSceneManager {
     
-    public var platformEulerAngles: SCNVector3? {
-        get {
-            guard let selectedPlatform = focusContainer.selectedSurface else {
-                print("Trying to get selected platform's euler angles when platform is not selected.")
-                return nil
-            }
-            
-            return selectedPlatform.eulerAngles
-        }
-        
-        set(newEulerAngles) {
-            guard let selectedPlatform = focusContainer.selectedSurface else {
-                print("Trying to set selected platform's euler angles when platform is not selected.")
-                return
-            }
-            
-            guard let newEulerAngles = newEulerAngles else {
-                print("Trying to set null to selected platform's euler angles.")
-                return
-            }
-            
-            selectedPlatform.eulerAngles = newEulerAngles
-        }
-    }
-    
-    public var platformScale: SCNVector3? {
-        get {
-            guard let selectedPlatform = focusContainer.selectedSurface else {
-                print("Trying to get selected platform's scale when platform is not selected.")
-                return nil
-            }
-            
-            return selectedPlatform.scale
-        }
-        
-        set(newScale) {
-            guard let selectedPlatform = focusContainer.selectedSurface else {
-                print("Trying to set selected platform's scale when platform is not selected.")
-                return
-            }
-            
-            guard let newScale = newScale else {
-                print("Trying to set null to selected platform's scale.")
-                return
-            }
-            
-            selectedPlatform.scale = newScale
-        }
-    }
-    
     public func reload(changeSurface: Bool) {
         if changeSurface {
             focusContainer.focusedNode = nil

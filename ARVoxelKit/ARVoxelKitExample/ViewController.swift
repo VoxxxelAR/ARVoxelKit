@@ -87,7 +87,7 @@ open class ViewController: UIViewController {
     }
     
     @objc func handlePinch(gesture: UIPinchGestureRecognizer) {
-        guard let platformScale = sceneManager.platformScale else {
+        guard let platformScale = sceneManager.focusContainer.selectedSurface?.scale else {
             print("Trying to perform pinch when platform not selected.")
             return
         }
@@ -102,14 +102,14 @@ open class ViewController: UIViewController {
         case .began:
             lastPlatformScale = platformScale
         case .changed:
-            sceneManager.platformScale = newPlatformScale
+            sceneManager.focusContainer.selectedSurface?.scale = newPlatformScale
         default:
             lastPlatformScale = newPlatformScale
         }
     }
     
     @objc func handleRotation(gesture: UIRotationGestureRecognizer) {
-        guard let platformEulerAngles = sceneManager.platformEulerAngles else {
+        guard let platformEulerAngles = sceneManager.focusContainer.selectedSurface?.eulerAngles else {
             print("Trying to perform rotation when platform not selected.")
             return
         }
@@ -122,7 +122,7 @@ open class ViewController: UIViewController {
         case .began:
             lastPlatformEulerAngles = platformEulerAngles
         case .changed:
-            sceneManager.platformEulerAngles = newPlatformEulerAngles
+            sceneManager.focusContainer.selectedSurface?.eulerAngles = newPlatformEulerAngles
         default:
             lastPlatformEulerAngles = newPlatformEulerAngles
         }
