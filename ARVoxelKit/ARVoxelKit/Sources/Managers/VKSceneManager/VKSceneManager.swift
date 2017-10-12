@@ -34,8 +34,6 @@ open class VKSceneManager: NSObject {
     
     //MARK: - Setup
     func setup() {
-        UIApplication.shared.isIdleTimerDisabled = true
-        
         setupScene()
         setupCamera()
     }
@@ -104,7 +102,7 @@ open class VKSceneManager: NSObject {
 extension VKSceneManager {
     public func reload(changeSurface: Bool) {
         if changeSurface {
-            focusContainer.focusedVoxel = nil
+            focusContainer.focusedNode = nil
             focusContainer.selectedAnchor = nil
             focusContainer.selectedSurface = nil
             
@@ -154,7 +152,7 @@ extension VKSceneManager {
             return
         }
         
-        focusContainer.focusedSurface = nil
+        focusContainer.focusedNode = nil
         focusContainer.selectedAnchor = anchor
         focusContainer.selectedSurface = surface
         state = .normal(true)
@@ -174,14 +172,14 @@ extension VKSceneManager {
         surface.addChildNode(voxel)
     }
     
-    public func add(new voxel: VKVoxelNode, to otherVoxel: VKVoxelNode, face: VKVoxelFace) {
+    public func add(new voxel: VKVoxelNode, to otherVoxel: VKVoxelNode, face: VKVoxelFace = .top) {
         guard let surface = focusContainer.selectedSurface else {
             debugPrint("VKSceneManager: Adding, when surface not selected")
             return
         }
         
         guard otherVoxel.parent == surface else {
-            debugPrint("VKSceneManager: Adding, when otherVoxel value not in surface hierarchy")
+            debugPrint("VKSceneManager: Adding, when node not in surface hierarchy")
             return
         }
         
@@ -198,7 +196,7 @@ extension VKSceneManager {
         }
         
         guard tile.parent == surface else {
-            debugPrint("VKSceneManager: Adding, when otherVoxel value not in surface hierarchy")
+            debugPrint("VKSceneManager: Adding, when tile not in surface hierarchy")
             return
         }
         
@@ -226,9 +224,23 @@ extension VKSceneManager {
 //MARK: - Logic
 extension VKSceneManager {
     func updateFocus() {
-        switch state {
-        case .normal(let surfaceSelected):
-            surfaceSelected ? updateSceneContentsFocus() : updateSurfacesFocus()
+        switch state { case .normal: break default: return }
+        
+        switch focusContainer.state {
+        case .surfaceFocused:
+            fallthrough
+        case .empty where !state.isSurfaceSelected:
+            updateSceneContentsFocus(hitTestPredicate: { $0 is VKPlatformNode })
+        case .voxelFocused, .tileFocused, .surfaceSelected:
+            fallthrough
+        case .empty where state.isSurfaceSelected:
+            updateSceneContentsFocus(hitTestPredicate: { (node) -> Bool in
+                if let voxel = node as? VKVoxelNode {
+                    return voxel.isInstalled
+                }
+                
+                return node is VKTileNode
+            })
         default:
             break
         }
@@ -249,60 +261,36 @@ extension VKSceneManager {
         return node.position + face.normalizedVector3 * Float(scalar)
     }
     
-    func newPosition(for newNode: VKVoxelDisplayable, attachedTo tile: VKTileNode) -> SCNVector3 {
+    func newPosition(for newNode: VKVoxelDisplayable, attachedTo node: VKSurfaceDisplayable) -> SCNVector3 {
+        let scalar: CGFloat = (newNode.voxelGeometry.height) / 2
         
-        return tile.position + VKTileNode.normalizedVector3 * Float(newNode.voxelGeometry.height / 2)
+        return node.position + VKVoxelFace.front.normalizedVector3 * Float(scalar)
     }
 }
 
-//MARK: - Voxel processing
+//MARK: - Focus processing
 extension VKSceneManager {
     
-    func updateSceneContentsFocus() {
-        let predicate: (_ voxel: VKVoxelNode) -> Bool = { $0.isInstalled }
-        guard let result = scene.hitTestNode(from: scene.center, predicate: predicate) else {
-            defocusVoxelIfNeeded()
+    func updateSceneContentsFocus(hitTestPredicate: @escaping (_ node: VKDisplayable) -> Bool) {
+        guard let result = scene.hitTestNode(from: scene.center, predicate: hitTestPredicate) else {
+            defocusNodeIfNeeded()
             return
         }
         
-        
-        defocusVoxelIfNeeded()
-        focusContainer.focusedVoxel = result.0
+        defocusNodeIfNeeded()
+        focusContainer.focusedNode = result.0
         delegate?.vkSceneManager(self, didFocus: result.0, face: result.1)
     }
     
-    
-    
-    func defocusVoxelIfNeeded() {
-        guard let focusedVoxel = focusContainer.focusedVoxel else {
-            return
-        }
-        
-        focusContainer.focusedVoxel = nil
-        delegate?.vkSceneManager(self, didDefocus: focusedVoxel)
+    func defocusNodeIfNeeded() {
+        guard let focusedNode = focusContainer.focusedNode else { return }
+        focusContainer.focusedNode = nil
+        delegate?.vkSceneManager(self, didDefocus: focusedNode)
     }
 }
 
 //MARK: - Surface processing
 extension VKSceneManager {
-    func updateSurfacesFocus() {
-        guard let result = scene.hitTestNode(from: scene.center, nodeType: VKPlatformNode.self) else {
-            defocusSurfaceIfNeeded()
-            return
-        }
-        
-        defocusSurfaceIfNeeded()
-        focusContainer.focusedSurface = result.0
-        delegate?.vkSceneManager(self, didFocus: result.0)
-    }
-    
-    func defocusSurfaceIfNeeded() {
-        guard let focusedSurface = focusContainer.focusedSurface else { return }
-        
-        focusContainer.focusedSurface = nil
-        delegate?.vkSceneManager(self, didDefocus: focusedSurface)
-    }
-    
     func removeSurfaces(except node: VKPlatformNode?, animated: Bool) {
         let pairsToRemove = surfaces.filter { $0.value != node }
         

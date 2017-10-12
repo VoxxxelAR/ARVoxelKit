@@ -15,8 +15,6 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
     var anchor: ARPlaneAnchor
     var voxelSideLength: CGFloat
     
-    public var isAnimating = false
-    
     var areTilesPrepared: Bool = false
     
     init(anchor: ARPlaneAnchor, voxelSideLength: CGFloat) {
@@ -25,19 +23,24 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         
         super.init()
         geometry = SCNPlane(width: 0, height: 0)
+        eulerAngles = SCNVector3(-Float.pi / 2, 0, 0)
         
-        setupTransform()
         setupGeometry()
         
-        update(anchor, animated: true)
+        update(anchor, animated: false)
+        
+        applyDefaultColor()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func applyDefaultColor() {
+        surfaceGeometry.firstMaterial?.diffuse.contents = VKConstants.defaultPlatformColor
+    }
+    
     func update(_ anchor: ARPlaneAnchor, animated: Bool) {
-        if isAnimating { return }
         
         let extendedX = floor(CGFloat(anchor.extent.x) / voxelSideLength) * voxelSideLength
         let extendedZ = floor(CGFloat(anchor.extent.z) / voxelSideLength) * voxelSideLength
@@ -54,9 +57,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         if !animated  {
             changes()
         } else {
-            isAnimating = true
-            let completion = { self.isAnimating = false }
-            SCNTransaction.animate(with: 0.1, changes, completion)
+            SCNTransaction.animate(with: 0.1, changes)
         }
     }
     

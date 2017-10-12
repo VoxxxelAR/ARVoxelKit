@@ -10,26 +10,29 @@ import ARKit
 import SceneKit
 
 public struct VKSceneFocusContainer {
-    public var focusedSurface: VKPlatformNode?
     
     public var selectedAnchor: ARPlaneAnchor?
     public var selectedSurface: VKPlatformNode?
     
-    public var focusedVoxel: VKVoxelNode?
+    public var focusedNode: VKDisplayable?
     
     public static let empty = VKSceneFocusContainer()
     
     var state: State {
-        if let focusedVoxel = focusedVoxel {
-            return .voxelFocused(voxel: focusedVoxel)
+        if let voxel = focusedNode as? VKVoxelNode {
+            return .voxelFocused(voxel: voxel)
+        }
+        
+        if let tile = focusedNode as? VKTileNode {
+            return .tileFocused(tile: tile)
         }
         
         if let selectedSurface = selectedSurface, let anchor = selectedAnchor {
             return .surfaceSelected(surface: selectedSurface, anchor: anchor)
         }
         
-        if let focusedSurface = focusedSurface {
-            return .surfaceFocused(surface: focusedSurface)
+        if let surface = focusedNode as? VKPlatformNode {
+            return .surfaceFocused(surface: surface)
         }
         
         return .empty
@@ -37,8 +40,9 @@ public struct VKSceneFocusContainer {
     
     enum State {
         case empty
-        case surfaceFocused(surface: VKPlatformNode)
         case surfaceSelected(surface: VKPlatformNode, anchor: ARPlaneAnchor)
+        case surfaceFocused(surface: VKPlatformNode)
+        case tileFocused(tile: VKTileNode)
         case voxelFocused(voxel: VKVoxelNode)
     }
 }

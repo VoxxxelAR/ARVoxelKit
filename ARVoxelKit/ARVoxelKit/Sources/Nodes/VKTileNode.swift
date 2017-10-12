@@ -19,7 +19,7 @@ public class VKTileNode: SCNNode, VKSurfaceDisplayable {
     }
     
     public override convenience init() {
-        self.init(color: VKConstants.defaultFaceColor)
+        self.init(color: VKConstants.defaultTileColor)
     }
     
     public convenience required init(color: UIColor) {
