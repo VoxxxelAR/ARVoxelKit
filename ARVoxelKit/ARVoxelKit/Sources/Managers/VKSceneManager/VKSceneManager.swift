@@ -45,9 +45,8 @@ open class VKSceneManager: NSObject {
         scene.scene = SCNScene()
         scene.automaticallyUpdatesLighting = true
         
-        scene.showsStatistics = true
-        
         if VKConstants.debug {
+            scene.showsStatistics = true
             scene.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         }
     }

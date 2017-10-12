@@ -9,7 +9,7 @@
 import Foundation
 
 public struct VKConstants {
-    public static var debug: Bool = false
+    public static var debug: Bool = true
     public static var voxelSideLength: CGFloat = 0.025
     
     public static var maxSurfaceWidth: CGFloat = 0.4
