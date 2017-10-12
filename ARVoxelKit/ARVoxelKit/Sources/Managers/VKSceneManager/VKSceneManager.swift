@@ -22,7 +22,7 @@ open class VKSceneManager: NSObject {
     }
     
     public internal(set) var focusContainer: VKSceneFocusContainer = .empty
-    public internal(set) var surfaces: [ARPlaneAnchor: VKPlatformNode] = [:]
+    public internal(set) var platforms: [ARPlaneAnchor: VKPlatformNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "vk-update-queue", attributes: .concurrent)
     
@@ -92,13 +92,64 @@ open class VKSceneManager: NSObject {
     }
     
     func clearStoredData() {
-        surfaces = [:]
+        platforms = [:]
         focusContainer = .empty
     }
 }
 
 //MARK: - Public API
 extension VKSceneManager {
+    
+    public var platformEulerAngles: SCNVector3? {
+        get {
+            guard let selectedPlatform = focusContainer.selectedSurface else {
+                print("Trying to get selected platform's euler angles when platform is not selected.")
+                return nil
+            }
+            
+            return selectedPlatform.eulerAngles
+        }
+        
+        set(newEulerAngles) {
+            guard let selectedPlatform = focusContainer.selectedSurface else {
+                print("Trying to set selected platform's euler angles when platform is not selected.")
+                return
+            }
+            
+            guard let newEulerAngles = newEulerAngles else {
+                print("Trying to set null to selected platform's euler angles.")
+                return
+            }
+            
+            selectedPlatform.eulerAngles = newEulerAngles
+        }
+    }
+    
+    public var platformScale: SCNVector3? {
+        get {
+            guard let selectedPlatform = focusContainer.selectedSurface else {
+                print("Trying to get selected platform's scale when platform is not selected.")
+                return nil
+            }
+            
+            return selectedPlatform.scale
+        }
+        
+        set(newScale) {
+            guard let selectedPlatform = focusContainer.selectedSurface else {
+                print("Trying to set selected platform's scale when platform is not selected.")
+                return
+            }
+            
+            guard let newScale = newScale else {
+                print("Trying to set null to selected platform's scale.")
+                return
+            }
+            
+            selectedPlatform.scale = newScale
+        }
+    }
+    
     public func reload(changeSurface: Bool) {
         if changeSurface {
             focusContainer.focusedNode = nil
@@ -146,7 +197,7 @@ extension VKSceneManager {
             return
         }
         
-        guard let anchor = surfaces.first(where: { $0.value == surface })?.key else {
+        guard let anchor = platforms.first(where: { $0.value == surface })?.key else {
             debugPrint("VKSceneManager: Cannot select surface without ARPlaneAnchor")
             return
         }
@@ -291,11 +342,11 @@ extension VKSceneManager {
 //MARK: - Surface processing
 extension VKSceneManager {
     func removeSurfaces(except node: VKPlatformNode?, animated: Bool) {
-        let pairsToRemove = surfaces.filter { $0.value != node }
+        let pairsToRemove = platforms.filter { $0.value != node }
         
         pairsToRemove.forEach { (pair) in
             pair.value.removeFromParentNode()
-            surfaces[pair.key] = nil
+            platforms[pair.key] = nil
         }
     }
 }

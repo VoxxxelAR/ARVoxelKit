@@ -13,6 +13,13 @@ import ARVoxelKit
 
 open class ViewController: UIViewController {
     
+    let pinchScalingFactor: CGFloat = 0.1
+    let basePlatformScale = SCNVector3(1.0, 1.0, 1.0)
+    let minPlatformScale = SCNVector3(0.4, 0.4, 0.4)
+    let maxPlatformScale = SCNVector3(6.0, 6.0, 6.0)
+    
+    let rotationFactor: CGFloat = 1.0
+    
     @IBOutlet open var sceneView: ARSCNView! {
         didSet { sceneManager = VKSceneManager(with: sceneView) }
     }
@@ -21,6 +28,8 @@ open class ViewController: UIViewController {
     weak var statusLabel: UILabel?
     
     var sceneManager: VKSceneManager!
+    var lastPlatformScale = SCNVector3(1.0, 1.0, 1.0)
+    var lastPlatformEulerAngles = SCNVector3(0.0, 0.0, 0.0)
     
     var focusedNode: VKDisplayable?
     var focusedFace: VKVoxelFace?
@@ -40,6 +49,12 @@ open class ViewController: UIViewController {
     func setupGestures() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
         view.addGestureRecognizer(tap)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(gesture:)))
+        view.addGestureRecognizer(pinch)
+        
+        let rotation = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation(gesture:)))
+        view.addGestureRecognizer(rotation)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -67,6 +82,52 @@ open class ViewController: UIViewController {
         } else {
             addVoxel()
         }
+    }
+    
+    @objc func handlePinch(gesture: UIPinchGestureRecognizer) {
+        guard let platformScale = sceneManager.platformScale else {
+            print("Trying to perform pinch when platform not selected.")
+            return
+        }
+        
+        if gesture.state == UIGestureRecognizerState.began {
+            lastPlatformScale = platformScale
+        }
+        
+        let gestureScale = Float(gesture.scale * ((gesture.scale - 1.0) * pinchScalingFactor + 1.0))
+        var newPlatformScale = lastPlatformScale * gestureScale
+
+        newPlatformScale = max(newPlatformScale, minPlatformScale)
+        newPlatformScale = min(newPlatformScale, maxPlatformScale)
+
+        
+        if gesture.state == UIGestureRecognizerState.ended {
+            lastPlatformScale = newPlatformScale
+        }
+        
+        sceneManager.platformScale = newPlatformScale
+    }
+    
+    @objc func handleRotation(gesture: UIRotationGestureRecognizer) {
+        guard let platformEulerAngles = sceneManager.platformEulerAngles else {
+            print("Trying to perform rotation when platform not selected.")
+            return
+        }
+        
+        if gesture.state == UIGestureRecognizerState.began {
+            lastPlatformEulerAngles = platformEulerAngles
+        }
+        
+        let gestureRotation = Float(gesture.rotation * rotationFactor)
+        var newPlatformEulerAngles = lastPlatformEulerAngles
+        newPlatformEulerAngles.y = newPlatformEulerAngles.y - gestureRotation
+        
+        print(newPlatformEulerAngles)
+        if gesture.state == UIGestureRecognizerState.ended {
+            lastPlatformEulerAngles = newPlatformEulerAngles
+        }
+
+        sceneManager.platformEulerAngles = newPlatformEulerAngles
     }
     
     func addVoxel() {

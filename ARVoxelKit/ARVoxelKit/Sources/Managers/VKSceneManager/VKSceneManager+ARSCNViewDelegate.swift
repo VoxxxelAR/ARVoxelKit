@@ -24,12 +24,12 @@ extension VKSceneManager: ARSCNViewDelegate {
         
         let surface = VKPlatformNode(anchor: planeAnchor, voxelSideLength: voxelSize)
         
-        surfaces[planeAnchor] = surface
+        platforms[planeAnchor] = surface
         node.addChildNode(surface)
     }
     
     public func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let planeAnchor = anchor as? ARPlaneAnchor, let surface = surfaces[planeAnchor] else { return }
+        guard let planeAnchor = anchor as? ARPlaneAnchor, let surface = platforms[planeAnchor] else { return }
         
         updateQueue.async {
             surface.update(planeAnchor, animated: true)
@@ -39,6 +39,6 @@ extension VKSceneManager: ARSCNViewDelegate {
     public func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
-        surfaces[planeAnchor] = nil
+        platforms[planeAnchor] = nil
     }
 }
