@@ -59,7 +59,7 @@ public protocol VKSceneManagerDelegate: class {
 }
 ```
 
-4. You can add/remove voxels by calling:
+4. You can add/remove voxels by calling manager methods:
 ``` swift
 public func add(new voxel: VKVoxelNode)
 public func add(new voxel: VKVoxelNode, to otherVoxel: VKVoxelNode, face: VKVoxelFace)
