@@ -95,4 +95,4 @@ voxel.apply([.color(content: VKConstants.defaultFaceColor),
 
 ## Example
 
-You can check demo, running ARVoxelKitExample target
+Check our example by running ARVoxelKitExample target
