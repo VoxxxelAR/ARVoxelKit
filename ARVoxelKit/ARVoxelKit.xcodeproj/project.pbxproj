@@ -13,6 +13,7 @@
 		75F2D8FC1F8D64A900A2611E /* VKTileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2D8FB1F8D64A800A2611E /* VKTileNode.swift */; };
 		F728C8AC1F84794300EB6B48 /* ARVoxelKitKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C8AB1F84794300EB6B48 /* ARVoxelKitKitTests.swift */; };
 		F77B32941F7ABD8D004259B8 /* ARVoxelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */; };
+		F79C3B711F8F7010003DCFB3 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C3B701F8F7010003DCFB3 /* SCNNode+Extensions.swift */; };
 		F7A404471F8477C20063C8CC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7A4041B1F8477C20063C8CC /* Media.xcassets */; };
 		F7A404481F8477C20063C8CC /* ARVoxelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F7A4041C1F8477C20063C8CC /* ARVoxelKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F7A404491F8477C20063C8CC /* VKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4041D1F8477C20063C8CC /* VKConstants.swift */; };
@@ -85,6 +86,7 @@
 		F77B328A1F7ABD8D004259B8 /* ARVoxelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ARVoxelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B32931F7ABD8D004259B8 /* ARVoxelKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARVoxelKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77B32C31F7AC02F004259B8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		F79C3B701F8F7010003DCFB3 /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
 		F7A4041B1F8477C20063C8CC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		F7A4041C1F8477C20063C8CC /* ARVoxelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARVoxelKit.h; sourceTree = "<group>"; };
 		F7A4041D1F8477C20063C8CC /* VKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKConstants.swift; sourceTree = "<group>"; };
@@ -217,9 +219,9 @@
 		F7A404211F8477C20063C8CC /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				F7A404241F8477C20063C8CC /* VKVoxelNode.swift */,
 				75F2D8FB1F8D64A800A2611E /* VKTileNode.swift */,
 				F7A404231F8477C20063C8CC /* VKPlatformNode.swift */,
-				F7A404241F8477C20063C8CC /* VKVoxelNode.swift */,
 				F7A404221F8477C20063C8CC /* VKVoxelStructs.swift */,
 				F7A404251F8477C20063C8CC /* Protocols */,
 			);
@@ -267,6 +269,7 @@
 				F7A404341F8477C20063C8CC /* SCNTransaction+Extensions.swift */,
 				F7A404351F8477C20063C8CC /* ARSCNView+Extensions.swift */,
 				F7A404361F8477C20063C8CC /* SCNGeometry+Extensions.swift */,
+				F79C3B701F8F7010003DCFB3 /* SCNNode+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				F7A4044E1F8477C20063C8CC /* VKVoxelDisplayable.swift in Sources */,
 				F7A4044C1F8477C20063C8CC /* VKPlatformNode.swift in Sources */,
 				F7A4044F1F8477C20063C8CC /* VKVoxelPaintable.swift in Sources */,
+				F79C3B711F8F7010003DCFB3 /* SCNNode+Extensions.swift in Sources */,
 				F7A404551F8477C20063C8CC /* VKSceneManagerDelegate.swift in Sources */,
 				F7A4044A1F8477C20063C8CC /* Layers.swift in Sources */,
 				F7A404571F8477C20063C8CC /* SCNVector3+Extensions.swift in Sources */,

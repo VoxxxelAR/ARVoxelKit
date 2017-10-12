@@ -15,7 +15,6 @@ public class VKTileNode: SCNNode, VKSurfaceDisplayable {
         super.init()
         geometry = SCNPlane(width: sideLength, height: sideLength)
         
-        setupTransform()
         setupGeometry()
     }
     
@@ -40,7 +39,7 @@ public class VKTileNode: SCNNode, VKSurfaceDisplayable {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        geometry = SCNBox()
+        geometry = SCNPlane()
         setupGeometry()
     }
 }

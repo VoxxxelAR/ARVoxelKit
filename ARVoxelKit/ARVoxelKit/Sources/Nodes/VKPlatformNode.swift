@@ -60,26 +60,21 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         }
     }
     
-    func prepareCreateTiles() {
+    func createTiles() {
         areTilesPrepared = true
-        var positions = calculateTilesPositions()
         
-        let renderBlock = {  [weak self] (node: SCNNode) in
-            guard let wSelf = self else { return }
-            guard let position = positions.popLast() else { return }
-            
-            let voxel = VKTileNode()
-//            voxel.mutable = false
-            voxel.position = position
-            
-            wSelf.addChildNode(voxel)
+        let commands: [VKRenderingCommand] = calculateTilePositions().map { (position) in
+            return { [weak self] in
+                guard let wSelf = self else { return }
+                
+                let tile = VKTileNode()
+                tile.position = position
+                
+                wSelf.addChildNode(tile)
+            }
         }
         
-        let actions = [SCNAction.wait(duration: 0.01), SCNAction.run(renderBlock, queue: .main)]
-        let sequence = SCNAction.sequence(actions)
-        let repeatAction = SCNAction.repeat(sequence, count: positions.count)
-        
-        runAction(repeatAction)
+        process(commands)
     }
     
     func calculateTilesPositions() -> [SCNVector3] {
@@ -92,7 +87,8 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         let rowCount = Int(ceil(nodeLength / tileLength))
         let columnCount = Int(ceil(nodeWidth / tileLength))
         
-        let margin = tileLength / 2.0
+        let margin = voxelLength / 2.0
+        let z = CGFloat(margin)
         
         let z = CGFloat(0)
         

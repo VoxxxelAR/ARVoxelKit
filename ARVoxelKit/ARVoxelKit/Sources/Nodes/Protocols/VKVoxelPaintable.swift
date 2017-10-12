@@ -32,18 +32,30 @@ extension VKVoxelDisplayable {
     
     public func apply(_ command: VKPaintCommand, animated: Bool, completion: (() -> Void)? = nil) {
         let changes = {
-            //TODO: - Complete this
             switch command {
             case .color(let content):
                 self.paint(with: content)
             case .faceColor(let content, let face):
                 self.paint(face: face, with: content)
+            case .colors(let contents):
+                zip(VKVoxelFace.all, contents).forEach { self.paint(face: $0.0, with: $0.1) }
+                
+            case .image(let content):
+                self.paint(with: content)
+            case .faceImage(let content, let face):
+                self.paint(face: face, with: content)
+            case .images(let contents):
+                zip(VKVoxelFace.all, contents).forEach { self.paint(face: $0.0, with: $0.1) }
+                
+            case .gradient(let contents, let start, let end):
+                self.paint(with: contents, start: start, end: end)
+            case .faceGradient(let contents, let start, let end, let face):
+                self.paint(face: face, with: contents, start: start, end: end)
+                
             case .transparency(let value):
                 self.updateVoxelTransparency(with: value)
             case .faceTransparency(let value, let face):
                 self.updateVoxelTransparency(for: face, newValue: value)
-            default:
-                break
             }
         }
         
