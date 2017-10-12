@@ -14,7 +14,6 @@ import ARVoxelKit
 open class ViewController: UIViewController {
     
     let pinchScalingFactor: CGFloat = 0.1
-    let basePlatformScale = SCNVector3(1.0, 1.0, 1.0)
     let minPlatformScale = SCNVector3(0.4, 0.4, 0.4)
     let maxPlatformScale = SCNVector3(6.0, 6.0, 6.0)
     
@@ -28,8 +27,8 @@ open class ViewController: UIViewController {
     weak var statusLabel: UILabel?
     
     var sceneManager: VKSceneManager!
-    var lastPlatformScale = SCNVector3(1.0, 1.0, 1.0)
-    var lastPlatformEulerAngles = SCNVector3(0.0, 0.0, 0.0)
+    var lastPlatformScale = SCNVector3(1, 1, 1)
+    var lastPlatformEulerAngles = SCNVector3(0, 0, 0)
     
     var focusedNode: VKDisplayable?
     var focusedFace: VKVoxelFace?
@@ -55,6 +54,9 @@ open class ViewController: UIViewController {
         
         let rotation = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation(gesture:)))
         view.addGestureRecognizer(rotation)
+        
+        pinch.delegate = self
+        rotation.delegate = self
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -90,22 +92,20 @@ open class ViewController: UIViewController {
             return
         }
         
-        if gesture.state == UIGestureRecognizerState.began {
-            lastPlatformScale = platformScale
-        }
-        
         let gestureScale = Float(gesture.scale * ((gesture.scale - 1.0) * pinchScalingFactor + 1.0))
         var newPlatformScale = lastPlatformScale * gestureScale
-
+        
         newPlatformScale = max(newPlatformScale, minPlatformScale)
         newPlatformScale = min(newPlatformScale, maxPlatformScale)
-
         
-        if gesture.state == UIGestureRecognizerState.ended {
+        switch gesture.state {
+        case .began:
+            lastPlatformScale = platformScale
+        case .changed:
+            sceneManager.platformScale = newPlatformScale
+        default:
             lastPlatformScale = newPlatformScale
         }
-        
-        sceneManager.platformScale = newPlatformScale
     }
     
     @objc func handleRotation(gesture: UIRotationGestureRecognizer) {
@@ -114,20 +114,18 @@ open class ViewController: UIViewController {
             return
         }
         
-        if gesture.state == UIGestureRecognizerState.began {
-            lastPlatformEulerAngles = platformEulerAngles
-        }
-        
         let gestureRotation = Float(gesture.rotation * rotationFactor)
         var newPlatformEulerAngles = lastPlatformEulerAngles
-        newPlatformEulerAngles.y = newPlatformEulerAngles.y - gestureRotation
+        newPlatformEulerAngles.y -= gestureRotation
         
-        print(newPlatformEulerAngles)
-        if gesture.state == UIGestureRecognizerState.ended {
+        switch gesture.state {
+        case .began:
+            lastPlatformEulerAngles = platformEulerAngles
+        case .changed:
+            sceneManager.platformEulerAngles = newPlatformEulerAngles
+        default:
             lastPlatformEulerAngles = newPlatformEulerAngles
         }
-
-        sceneManager.platformEulerAngles = newPlatformEulerAngles
     }
     
     func addVoxel() {
@@ -172,7 +170,7 @@ extension ViewController: VKSceneManagerDelegate {
             prototype.apply(.transparency(value: 0.4), animated: false)
             manager.add(new: prototype, to: tile)
             
-            self.cursorVoxel = prototype
+            cursorVoxel = prototype
         } else if let voxel = node as? VKVoxelNode {
             let propotype = VKVoxelNode(color: .white)
             propotype.isInstalled = false
@@ -180,7 +178,7 @@ extension ViewController: VKSceneManagerDelegate {
             propotype.apply(.transparency(value: 0.4), animated: false)
             manager.add(new: propotype, to: voxel, face: face)
             
-            self.cursorVoxel = propotype
+            cursorVoxel = propotype
         }
     }
     
@@ -206,6 +204,12 @@ extension ViewController: VKSceneManagerDelegate {
     
     public func vkSceneManager(_ manager: VKSceneManager, voxelFor index: Int) -> VKVoxelNode {
         return VKVoxelNode()
+    }
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 
