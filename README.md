@@ -49,17 +49,50 @@ override open func viewWillDisappear(_ animated: Bool) {
 ``` swift
 public protocol VKSceneManagerDelegate: class {
     var voxelSize: CGFloat { get }
-
+    
     func vkSceneManager(_ manager: VKSceneManager, shouldResetSessionFor state: VKARSessionState) -> Bool
     func vkSceneManager(_ manager: VKSceneManager, didUpdateState state: VKARSessionState)
-
-    func vkSceneManager(_ manager: VKSceneManager, didFocus surface: VKPlatformNode)
-    func vkSceneManager(_ manager: VKSceneManager, didDefocus surface: VKPlatformNode?)
-
-    func vkSceneManager(_ manager: VKSceneManager, didFocus voxel: VKVoxelNode, face: VKVoxelFace)
-    func vkSceneManager(_ manager: VKSceneManager, didDefocus voxel: VKVoxelNode?)
-
+    func vkSceneManager(_ manager: VKSceneManager, didFocus node: VKDisplayable, face: VKVoxelFace)
+    func vkSceneManager(_ manager: VKSceneManager, didDefocus node: VKDisplayable?)
     func vkSceneManager(_ manager: VKSceneManager, countOfVoxelsIn scene: ARSCNView) -> Int
     func vkSceneManager(_ manager: VKSceneManager, voxelFor index: Int) -> VKVoxelNode
 }
 ```
+
+4. You can add/remove voxels by calling:
+``` swift
+public func add(new voxel: VKVoxelNode)
+public func add(new voxel: VKVoxelNode, to otherVoxel: VKVoxelNode, face: VKVoxelFace)
+public func add(new voxel: VKVoxelNode, to tile: VKTileNode)
+public func remove(_ voxel: VKVoxelNode)
+```
+
+5. Edit surfaces, tiles, voxels using paint command: 
+``` swift
+public enum VKPaintCommand {
+    
+    case color(content: UIColor)
+    case faceColor(content: UIColor, face: VKVoxelFace)
+    case colors(contents: [UIColor])
+    
+    case image(content: UIImage)
+    case faceImage(content: UIImage, face: VKVoxelFace)
+    case images(contents: [UIImage])
+    
+    case gradient(contents: [UIColor], start: CGPoint, end: CGPoint)
+    case faceGradient(contents: [UIColor], start: CGPoint, end: CGPoint, face: VKVoxelFace)
+    
+    case transparency(value: CGFloat)
+    case faceTransparency(value: CGFloat, face: VKVoxelFace)
+}
+```
+for example:
+``` swift
+voxel.apply([.color(content: VKConstants.defaultFaceColor),
+             .transparency(value: 1)], animated: true)
+```
+6. Change default setup by changing VKConstants values
+
+## Example
+
+You can check demo, running ARVoxelKitExample target
