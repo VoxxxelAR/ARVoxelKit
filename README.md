@@ -4,11 +4,7 @@ Lightweight Framework for Voxel graphic using AR + SceneKit
 [![Build Status](https://travis-ci.org/VoxxxelAR/ARVoxelKit.svg?branch=master)](https://travis-ci.org/VoxxxelAR/ARVoxelKit)
 
 ## Requirements
-ARVoxelKit requires iOS 11, and supports the following devices:
-- iPhone 6S and upwards
-- iPhone SE
-- iPad (2017)
-- All iPad Pro models
+ARVoxelKit requires iOS 11 and devices, which support ARKit
 
 ## Usage
 
