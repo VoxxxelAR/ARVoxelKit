@@ -63,7 +63,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
     func createTiles() {
         areTilesPrepared = true
         
-        let commands: [VKRenderingCommand] = calculateTilePositions().map { (position) in
+        let commands: [VKRenderingCommand] = calculateTilesPositions().map { (position) in
             return { [weak self] in
                 guard let wSelf = self else { return }
                 
@@ -87,10 +87,8 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         let rowCount = Int(ceil(nodeLength / tileLength))
         let columnCount = Int(ceil(nodeWidth / tileLength))
         
-        let margin = voxelLength / 2.0
+        let margin = tileLength / 2.0
         let z = CGFloat(margin)
-        
-        let z = CGFloat(0)
         
         var result: [SCNVector3] = []
         
