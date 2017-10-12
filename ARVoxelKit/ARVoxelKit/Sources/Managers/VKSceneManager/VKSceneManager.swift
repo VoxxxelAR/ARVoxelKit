@@ -10,8 +10,6 @@ import Foundation
 import ARKit
 import SceneKit
 
-typealias VKRenderingCommand = () -> Void
-
 open class VKSceneManager: NSObject {
     
     public weak var scene: ARSCNView!
@@ -27,9 +25,6 @@ open class VKSceneManager: NSObject {
     public internal(set) var surfaces: [ARPlaneAnchor: VKPlatformNode] = [:]
     
     var updateQueue: DispatchQueue = DispatchQueue(label: "vk-update-queue", attributes: .concurrent)
-    
-    //TODO - Remove it
-    var renderingQueue: VKSynchronizedQueue<VKRenderingCommand> = VKSynchronizedQueue<VKRenderingCommand>()
     
     public init(with scene: ARSCNView) {
         self.scene = scene
@@ -121,24 +116,29 @@ extension VKSceneManager {
             }
             
             updateQueue.async {
-                let nodesToRemove: [VKVoxelNode] = surface.childs { $0.mutable }
+                let nodesToRemove: [VKVoxelNode] = surface.childs()
+                
                 let removeCommands = nodesToRemove.flatMap { (node) in
                     return { DispatchQueue.main.async { node.removeFromParentNode() } }
                 }
                 
-                self.renderingQueue.enqueue(removeCommands)
+                surface.process(removeCommands)
             }
             
-            updateQueue.async {
-                let countToAdd = self.delegate?.vkSceneManager(self, countOfVoxelsIn: self.scene) ?? 0
+            updateQueue.async { [weak surface] in
+                guard let wSurface = surface else { return }
                 
-                (0..<countToAdd).forEach { (index) in
-                    guard let nodeToAdd = self.delegate?.vkSceneManager(self, voxelFor: index) else { return }
-                    
-                    self.renderingQueue.enqueue {
-                        DispatchQueue.main.async { surface.addChildNode(nodeToAdd) }
+                let countToAdd = self.delegate?.vkSceneManager(self, countOfVoxelsIn: self.scene) ?? 0
+                let addCommands = (0..<countToAdd).map { (index) in
+                    return { [weak self] in
+                        guard let wSelf = self else { return }
+                        guard let addingNode = wSelf.delegate?.vkSceneManager(wSelf, voxelFor: index) else { return }
+                        
+                        wSurface.addChildNode(addingNode)
                     }
                 }
+                
+                wSurface.process(addCommands)
             }
         }
     }
@@ -160,7 +160,7 @@ extension VKSceneManager {
         state = .normal(true)
         
         removeSurfaces(except: surface, animated: true)
-        surface.prepareCreateVoxels()
+        surface.createTiles()
         
         reloadSession()
     }

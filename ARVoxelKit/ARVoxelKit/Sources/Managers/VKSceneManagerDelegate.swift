@@ -28,7 +28,6 @@ public protocol VKSceneManagerDelegate: class {
 extension VKSceneManagerDelegate {
     public var voxelSize: CGFloat {
         return VKConstants.voxelSideLength
-        
     }
     
     public func vkSceneManager(_ manager: VKSceneManager, shouldResetSessionFor state: VKARSessionState) -> Bool {

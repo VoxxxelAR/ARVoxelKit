@@ -17,7 +17,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
     
     public var isAnimating = false
     
-    var isVoxelsPrepared: Bool = false
+    var isTilesPrepared: Bool = false
     
     init(anchor: ARPlaneAnchor, voxelSideLength: CGFloat) {
         self.anchor = anchor
@@ -45,7 +45,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         let changes = {
             self.simdPosition = simd_float3(anchor.center.x, 0, anchor.center.z)
             
-            if !self.isVoxelsPrepared {
+            if !self.isTilesPrepared {
                 self.surfaceGeometry.width = min(VKConstants.maxSurfaceWidth, extendedX)
                 self.surfaceGeometry.height = min(VKConstants.maxSurfaceLength, extendedZ)
             }
@@ -60,29 +60,24 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         }
     }
     
-    func prepareCreateVoxels() {
-        isVoxelsPrepared = true
-        var positions = calculateVoxelPositions()
+    func createTiles() {
+        isTilesPrepared = true
         
-        let renderBlock = {  [weak self] (node: SCNNode) in
-            guard let wSelf = self else { return }
-            guard let position = positions.popLast() else { return }
-            
-            let voxel = VKVoxelNode()
-            voxel.mutable = false
-            voxel.position = position
-            
-            wSelf.addChildNode(voxel)
+        let commands: [VKRenderingCommand] = calculateTilePositions().map { (position) in
+            return { [weak self] in
+                guard let wSelf = self else { return }
+                
+                let tile = VKTileNode()
+                tile.position = position
+                
+                wSelf.addChildNode(tile)
+            }
         }
         
-        let actions = [SCNAction.wait(duration: 0.01), SCNAction.run(renderBlock, queue: .main)]
-        let sequence = SCNAction.sequence(actions)
-        let repeatAction = SCNAction.repeat(sequence, count: positions.count)
-        
-        runAction(repeatAction)
+        process(commands)
     }
     
-    func calculateVoxelPositions() -> [SCNVector3] {
+    func calculateTilePositions() -> [SCNVector3] {
         
         let nodeLength = surfaceGeometry.height
         let nodeWidth = surfaceGeometry.width
@@ -92,7 +87,7 @@ open class VKPlatformNode: SCNNode, VKSurfaceDisplayable {
         let rowCount = Int(ceil(nodeLength / voxelLength))
         let columnCount = Int(ceil(nodeWidth / voxelLength))
         
-        let margin = voxelLength / 2.0 //TODO - check what this affects or remove
+        let margin = voxelLength / 2.0
         let z = CGFloat(margin)
         
         var result: [SCNVector3] = []

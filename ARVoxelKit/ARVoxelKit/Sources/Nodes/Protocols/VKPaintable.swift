@@ -48,9 +48,14 @@ extension VKSurfaceDisplayable {
             switch command {
             case .color(let content):
                 self.paint(with: content)
+            case .image(let content):
+                self.paint(with: content)
+            case .gradient(let contents, let start, let end):
+                self.paint(with: contents, start: start, end: end)
             case .transparency(let value):
                 self.updateSurfaceTransparency(with: value)
             default:
+                debugPrint("Command: \(command) is not supported by instance of type: \(type(of: self))")
                 break
             }
         }
