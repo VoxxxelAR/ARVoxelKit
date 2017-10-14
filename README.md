@@ -3,10 +3,11 @@ Lightweight Framework for Voxel graphic using AR + SceneKit
 
 [![Build Status](https://travis-ci.org/VoxxxelAR/ARVoxelKit.svg?branch=master)](https://travis-ci.org/VoxxxelAR/ARVoxelKit)
 
+![](preview.gif)
+
 ## Requirements
 ARVoxelKit requires iOS 11 and devices, which support ARKit
 
-![](http://www.giphy.com/gifs/xT9IgK64l5hUQ8mioo)
 ## Usage
 
 1. Import libraries as follows:
