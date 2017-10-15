@@ -34,8 +34,6 @@
 		F7A404581F8477C20063C8CC /* SCNTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404341F8477C20063C8CC /* SCNTransaction+Extensions.swift */; };
 		F7A404591F8477C20063C8CC /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404351F8477C20063C8CC /* ARSCNView+Extensions.swift */; };
 		F7A4045A1F8477C20063C8CC /* SCNGeometry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A404361F8477C20063C8CC /* SCNGeometry+Extensions.swift */; };
-		F7A4045C1F8477C20063C8CC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7A404391F8477C20063C8CC /* Info.plist */; };
-		F7A404651F8477C20063C8CC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7A404461F8477C20063C8CC /* Info.plist */; };
 		F7F9EEE61F8482BE00987E03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F9EEE51F8482BE00987E03 /* AppDelegate.swift */; };
 		F7F9EEEA1F8482BE00987E03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F9EEE91F8482BE00987E03 /* ViewController.swift */; };
 		F7F9EEED1F8482BE00987E03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7F9EEEB1F8482BE00987E03 /* Main.storyboard */; };
@@ -416,8 +414,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7A404651F8477C20063C8CC /* Info.plist in Resources */,
-				F7A4045C1F8477C20063C8CC /* Info.plist in Resources */,
 				F7A404471F8477C20063C8CC /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
